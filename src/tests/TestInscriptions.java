@@ -9,13 +9,11 @@ import org.junit.Test;
 
 import inscriptions.Candidat;
 import inscriptions.Competition;
-import inscriptions.Equipe;
 import inscriptions.Inscriptions;
-import inscriptions.Personne;
 
 public class TestInscriptions {
 
-	@Test	// Avoir la liste des compétitions
+	@Test
 	public void testGetCompetitions() {
 		SortedSet<Competition> competitions = new TreeSet<>();
 		Inscriptions i  = Inscriptions.getInscriptions();
@@ -29,22 +27,14 @@ public class TestInscriptions {
 		fail("Not yet implemented");
 	}
 
-	@Test	// Récupérer une personne
+	@Test
 	public void testGetPersonnes() {
-		SortedSet<Personne> testpersonnes = new TreeSet<>();
-		Inscriptions i = new Inscriptions();
-		Personne tony = i.createPersonne("Tony", "Dent de plomb", "azerty");
-		testpersonnes.add(tony);
-		assertEquals(testpersonnes,i.getPersonnes());
+		fail("Not yet implemented");
 	}
 
-	@Test	// Récupérer les équipes
+	@Test
 	public void testGetEquipes() {
-		SortedSet<Equipe> testequipe = new TreeSet<>();
-		Inscriptions i = new Inscriptions();
-		Equipe lesManouches = i.createEquipe("Les Manouches");
-		testequipe.add(lesManouches);
-		assertEquals(testequipe,i.getEquipes());
+		fail("Not yet implemented");
 	}
 
 	@Test
@@ -52,22 +42,14 @@ public class TestInscriptions {
 		fail("Not yet implemented");
 	}
 
-	@Test	// Créer une personne
+	@Test
 	public void testCreatePersonne() {
-		SortedSet<Personne> testpersonnes = new TreeSet<>();
-		Inscriptions i = new Inscriptions();
-		Personne tony = i.createPersonne("Tony", "Dent de plomb", "azerty");
-		testpersonnes.add(tony);
-		assertEquals(testpersonnes,i.getPersonnes());
+		fail("Not yet implemented");
 	}
 
-	@Test	// Créer une équipe
+	@Test
 	public void testCreateEquipe() {
-		SortedSet<Equipe> testequipe = new TreeSet<>();
-		Inscriptions i = new Inscriptions();
-		Equipe lesManouches = i.createEquipe("Test");
-		testequipe.add(lesManouches);
-		assertEquals(testequipe,i.getEquipes());
+		fail("Not yet implemented");
 	}
 
 	@Test
