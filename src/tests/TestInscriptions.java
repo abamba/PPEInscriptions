@@ -1,5 +1,6 @@
 package tests;
 
+
 import static org.junit.Assert.*;
 
 import java.util.SortedSet;
@@ -9,11 +10,13 @@ import org.junit.Test;
 
 import inscriptions.Candidat;
 import inscriptions.Competition;
+import inscriptions.Equipe;
 import inscriptions.Inscriptions;
+import inscriptions.Personne;
 
 public class TestInscriptions {
 
-	@Test
+	@Test	// Avoir la liste des compétitions
 	public void testGetCompetitions() {
 		SortedSet<Competition> competitions = new TreeSet<>();
 		Inscriptions i  = Inscriptions.getInscriptions();
@@ -27,14 +30,22 @@ public class TestInscriptions {
 		fail("Not yet implemented");
 	}
 
-	@Test
+	@Test	// Récupérer une personne
 	public void testGetPersonnes() {
-		fail("Not yet implemented");
+		SortedSet<Personne> testpersonnes = new TreeSet<>();
+		Inscriptions i = new Inscriptions();
+		Personne tony = i.createPersonne("Tony", "Dent de plomb", "azerty");
+		testpersonnes.add(tony);
+		assertEquals(testpersonnes,i.getPersonnes());
 	}
 
-	@Test
+	@Test	// Récupérer les équipes
 	public void testGetEquipes() {
-		fail("Not yet implemented");
+		SortedSet<Equipe> testequipe = new TreeSet<>();
+		Inscriptions i = new Inscriptions();
+		Equipe lesManouches = i.createEquipe("Les Manouches");
+		testequipe.add(lesManouches);
+		assertEquals(testequipe,i.getEquipes());
 	}
 
 	@Test
@@ -42,14 +53,22 @@ public class TestInscriptions {
 		fail("Not yet implemented");
 	}
 
-	@Test
+	@Test	// Créer une personne
 	public void testCreatePersonne() {
-		fail("Not yet implemented");
+		SortedSet<Personne> testpersonnes = new TreeSet<>();
+		Inscriptions i = new Inscriptions();
+		Personne tony = i.createPersonne("Tony", "Dent de plomb", "azerty");
+		testpersonnes.add(tony);
+		assertEquals(testpersonnes,i.getPersonnes());
 	}
 
-	@Test
+	@Test	// Créer une équipe
 	public void testCreateEquipe() {
-		fail("Not yet implemented");
+		SortedSet<Equipe> testequipe = new TreeSet<>();
+		Inscriptions i = new Inscriptions();
+		Equipe lesManouches = i.createEquipe("Test");
+		testequipe.add(lesManouches);
+		assertEquals(testequipe,i.getEquipes());
 	}
 
 	@Test
