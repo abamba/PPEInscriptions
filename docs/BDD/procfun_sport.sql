@@ -37,3 +37,12 @@ BEGIN
 END |
 DELIMITER ; 
 
+DELIMITER | 
+DROP PROCEDURE IF EXISTS del_compet 
+CREATE FUNCTION del_compet (id_cpt varchar) 
+BEGIN 
+
+    DELETE FROM COMPETITION WHERE id_compet=id_cpt;
+    
+END |
+DELIMITER ; 
