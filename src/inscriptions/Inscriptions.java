@@ -124,7 +124,7 @@ public class Inscriptions implements Serializable
 		return equipe;
 	}
 	
-	void remove(Competition competition)
+	public void remove(Competition competition)
 	{
 		competitions.remove(competition);
 	}
