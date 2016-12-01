@@ -60,7 +60,7 @@ public class TestInscriptions {
 	}
 
 	@Test
-	public void testCreateCompetition() {
+	public void testCreateCompetition() {	// Créer une compétition
 		assertEquals(competitions,i.getCompetitions());
 	}
 
