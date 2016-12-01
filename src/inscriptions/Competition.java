@@ -57,8 +57,13 @@ public class Competition implements Comparable<Competition>, Serializable
 	
 	public boolean inscriptionsOuvertes()
 	{
-		// TODO retourner vrai si et seulement si la date systÃ¨me est antérieure à la date de clôture.
-		return true;
+		boolean ans = false;
+		LocalDate date1 = LocalDate.now();
+		LocalDate date2 = this.getDateCloture();
+		if(date1.compareTo(date2)>=0){	// Si la date du jour est plus grande (et donc non dépassée) par la date de cloture
+			ans = true;
+		}
+		return ans;
 	}
 	
 	/**
@@ -89,8 +94,9 @@ public class Competition implements Comparable<Competition>, Serializable
 	
 	public void setDateCloture(LocalDate dateCloture)
 	{
-		// TODO vérifier que l'on avance pas la date.
-		this.dateCloture = dateCloture;
+		if(dateCloture.compareTo(this.getDateCloture())>0){	// Si la date du jour est plus grande (et donc non dépassée) par la date de cloture
+			this.dateCloture = dateCloture;
+		}
 	}
 	
 	/**
@@ -113,11 +119,10 @@ public class Competition implements Comparable<Competition>, Serializable
 	
 	public boolean add(Personne personne)
 	{
-		// TODO vérifier que la date de clôture n'est pas passée
-		if (enEquipe)
-			throw new RuntimeException();
-		personne.add(this);
-		return candidats.add(personne);
+			if (enEquipe)
+				throw new RuntimeException();
+			personne.add(this);
+			return candidats.add(personne);	
 	}
 
 	/**
@@ -130,11 +135,16 @@ public class Competition implements Comparable<Competition>, Serializable
 
 	public boolean add(Equipe equipe)
 	{
-		// TODO vérifier que la date de clôture n'est pas passée
-		if (!enEquipe)
-			throw new RuntimeException();
-		equipe.add(this);
-		return candidats.add(equipe);
+		boolean ans = false;
+		LocalDate date1 = LocalDate.now();
+		LocalDate date2 = this.getDateCloture();
+		if(date1.compareTo(date2)>=0){	// Si la date du jour est plus grande (et donc non dépassée) par la date de cloture
+			if (!enEquipe)
+				throw new RuntimeException();
+			equipe.add(this);
+			ans = candidats.add(equipe);
+		}
+		return ans;		
 	}
 
 	/**
