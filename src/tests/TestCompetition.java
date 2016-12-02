@@ -5,11 +5,10 @@ import static org.junit.Assert.*;
 import java.time.LocalDate;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
 import org.junit.Test;
-
 import inscriptions.Candidat;
 import inscriptions.Competition;
+import inscriptions.Equipe;
 import inscriptions.Inscriptions;
 import inscriptions.Personne;
 
@@ -32,54 +31,75 @@ public class TestCompetition {
 	  i.reinitialiser();
 	}
 	
-	@Test
+	@Test	// Avoir le nom d'une compétition
 	public void testGetNom() {
 		Competition competition = new Competition(i, "Mondial d'épluchage de patate", null, true);
 		assertEquals(competition.getNom(),"Mondial d'épluchage de patate");
 	}
 
-	@Test
+	@Test	// Changer le nom d'une compétition
 	public void testSetNom() {
 		Competition competition = new Competition(i, "Mondial d'épluchage de patate", null, true);
 		competition.setNom("Mondial de lancer de carotte");
 		assertEquals(competition.getNom(),"Mondial de lancer de carotte");
 	}
 
-	@Test
+	@Test	// Tester si une compétition est ouverte
 	public void testInscriptionsOuvertes() {
 		LocalDate date1 = LocalDate.now();
 		Competition competition = new Competition(i, "Mondial d'épluchage de patate", date1, true);
 		assertTrue(competition.inscriptionsOuvertes());
 	}
 
-	@Test
+	@Test	// Avoir la date de cloture d'une compétition
 	public void testGetDateCloture() {
-		fail("Not yet implemented");
+		LocalDate date = LocalDate.now();
+		Competition competition = new Competition(i, "Mondial d'épluchage de patate", date, true);
+		assertEquals(competition.getDateCloture(),date);
 	}
 
 	@Test
 	public void testEstEnEquipe() {
-		fail("Not yet implemented");
+		LocalDate date = LocalDate.now();
+		Competition competition = new Competition(i, "Mondial d'épluchage de patate", date, true);
+		assertTrue(competition.estEnEquipe());
 	}
 
 	@Test
 	public void testSetDateCloture() {
-		fail("Not yet implemented");
+		LocalDate date = LocalDate.now();
+		Competition compet = new Competition(i, "Mondial d'épluchage de patate", date, true);
+		compet.setDateCloture(date);
+		assertEquals(compet.getDateCloture(), date);
 	}
 
 	@Test
 	public void testGetCandidats() {
-		fail("Not yet implemented");
+		LocalDate date = LocalDate.now();
+		Competition competition = new Competition(i, "Mondial d'épluchage de patate", date, false);
+		Personne tony = i.createPersonne("Tony", "Dent de plomb", "azerty");
+		competition.add(tony);
+		assertEquals(candidats,competition.getCandidats());
 	}
 
 	@Test
 	public void testAddPersonne() {
-		fail("Not yet implemented");
+		LocalDate date = LocalDate.now();
+		Competition competition = new Competition(i, "Mondial d'épluchage de patate", date, false);
+		Personne tony = i.createPersonne("Tony", "Dent de plomb", "azerty");
+		competition.add(tony);
+		candidats.add(tony);
+		assertEquals(candidats,competition.getCandidats());
 	}
 
 	@Test
 	public void testAddEquipe() {
-		fail("Not yet implemented");
+		LocalDate date = LocalDate.now();
+		Competition competition = new Competition(i, "Mondial d'épluchage de patate", date, true);
+		Personne tony = i.createPersonne("Tony", "Dent de plomb", "azerty");
+		Equipe meme = new Equipe(i, "Memelords");
+		meme.add(tony);
+		competition.add(meme);
 	}
 
 	@Test

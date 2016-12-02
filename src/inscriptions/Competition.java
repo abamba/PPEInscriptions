@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.TreeSet;
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 /**
  * Représente une compétition, c'est-à-dire un ensemble de candidats 
@@ -94,9 +95,11 @@ public class Competition implements Comparable<Competition>, Serializable
 	
 	public void setDateCloture(LocalDate dateCloture)
 	{
-		if(dateCloture.compareTo(this.getDateCloture())>0){	// Si la date du jour est plus grande (et donc non dépassée) par la date de cloture
+		if(this.dateCloture==null)
 			this.dateCloture = dateCloture;
-		}
+		else	// Si la date du jour est plus grande (et donc non dépassée) par la date de cloture
+			if(dateCloture.compareTo(this.dateCloture)>0)
+				this.dateCloture = dateCloture;
 	}
 	
 	/**
@@ -119,10 +122,15 @@ public class Competition implements Comparable<Competition>, Serializable
 	
 	public boolean add(Personne personne)
 	{
-			if (enEquipe)
-				throw new RuntimeException();
-			personne.add(this);
-			return candidats.add(personne);	
+		LocalDate date1 = LocalDate.now();
+		LocalDate date2 = dateCloture;
+		// Si la date du jour est avant par la date de cloture
+		if(date1.isBefore(date2)||date1.isEqual(date2))
+			if (!enEquipe)
+			{
+				personne.add(this);
+			}
+		return candidats.add(personne);
 	}
 
 	/**
@@ -135,16 +143,15 @@ public class Competition implements Comparable<Competition>, Serializable
 
 	public boolean add(Equipe equipe)
 	{
-		boolean ans = false;
 		LocalDate date1 = LocalDate.now();
-		LocalDate date2 = this.getDateCloture();
-		if(date1.compareTo(date2)>=0){	// Si la date du jour est plus grande (et donc non dépassée) par la date de cloture
-			if (!enEquipe)
-				throw new RuntimeException();
-			equipe.add(this);
-			ans = candidats.add(equipe);
-		}
-		return ans;		
+		LocalDate date2 = dateCloture;
+		// Si la date du jour est avant par la date de cloture
+		if(date1.isBefore(date2)||date1.isEqual(date2))
+			if (enEquipe)
+			{
+				equipe.add(this);
+			}
+		return candidats.add(equipe);
 	}
 
 	/**

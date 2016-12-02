@@ -4,7 +4,6 @@ package tests;
 import static org.junit.Assert.*;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +42,7 @@ public class TestInscriptions {
 		assertEquals(competitions,i.getCompetitions());
 	}
 
-	@Test
+	@Test	// Avoir la liste des candidats
 	public void testGetCandidats() {
 		assertEquals(candidats,i.getCandidats());
 	}
@@ -59,8 +58,8 @@ public class TestInscriptions {
 		assertEquals(testequipe,i.getEquipes());
 	}
 
-	@Test
-	public void testCreateCompetition() {	// Créer une compétition
+	@Test	// Créer une compétition
+	public void testCreateCompetition() {
 		assertEquals(competitions,i.getCompetitions());
 	}
 
@@ -74,30 +73,30 @@ public class TestInscriptions {
 		assertEquals(testequipe,i.getEquipes());
 	}
 
-	@Test
+	@Test	// Enlever les compétitions
 	public void testRemoveCompetition() {
 		assertEquals(vide,i.getCompetitions());
 	}
 
-	@Test
+	@Test	// Enlever un candidat
 	public void testRemoveCandidat() {
 		Personne tony = i.createPersonne("Tony", "Dent de plomb", "azerty");
 		candidats.remove(tony);
 		assertEquals(vide,candidats);
 	}
 
-	@Test
+	@Test	// Avoir la liste des inscriptions
 	public void testGetInscriptions() {
 		assertEquals(i,i.getInscriptions());
 	}
 
-	@Test
+	@Test	// Réinitialiser la une inscription
 	public void testReinitialiser() {
 		Inscriptions i = new Inscriptions();
 		assertNotNull(i);
 	}
 
-	@Test
+	@Test	// Remettre à zéro une inscription
 	public void testRecharger() {
 		Inscriptions i  = null;
 		assertNull(i);
