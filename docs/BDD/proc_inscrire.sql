@@ -1,18 +1,18 @@
 #INSCRIRE 
 
-#tous les candidats inscrits
+#tous les candidats inscrits V
 DROP PROCEDURE IF EXISTS getCandidats_insc;
 DELIMITER |
 CREATE PROCEDURE getCandidats_insc(id_cpt int)
 BEGIN
-    SELECT id_candidat, nom_candidat
-    FROM CANDIDAT, INSCRIRE
+    SELECT CANDIDAT.id_candidat, CANDIDAT.nom_candidat
+    FROM CANDIDAT, INSCRIRE, COMPETITION
     WHERE CANDIDAT.id_candidat = INSCRIRE.id_candidat 
-    AND id_compet = id_cpt;
+    AND COMPETITION.id_compet = id_cpt;
 END |
 DELIMITER ;
 
-#Désinscrit un candidat d'une compétition
+#Désinscrit un candidat d'une compétition V
 DROP PROCEDURE IF EXISTS desinsc_candid;
 DELIMITER |
 CREATE PROCEDURE desinsc_candid(id_comp int, id_cand int)
