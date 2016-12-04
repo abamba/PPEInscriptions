@@ -55,7 +55,7 @@ CREATE PROCEDURE setDateCloture_compet(id_comp int, d date)
 BEGIN
     UPDATE COMPETITION
     SET dateClot_compet = d
-    WHERE id_complet = id_comp;
+    WHERE id_compet = id_comp;
 END |
 DELIMITER ;
 
