@@ -1,33 +1,33 @@
 #COMPOSER 
 
 #Get équipes d'un membre
-DELIMITER |
 DROP PROCEDURE IF EXISTS getEquipes_candidat;
-CREATE PROCEDURE getEquipes_candidat(id_c_s varchar)
+DELIMITER |
+CREATE PROCEDURE getEquipes_candidat(id_c_s int)
 BEGIN
     SELECT nom_candidat
     FROM CANDIDAT, COMPOSER
     WHERE CANDIDAT.id_candidat = COMPOSER.id_candidat_squad
     AND id_candidat_pers = id_c_s;
 END |
-DELIMITER;
+DELIMITER ;
 
 #Get membres d'une equipe 
-DELIMITER |
 DROP PROCEDURE IF EXISTS getMembres_squad;
-CREATE PROCEDURE getMembres_squad(id_c_s varchar)
+DELIMITER |
+CREATE PROCEDURE getMembres_squad(id_c_s int)
 BEGIN
     SELECT nom_candidat
     FROM CANDIDAT, COMPOSER
     WHERE CANDIDAT.id_candidat = COMPOSER.id_candidat_pers 
     AND id_candidat_squad = id_c_s;
 END |
-DELIMITER; 
+DELIMITER ; 
 
 #Add personne dans une equipe 
-DELIMITER |
 DROP PROCEDURE IF EXISTS addEquipe_candidat;
-CREATE PROCEDURE addEquipe_candidat(id_c varchar, id_s varchar)
+DELIMITER |
+CREATE PROCEDURE addEquipe_candidat(id_c int, id_s int)
 BEGIN
     IF ((SELECT sub
         FROM CANDIDAT
@@ -35,16 +35,16 @@ BEGIN
             INSERT INTO COMPOSER VALUES (id_s, id_c);
     END IF;
 END |
-DELIMITER;
+DELIMITER ;
 
 #Remove personne d'une equipe
-DELIMITER |
 DROP PROCEDURE IF EXISTS removeEquipe_candidat;
-CREATE PROCEDURE removeEquipe_candidat(id_c varchar, id_s varchar)
+DELIMITER |
+CREATE PROCEDURE removeEquipe_candidat(id_c int, id_s int)
 BEGIN
     DELETE FROM COMPOSER
     WHERE id_candidat_squad = id_s
     AND (sub = "p" OR sub = "P")
     AND id_candidat_pers = id_c;
 END |
-DELIMITER; 
+DELIMITER ; 

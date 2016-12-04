@@ -3,7 +3,7 @@ use inscription;
 INSERT INTO CANDIDAT VALUES
 (1, "Tony", "P","Bullet-Tooth", "qwerty"),
 (2, "Boris", "P", "The Blade", "ytrewq"),
-(3, "Les Manouches", "e", null , null); 
+(3, "Les Manouches", "s", null , null); 
 #(4, "Brick Top", "p", null, "feedem");
 
 INSERT INTO COMPETITION VALUES
