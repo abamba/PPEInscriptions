@@ -8,10 +8,10 @@ use inscription;
 # Table: COMPETITION
 
 CREATE TABLE COMPETITION(
-        id_compet          varchar (5) Auto_increment  NOT NULL ,
+        id_compet          varchar (5)  NOT NULL ,
         nom_compet         Varchar (25) NOT NULL ,
-        dateClot_compet    Date NOT NULL ,
-        enEquipe           Bool NOT NULL ,
+        dateClot_compet    Date         NOT NULL ,
+        enEquipe           Bool         NOT NULL ,
         PRIMARY KEY (id_compet )
 )ENGINE=InnoDB;
 
@@ -20,9 +20,9 @@ CREATE TABLE COMPETITION(
 # Table: CANDIDAT         stocke les squads et les personnes
 
 CREATE TABLE CANDIDAT(
-        id_candidat  varchar (5) Auto_increment  NOT NULL ,
+        id_candidat  varchar (5)  NOT NULL ,
         nom_candidat Varchar (25) NOT NULL ,
-        sub          Varchar (1) NOT NULL , #pour diff squad et personne
+        sub          Varchar (1)  NOT NULL , #pour diff squad et personne
         prenom       Varchar (25) ,
         mail         Varchar (25) ,
         PRIMARY KEY (id_candidat )
@@ -43,7 +43,7 @@ CREATE TABLE INSCRIRE(
 # Table: COMPOSER
 
 CREATE TABLE COMPOSER(
-        id_candidat_squad   varchar NOT NULL , #dank
-        id_candidat_pers varchar NOT NULL ,
-        PRIMARY KEY (id_candidat_EQUIPE ,id_candidat_PERSONNE )
+        id_candidat_squad   varchar NOT NULL , 
+        id_candidat_pers    varchar NOT NULL ,
+        PRIMARY KEY (id_candidat_squad ,id_candidat_pers )
 )ENGINE=InnoDB;
