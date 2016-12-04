@@ -33,8 +33,8 @@ CREATE TABLE CANDIDAT(
 # Table: INSCRIRE
 
 CREATE TABLE INSCRIRE(
-        id_candidat      varchar NOT NULL ,
-        id_compet        varchar NOT NULL ,
+        id_candidat      varchar(5) NOT NULL ,
+        id_compet        varchar(5) NOT NULL ,
         PRIMARY KEY (id_candidat ,id_compet )
 )ENGINE=InnoDB;
 
@@ -43,7 +43,7 @@ CREATE TABLE INSCRIRE(
 # Table: COMPOSER
 
 CREATE TABLE COMPOSER(
-        id_candidat_squad   varchar NOT NULL , 
-        id_candidat_pers    varchar NOT NULL ,
+        id_candidat_squad   varchar(5) NOT NULL , 
+        id_candidat_pers    varchar(5) NOT NULL ,
         PRIMARY KEY (id_candidat_squad ,id_candidat_pers )
 )ENGINE=InnoDB;
