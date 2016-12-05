@@ -22,3 +22,13 @@ BEGIN
     AND id_compet LIKE id_comp;
 END |
 DELIMITER ;
+
+#Mettre une personne dans une compet V
+DROP PROCEDURE IF EXISTS addCompet_candidat;
+DELIMITER |
+CREATE PROCEDURE addCompet_candidat(id_c int, id_comp int)
+BEGIN
+    INSERT INTO INSCRIRE(id_candidat,id_compet)
+    VALUES (id_c, id_comp);
+END |
+DELIMITER ;
