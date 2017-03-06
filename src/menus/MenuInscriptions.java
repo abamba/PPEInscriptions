@@ -1,22 +1,16 @@
 package menus;
 
+import inscriptions.Connect;
 import utilitaires.ligneDeCommande.Action;
 import utilitaires.ligneDeCommande.Menu;
 import utilitaires.ligneDeCommande.Option;
 
 public class MenuInscriptions {
-
-	/* Bonjour Boo.
-	 * Menu nom = new Menu("Texte à afficher en haut du menu","Bouton à cliquer") Pour créer un menu
-	 * nom.ajoute(option/menu) Pour ajouter une option ou un sous menu au menu
-	 * Copie colle une des actions en dessous si tu comptes ajouter une action.
-	 * Il est important que tout soit avant le menuIndex.start();
-	 */
 	
 	public void ajoutmenu()
 	{
 		Menu inscriptions = new Menu("Menu Inscription", "4");
-		// INSCRIPTIONS
+		Connect co = new Connect();
 		
 		Option getCandidats_insc = new Option("Tout les candidats inscrits à une compétition", "1"); 
 		Option desinsc_candid = new Option("Désinscrire un candidat d'une compétition", "2"); 
