@@ -1,5 +1,6 @@
 package inscriptions;
 
+import inscriptions.Connect;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -36,6 +37,12 @@ public class Inscriptions implements Serializable
 	public SortedSet<Competition> getCompetitions()
 	{
 		return Collections.unmodifiableSortedSet(competitions);
+	}
+	
+	public void afficheCompetitions()
+	{
+		Connect co = new Connect();
+		co.sql("call getCompet_liste();");
 	}
 	
 	/**

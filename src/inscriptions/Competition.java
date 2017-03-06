@@ -15,6 +15,7 @@ import javax.swing.plaf.synth.SynthSeparatorUI;
 
 public class Competition implements Comparable<Competition>, Serializable
 {
+	Connect co = new Connect();
 	private static final long serialVersionUID = -2882150118573759729L;
 	private Inscriptions inscriptions;
 	private String nom;
