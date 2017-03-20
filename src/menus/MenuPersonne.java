@@ -11,37 +11,62 @@ public class MenuPersonne {
 		Menu inscriptions = new Menu("Menu Personne", "1");
 		// INSCRIPTIONS
 		
-		Option getCandidats_insc = new Option("Tout les candidats inscrits à une compétition", "1"); 
-		Option desinsc_candid = new Option("Désinscrire un candidat d'une compétition", "2"); 
-		Option addCompet_candidat = new Option("Inscrire un candidat à une compétition", "3"); 
+		Option getListeComp = new Option("Tout les candidats inscrits à une compétition", "1"); 
+		Option inscComp = new Option("Tout les candidats inscrits à une compétition", "2"); 
+		Option desinscComp = new Option("Tout les candidats inscrits à une compétition", "3"); 
+		Option modNom = new Option("Tout les candidats inscrits à une compétition", "4"); 
+		Option modMail = new Option("Tout les candidats inscrits à une compétition", "5"); 
+		Option suppPersonne = new Option("Tout les candidats inscrits à une compétition", "6");  
 		
-		inscriptions.ajoute(getCandidats_insc); 
-		inscriptions.ajoute(desinsc_candid);
-		inscriptions.ajoute(addCompet_candidat);
+		inscriptions.ajoute(getListeComp);
+		inscriptions.ajoute(inscComp);
+		inscriptions.ajoute(desinscComp);
+		inscriptions.ajoute(modNom);
+		inscriptions.ajoute(modMail);
+		inscriptions.ajoute(suppPersonne);
 		inscriptions.ajouteRevenir("r");
 		
 		// - - - - - - - - - - PATÉ LUNAIRE INSCRIRE - - - - - - - - - -
 		
-		getCandidats_insc.setAction(new Action()
+		getListeComp.setAction(new Action()
 		{
 			public void optionSelectionnee() {
-				int id = utilitaires.EntreesSorties.getInt("ID de la compétition: ");
+				//
 			}
 		});
 		
-		desinsc_candid.setAction(new Action()
+		inscComp.setAction(new Action()
 		{
 			public void optionSelectionnee() {
-				int id = utilitaires.EntreesSorties.getInt("ID du candidat: ");
-				int id_c = utilitaires.EntreesSorties.getInt("ID de la compétition: ");
+				//
 			}
 		});
 		
-		addCompet_candidat.setAction(new Action()
+		desinscComp.setAction(new Action()
 		{
 			public void optionSelectionnee() {
-				int id = utilitaires.EntreesSorties.getInt("ID du candidat: ");
-				int id_c = utilitaires.EntreesSorties.getInt("ID de la compétition: ");
+				//
+			}
+		});
+		
+		modNom.setAction(new Action()
+		{
+			public void optionSelectionnee() {
+				//
+			}
+		});
+		
+		modMail.setAction(new Action()
+		{
+			public void optionSelectionnee() {
+				//
+			}
+		});
+		
+		suppPersonne.setAction(new Action()
+		{
+			public void optionSelectionnee() {
+				//
 			}
 		});
 		

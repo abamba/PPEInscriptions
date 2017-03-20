@@ -19,53 +19,73 @@ public class MenuCompetition {
 		Menu inscriptions = new Menu("Menu Competition", "3");
 		
 		// INSCRIPTIONS
-		Option choixComp = new Option("Choisir une compétition", "1"); 
-		Option getCandidats_insc = new Option("Tout les candidats inscrits à une compétition", "2"); 
-		Option addCompet_candidat = new Option("Inscrire un candidat à une compétition", "3"); 
-		Option desinsc_candid = new Option("Désinscrire un candidat d'une compétition", "4"); 
+		Option listeCandidat = new Option("Liste des candidats", "1");
+		Option inscrireCandidat = new Option("Inscrire un candidat", "2");
+		Option supprCandidat = new Option("Supprimer un candidat", "3");
+		Option modNom = new Option("Liste des candidats", "4");
+		Option modDate = new Option("Inscrire un candidat", "5");
+		Option modType = new Option("Inscrire un candidat", "6");
+		Option supprComp = new Option("Supprimer un candidat", "7");
 		
-		inscriptions.ajoute(choixComp);
-		inscriptions.ajoute(getCandidats_insc); 
-		inscriptions.ajoute(addCompet_candidat);
-		inscriptions.ajoute(desinsc_candid);
+		inscriptions.ajoute(listeCandidat);
+		inscriptions.ajoute(inscrireCandidat);
+		inscriptions.ajoute(supprCandidat);
+		inscriptions.ajoute(modNom);
+		inscriptions.ajoute(modDate);
+		inscriptions.ajoute(modType);
+		inscriptions.ajoute(supprComp);
 		inscriptions.ajouteRevenir("r");
 		
 		// - - - - - - - - - - PATÉ LUNAIRE INSCRIRE - - - - - - - - - -
 		
-		choixComp.setAction(new Action()
+		listeCandidat.setAction(new Action()
 		{
 			public void optionSelectionnee() {
-				insc.afficheCompetitions();
-				Scanner reader = new Scanner(System.in);
-				System.out.println("Choisir un id :");
-				int n = reader.nextInt();
-				comp = n;
-			}
+				insc.getCompetitions();
+		}
 		});
 		
-		getCandidats_insc.setAction(new Action()
+		inscrireCandidat.setAction(new Action()
 		{
 			public void optionSelectionnee() {
 				System.out.println(insc.getCompetitions());
 			}
 		});
 		
-		desinsc_candid.setAction(new Action()
+		supprCandidat.setAction(new Action()
 		{
 			public void optionSelectionnee() {
-				int id = utilitaires.EntreesSorties.getInt("ID du candidat: ");
-				int id_c = utilitaires.EntreesSorties.getInt("ID de la compétition: ");
+				System.out.println(insc.getCompetitions());
 			}
 		});
 		
-		addCompet_candidat.setAction(new Action()
+		modNom.setAction(new Action()
 		{
 			public void optionSelectionnee() {
-				int id = utilitaires.EntreesSorties.getInt("ID du candidat: ");
-				int id_c = utilitaires.EntreesSorties.getInt("ID de la compétition: ");
+				System.out.println(insc.getCompetitions());
 			}
 		});
 		
+		modDate.setAction(new Action()
+		{
+			public void optionSelectionnee() {
+				System.out.println(insc.getCompetitions());
+			}
+		});
+		
+		modType.setAction(new Action()
+		{
+			public void optionSelectionnee() {
+				System.out.println(insc.getCompetitions());
+			}
+		});
+		
+		supprComp.setAction(new Action()
+		{
+			public void optionSelectionnee() {
+				System.out.println(insc.getCompetitions());
+			}
+		});
 		MenuIndex menu = new MenuIndex();
 		menu.menuAdd(inscriptions);
 	}

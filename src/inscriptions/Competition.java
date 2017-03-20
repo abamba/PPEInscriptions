@@ -189,4 +189,69 @@ public class Competition implements Comparable<Competition>, Serializable
 	{
 		return getNom();
 	}
+	
+	// Custom
+	
+	/**
+	 * Retourne la liste des candidats de la compétition id_comp
+	 */
+	
+	public void listeCandidat(int id_comp)
+	{
+		co.sql("call getCandidats_insc("+id_comp+")");
+	}
+	
+	/**
+	 * Inscrit le candidat id_cand à la compétition id_comp
+	 */
+	
+	public void inscrireCandidat(int id_comp,int id_cand)
+	{
+		co.sql("call addCompet_candidat("+id_comp+","+id_cand+")");
+	}
+	
+	/**
+	 * Supprime le candidate id_cand de la compétition id_cand
+	 */
+	
+	public void supprCandidat(int id_comp,int id_cand)
+	{
+		co.sql("call desinsc_candid("+id_comp+","+id_cand+")");
+	}
+	
+	/**
+	 * Changer le nom d'une compétition
+	 */
+	
+	public void modNom(int id_comp,String nom)
+	{
+		co.sql("call setNom_compet("+id_comp+","+nom+")");
+	}
+	
+	/**
+	 * Modifier les dates d'une compétition
+	 */
+	
+	public void modDates(int id_comp,String date)
+	{
+		co.sql("call setNom_compet("+id_comp+","+date+")");
+	}
+	
+	/**
+	 * Modifier le type d'une compétition
+	 */
+	
+	public void modType(int id_comp)
+	{
+		co.sql("call toggleType("+id_comp+")");
+	}
+	
+	/**
+	 * Supprimer une compétition
+	 */
+	
+	public void supprComp(int id_comp)
+	{
+		co.sql("call del_compet("+id_comp+")");
+	}
 }

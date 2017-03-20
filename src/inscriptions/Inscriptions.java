@@ -28,7 +28,7 @@ public class Inscriptions implements Serializable
 	
 	private SortedSet<Competition> competitions = new TreeSet<>();
 	private SortedSet<Candidat> candidats = new TreeSet<>();
-	
+	Connect co = new Connect();
 	/**
 	 * Retourne les compétitions.
 	 * @return
@@ -271,6 +271,44 @@ public class Inscriptions implements Serializable
 		
 		MenuIndex m = new MenuIndex();
 		m.Index();
-		
 	}
+	
+	// Custom
+	
+	/**
+	 * Créer une compétition
+	 * @param nom
+	 * @param date
+	 * @param boo
+	 */
+	
+	public void createComp(String nom,String date, boolean boo)
+	{
+		co.sql("call create_compet("+nom+","+date+","+boo+")");
+	}
+	
+	/**
+	 * Créer un candidat de type personne
+	 * @param nom
+	 * @param prenom
+	 * @param mail
+	 */
+	
+	public void createCand(String nom, String prenom, String mail)
+	{
+		co.sql("call addPersonne_cand("+nom+","+prenom+","+mail+")");
+	}
+	
+	/**
+	 * Créer un candidat de type équipe
+	 * @param nom
+	 * @param prenom
+	 * @param mail
+	 */
+	
+	public void createEquipe(String nom, String prenom, String mail)
+	{
+		co.sql("call addEquipe_cand("+nom+","+prenom+","+mail+")");
+	}
+	
 }

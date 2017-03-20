@@ -12,37 +12,35 @@ public class MenuInscriptions {
 		Menu inscriptions = new Menu("Menu Inscription", "4");
 		Connect co = new Connect();
 		
-		Option getCandidats_insc = new Option("Tout les candidats inscrits à une compétition", "1"); 
-		Option desinsc_candid = new Option("Désinscrire un candidat d'une compétition", "2"); 
-		Option addCompet_candidat = new Option("Inscrire un candidat à une compétition", "3"); 
+		Option createComp = new Option("Créer une compétition", "1"); 
+		Option createCand = new Option("Créer un candidat", "2"); 
+		Option createEquipe = new Option("Créer un candidat", "2");
 		
-		inscriptions.ajoute(getCandidats_insc); 
-		inscriptions.ajoute(desinsc_candid);
-		inscriptions.ajoute(addCompet_candidat);
+		inscriptions.ajoute(createComp); 
+		inscriptions.ajoute(createCand);
+		inscriptions.ajoute(createEquipe);
 		inscriptions.ajouteRevenir("r");
 		
 		// - - - - - - - - - - PATÉ LUNAIRE INSCRIRE - - - - - - - - - -
 		
-		getCandidats_insc.setAction(new Action()
+		createComp.setAction(new Action()
 		{
 			public void optionSelectionnee() {
-				int id = utilitaires.EntreesSorties.getInt("ID de la compétition: ");
+				//
 			}
 		});
 		
-		desinsc_candid.setAction(new Action()
+		createCand.setAction(new Action()
 		{
 			public void optionSelectionnee() {
-				int id = utilitaires.EntreesSorties.getInt("ID du candidat: ");
-				int id_c = utilitaires.EntreesSorties.getInt("ID de la compétition: ");
+				//
 			}
 		});
 		
-		addCompet_candidat.setAction(new Action()
+		createEquipe.setAction(new Action()
 		{
 			public void optionSelectionnee() {
-				int id = utilitaires.EntreesSorties.getInt("ID du candidat: ");
-				int id_c = utilitaires.EntreesSorties.getInt("ID de la compétition: ");
+				//
 			}
 		});
 		
