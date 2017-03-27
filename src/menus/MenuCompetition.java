@@ -22,10 +22,10 @@ public class MenuCompetition {
 		Option listeCandidat = new Option("Liste des candidats", "1");
 		Option inscrireCandidat = new Option("Inscrire un candidat", "2");
 		Option supprCandidat = new Option("Supprimer un candidat", "3");
-		Option modNom = new Option("Liste des candidats", "4");
-		Option modDate = new Option("Inscrire un candidat", "5");
-		Option modType = new Option("Inscrire un candidat", "6");
-		Option supprComp = new Option("Supprimer un candidat", "7");
+		Option modNom = new Option("Changer le nom", "4");
+		Option modDate = new Option("Changer les dates", "5");
+		Option modType = new Option("Changer le type", "6");
+		Option supprComp = new Option("Supprimer", "7");
 		
 		inscriptions.ajoute(listeCandidat);
 		inscriptions.ajoute(inscrireCandidat);

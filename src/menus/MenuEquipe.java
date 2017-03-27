@@ -11,13 +11,15 @@ public class MenuEquipe {
 		Menu inscriptions = new Menu("Menu Equipe", "2");
 		// INSCRIPTIONS
 		
-		Option getListeComp = new Option("Tout les candidats inscrits à une compétition", "1"); 
-		Option inscComp = new Option("Tout les candidats inscrits à une compétition", "2"); 
-		Option desinscComp = new Option("Tout les candidats inscrits à une compétition", "3"); 
-		Option modNom = new Option("Tout les candidats inscrits à une compétition", "4"); 
-		Option modMail = new Option("Tout les candidats inscrits à une compétition", "5");
-		Option suppEquipe = new Option("Tout les candidats inscrits à une compétition", "6"); 
+		Option getComposition = new Option("Personnes qui composent l'équipe", "1");
+		Option getListeComp = new Option("Compétitions auxquelles l'équipe est inscrite", "2"); 
+		Option inscComp = new Option("Inscrire ce candidat quelque part", "3"); 
+		Option desinscComp = new Option("Désinscrire ce candidat de quelque part", "4"); 
+		Option modNom = new Option("Changer le nom", "5"); 
+		Option modMail = new Option("Changer l'email", "6");
+		Option suppEquipe = new Option("Supprimer", "7"); 
 
+		inscriptions.ajoute(getComposition);
 		inscriptions.ajoute(getListeComp);
 		inscriptions.ajoute(inscComp);
 		inscriptions.ajoute(desinscComp);
@@ -27,6 +29,13 @@ public class MenuEquipe {
 		inscriptions.ajouteRevenir("r");
 		
 		// - - - - - - - - - - PATÉ LUNAIRE INSCRIRE - - - - - - - - - -
+		
+		getComposition.setAction(new Action()
+		{
+			public void optionSelectionnee() {
+				//
+			}
+		});
 		
 		getListeComp.setAction(new Action()
 		{

@@ -11,12 +11,12 @@ public class MenuPersonne {
 		Menu inscriptions = new Menu("Menu Personne", "1");
 		// INSCRIPTIONS
 		
-		Option getListeComp = new Option("Tout les candidats inscrits à une compétition", "1"); 
-		Option inscComp = new Option("Tout les candidats inscrits à une compétition", "2"); 
-		Option desinscComp = new Option("Tout les candidats inscrits à une compétition", "3"); 
-		Option modNom = new Option("Tout les candidats inscrits à une compétition", "4"); 
-		Option modMail = new Option("Tout les candidats inscrits à une compétition", "5"); 
-		Option suppPersonne = new Option("Tout les candidats inscrits à une compétition", "6");  
+		Option getListeComp = new Option("Compétitions auxquelles il est inscrit", "1"); 
+		Option inscComp = new Option("Inscrire ce candidat quelque part", "2"); 
+		Option desinscComp = new Option("Désinscrire ce candidat de quelque part", "3"); 
+		Option modNom = new Option("Changer le nom", "4"); 
+		Option modMail = new Option("Changer l'email", "5"); 
+		Option suppPersonne = new Option("Supprimer", "6");  
 		
 		inscriptions.ajoute(getListeComp);
 		inscriptions.ajoute(inscComp);

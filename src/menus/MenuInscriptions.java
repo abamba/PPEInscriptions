@@ -14,7 +14,7 @@ public class MenuInscriptions {
 		
 		Option createComp = new Option("Créer une compétition", "1"); 
 		Option createCand = new Option("Créer un candidat", "2"); 
-		Option createEquipe = new Option("Créer un candidat", "2");
+		Option createEquipe = new Option("Créer une équipe", "3");
 		
 		inscriptions.ajoute(createComp); 
 		inscriptions.ajoute(createCand);
