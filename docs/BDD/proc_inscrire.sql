@@ -32,3 +32,12 @@ BEGIN
     VALUES (id_c, id_comp);
 END |
 DELIMITER ;
+
+#Avoir la liste des compétitions
+DROP PROCEDURE IF EXISTS getCompet_liste;
+DELIMITER |
+CREATE PROCEDURE getCompet_liste()
+BEGIN
+    SELECT * FROM Competition;
+END |
+DELIMITER ;

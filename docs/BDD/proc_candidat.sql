@@ -1,9 +1,9 @@
 #CANDIDAT
 
 #Créer un candidat de type équipe V
-DROP PROCEDURE IF EXISTS addEquipe_cand;
+DROP PROCEDURE IF EXISTS addEquipe;
 DELIMITER |
-CREATE PROCEDURE addEquipe_cand(nom_cand varchar(25), prenom varchar(25), mail varchar(25))
+CREATE PROCEDURE addEquipe(nom_cand varchar(25), prenom varchar(25), mail varchar(25))
 BEGIN
     INSERT INTO CANDIDAT(nom_candidat, sub, prenom, mail)
     VALUES (nom_cand, "s", prenom, mail);
@@ -11,9 +11,9 @@ END |
 DELIMITER ;
 
 #Créer un candidat de type personne V
-DROP PROCEDURE IF EXISTS addPersonne_cand;
+DROP PROCEDURE IF EXISTS addPersonne;
 DELIMITER |
-CREATE PROCEDURE addPersonne_cand(nom_cand varchar(25), prenom varchar(25), mail varchar(25))
+CREATE PROCEDURE addPersonne(nom_cand varchar(25), prenom varchar(25), mail varchar(25))
 BEGIN
     INSERT INTO CANDIDAT (nom_candidat, sub, prenom, mail)
     VALUES (nom_cand, "p", prenom, mail);
@@ -21,9 +21,9 @@ END |
 DELIMITER ;
 
 #Delete un candidat V
-DROP PROCEDURE IF EXISTS del_candidat;
+DROP PROCEDURE IF EXISTS delCandidat;
 DELIMITER | 
-CREATE PROCEDURE del_candidat(id_c int) 
+CREATE PROCEDURE delCandidat(id_c int) 
 BEGIN 
     DECLARE subtype varchar(1);
     

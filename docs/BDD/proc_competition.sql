@@ -1,29 +1,42 @@
 #COMPETITION
 
-#Verification inscription ouverte
-DROP FUNCTION IF EXISTS insc_ouvert; 
-DELIMITER | 
-CREATE FUNCTION insc_ouvert (id_cpt int) RETURNS bool
-BEGIN
-	DECLARE datest BOOLEAN;
-	DECLARE dateClot DATE;
-
-	SET dateClot = (SELECT dateClot_compet FROM COMPETITION WHERE id_compet = id_cpt);
-
-	IF (dateDiff(dateClot, now())<0) 
-	   THEN SET datest=FALSE;
-	END IF;
-RETURN datest;
-END |
-DELIMITER ; 
-
-#Retourne toutes les compet
-DROP PROCEDURE IF EXISTS getListeComp;
+#Liste des candidats
+DROP PROCEDURE IF EXISTS listeCandidat;
 DELIMITER |
-CREATE PROCEDURE getListeComp()
+CREATE PROCEDURE listeCandidat()
+BEGIN
+    SELECT * FROM Candidat;
+END |
+DELIMITER ;
+
+#Liste des compétitions
+DROP PROCEDURE IF EXISTS listeComp;
+DELIMITER |
+CREATE PROCEDURE listeComp()
 BEGIN
     SELECT *
     FROM COMPETITION;
+END |
+DELIMITER ;
+
+#Inscrire un candidat
+DROP PROCEDURE IF EXISTS inscrireCandidat;
+DELIMITER |
+CREATE PROCEDURE inscrireCandidat(id_c int, id_comp int)
+BEGIN
+    INSERT INTO INSCRIRE(id_candidat,id_compet)
+    VALUES (id_c, id_comp);
+END |
+DELIMITER ;
+
+#Désinscrire un candidat
+DROP PROCEDURE IF EXISTS supprCandidat;
+DELIMITER |
+CREATE PROCEDURE supprCandidat(id_comp int, id_cand int)
+BEGIN
+    DELETE FROM INSCRIRE
+    WHERE id_candidat LIKE id_cand
+    AND id_compet LIKE id_comp;
 END |
 DELIMITER ;
 
@@ -37,24 +50,13 @@ BEGIN
 END |
 DELIMITER ;
 
-#Avoir la date de cloture d'une compet
-DROP PROCEDURE IF EXISTS getDateCloture_compet;
+#Modifier une compétition
+DROP PROCEDURE IF EXISTS modComp;
 DELIMITER |
-CREATE PROCEDURE getDateCloture_compet(id_comp int)
-BEGIN
-    SELECT dateClot_compet
-    FROM COMPETITION
-    WHERE id_compet = id_comp;
-END |
-DELIMITER ;
-
-#Changer la date de cloture d'une compet
-DROP PROCEDURE IF EXISTS setDateCloture_compet;
-DELIMITER |
-CREATE PROCEDURE setDateCloture_compet(id_comp int, d date)
+CREATE PROCEDURE modComp(id_comp int, nom_comp int, dateClot date, enEq bool)
 BEGIN
     UPDATE COMPETITION
-    SET dateClot_compet = d
+    SET nom_compet = nom_comp, dateClot_compet = dateClot, enEquipe = enEq
     WHERE id_compet = id_comp;
 END |
 DELIMITER ;
@@ -68,7 +70,42 @@ BEGIN
 END |
 DELIMITER ; 
 
-#Get nom de la compétition
+
+
+
+
+
+
+
+#Verification inscription ouverte
+DROP FUNCTION IF EXISTS insc_ouvert; 
+DELIMITER | 
+CREATE FUNCTION insc_ouvert (id_cpt int) RETURNS bool
+BEGIN
+	DECLARE datest BOOLEAN;
+	DECLARE dateClot DATE;
+    SET datest =TRUE;
+	SET dateClot = (SELECT dateClot_compet FROM COMPETITION WHERE id_compet = id_cpt);
+
+	IF (dateDiff(dateClot, now())<0) 
+	   THEN SET datest=FALSE;
+	END IF;
+RETURN datest;
+END |
+DELIMITER ;
+
+#Afficher la date de cloture d'une compet
+DROP PROCEDURE IF EXISTS getDateCloture_compet;
+DELIMITER |
+CREATE PROCEDURE getDateCloture_compet(id_comp int)
+BEGIN
+    SELECT dateClot_compet
+    FROM COMPETITION
+    WHERE id_compet = id_comp;
+END |
+DELIMITER ;
+
+#Afficher le nom de la compétition
 DROP PROCEDURE IF EXISTS getNom_compet;
 DELIMITER | 
 CREATE PROCEDURE getNom_compet (id_cpt int) 
@@ -76,17 +113,6 @@ BEGIN
     SELECT id_compet, nom_compet 
     FROM COMPETITION 
     WHERE id_compet=id_cpt;
-END |
-DELIMITER ; 
-
-#Set nom de la compétition 
-DROP PROCEDURE IF EXISTS setNom_compet;
-DELIMITER |
-CREATE PROCEDURE setNom_compet(id_cpt int, nom_cpt varchar(25))
-BEGIN
-    UPDATE COMPETITION
-    SET nom_compet = nom_cpt
-    WHERE id_compet = id_cpt;
 END |
 DELIMITER ; 
 

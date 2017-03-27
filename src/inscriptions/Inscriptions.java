@@ -1,6 +1,6 @@
 package inscriptions;
 
-import inscriptions.Connect;
+import persistance.Connect;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import menus.MenuIndex;
-import utilitaires.ligneDeCommande.Menu;
 
 /**
  * Point d'entrée dans l'application, un seul objet de type Inscription
@@ -37,12 +36,6 @@ public class Inscriptions implements Serializable
 	public SortedSet<Competition> getCompetitions()
 	{
 		return Collections.unmodifiableSortedSet(competitions);
-	}
-	
-	public void afficheCompetitions()
-	{
-		Connect co = new Connect();
-		co.sql("call getCompet_liste();");
 	}
 	
 	/**
@@ -97,6 +90,7 @@ public class Inscriptions implements Serializable
 	{
 		Competition competition = new Competition(this, nom, dateCloture, enEquipe);
 		competitions.add(competition);
+		co.createComp(competition);
 		return competition;
 	}
 
@@ -275,40 +269,10 @@ public class Inscriptions implements Serializable
 	
 	// Custom
 	
-	/**
-	 * Créer une compétition
-	 * @param nom
-	 * @param date
-	 * @param boo
-	 */
-	
-	public void createComp(String nom,String date, boolean boo)
+	Connect getConnect()
 	{
-		co.sql("call create_compet("+nom+","+date+","+boo+")");
+		return co;
 	}
 	
-	/**
-	 * Créer un candidat de type personne
-	 * @param nom
-	 * @param prenom
-	 * @param mail
-	 */
-	
-	public void createCand(String nom, String prenom, String mail)
-	{
-		co.sql("call addPersonne_cand("+nom+","+prenom+","+mail+")");
-	}
-	
-	/**
-	 * Créer un candidat de type équipe
-	 * @param nom
-	 * @param prenom
-	 * @param mail
-	 */
-	
-	public void createEquipe(String nom, String prenom, String mail)
-	{
-		co.sql("call addEquipe_cand("+nom+","+prenom+","+mail+")");
-	}
 	
 }

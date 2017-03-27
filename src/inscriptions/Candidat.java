@@ -15,8 +15,39 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	private static final long serialVersionUID = -6035399822298694746L;
 	private Inscriptions inscriptions;
 	private String nom;
-	private Set<Competition> competitions;
+	private String prenom;
+	private String mail;
 	
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	private Set<Competition> competitions;
+	private int id = -1;
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		if (id == -1)
+			this.id = id;
+		else
+			throw new RuntimeException();
+	}
+
 	Candidat(Inscriptions inscriptions, String nom)
 	{
 		this.inscriptions = inscriptions;	
