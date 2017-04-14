@@ -1,10 +1,3 @@
-#inscriptions.ajoute(getOptionListeComp());
-#inscriptions.ajoute(getOptioninscComp());
-#inscriptions.ajoute(getOptiondesinscComp());
-#inscriptions.ajoute(getOptionmodNom());
-#inscriptions.ajoute(getOptionmodMail());
-#inscriptions.ajoute(getOptionsuppPersonne()); 
-
 #PERSONNE 
 
 #Compétitions auxquelles il est inscrit 

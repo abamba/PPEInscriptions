@@ -3,9 +3,9 @@
 #Liste des candidats
 DROP PROCEDURE IF EXISTS ListeCandidat;
 DELIMITER |
-CREATE PROCEDURE ListeCandidat()
+CREATE PROCEDURE ListeCandidat(id_comp int)
 BEGIN
-    SELECT * FROM Candidat;
+    select * from Candidat WHERE id_candidat IN (SELECT id_candidat from Inscrire WHERE id_compet = id_comp);
 END |
 DELIMITER ;
 
