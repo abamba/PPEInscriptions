@@ -6,78 +6,153 @@ import utilitaires.ligneDeCommande.Option;
 
 public class MenuEquipe {
 
+	static Option getOptionComposition()
+	{
+		Option Composition = new Option("Personnes qui composent l'Èquipe", "1", getActionComposition());
+		return Composition;
+	}
+	
+	static Action getActionComposition()
+	{
+		return new Action()
+		{
+			public void optionSelectionnee()
+			{
+				int a = utilitaires.EntreesSorties.getInt("Saisissez la premi√®re op√©rande : "),
+						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxi√®me op√©rande : ");
+				System.out.println("" + a + " + " + b + " = " + (a+b));
+			}
+		};
+	}
+	
+	static Option getOptionListeComp()
+	{
+		Option Composition = new Option("CompÈtitions auxquelles l'Èquipe est inscrite", "2", getActionListeComp());
+		return Composition;
+	}
+	
+	static Action getActionListeComp()
+	{
+		return new Action()
+		{
+			public void optionSelectionnee()
+			{
+				int a = utilitaires.EntreesSorties.getInt("Saisissez la premi√®re op√©rande : "),
+						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxi√®me op√©rande : ");
+				System.out.println("" + a + " + " + b + " = " + (a+b));
+			}
+		};
+	}
+	
+	static Option getOptioninscComp()
+	{
+		Option Composition = new Option("Inscrire cette Èquipe ‡ une compÈtition", "3", getActioninscComp());
+		return Composition;
+	}
+	
+	static Action getActioninscComp()
+	{
+		return new Action()
+		{
+			public void optionSelectionnee()
+			{
+				int a = utilitaires.EntreesSorties.getInt("Saisissez la premi√®re op√©rande : "),
+						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxi√®me op√©rande : ");
+				System.out.println("" + a + " + " + b + " = " + (a+b));
+			}
+		};
+	}
+	
+	static Option getOptiondesinscComp()
+	{
+		Option Composition = new Option("DÈsinscrire cette Èquipe d'une compÈtition", "4", getActiondesinscComp());
+		return Composition;
+	}
+	
+	static Action getActiondesinscComp()
+	{
+		return new Action()
+		{
+			public void optionSelectionnee()
+			{
+				int a = utilitaires.EntreesSorties.getInt("Saisissez la premi√®re op√©rande : "),
+						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxi√®me op√©rande : ");
+				System.out.println("" + a + " + " + b + " = " + (a+b));
+			}
+		};
+	}
+	
+	static Option getOptionmodNom()
+	{
+		Option Composition = new Option("Modifier le nom", "5", getActionmodNom());
+		return Composition;
+	}
+	
+	static Action getActionmodNom()
+	{
+		return new Action()
+		{
+			public void optionSelectionnee()
+			{
+				int a = utilitaires.EntreesSorties.getInt("Saisissez la premi√®re op√©rande : "),
+						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxi√®me op√©rande : ");
+				System.out.println("" + a + " + " + b + " = " + (a+b));
+			}
+		};
+	}
+	
+	static Option getOptionmodMail()
+	{
+		Option Composition = new Option("Modifier l'e-mail", "6", getActionmodMail());
+		return Composition;
+	}
+	
+	static Action getActionmodMail()
+	{
+		return new Action()
+		{
+			public void optionSelectionnee()
+			{
+				int a = utilitaires.EntreesSorties.getInt("Saisissez la premi√®re op√©rande : "),
+						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxi√®me op√©rande : ");
+				System.out.println("" + a + " + " + b + " = " + (a+b));
+			}
+		};
+	}
+	
+	static Option getOptionsuppEquipe()
+	{
+		Option Composition = new Option("Supprimer l'Èquipe", "7", getActionsuppEquipe());
+		return Composition;
+	}
+	
+	static Action getActionsuppEquipe()
+	{
+		return new Action()
+		{
+			public void optionSelectionnee()
+			{
+				int a = utilitaires.EntreesSorties.getInt("Saisissez la premi√®re op√©rande : "),
+						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxi√®me op√©rande : ");
+				System.out.println("" + a + " + " + b + " = " + (a+b));
+			}
+		};
+	}
+	
 	public void ajoutmenu()
 	{
 		Menu inscriptions = new Menu("Menu Equipe", "2");
+		
 		// INSCRIPTIONS
 		
-		Option getComposition = new Option("Personnes qui composent l'Èquipe", "1");
-		Option getListeComp = new Option("CompÈtitions auxquelles l'Èquipe est inscrite", "2"); 
-		Option inscComp = new Option("Inscrire ce candidat quelque part", "3"); 
-		Option desinscComp = new Option("DÈsinscrire ce candidat de quelque part", "4"); 
-		Option modNom = new Option("Changer le nom", "5"); 
-		Option modMail = new Option("Changer l'email", "6");
-		Option suppEquipe = new Option("Supprimer", "7"); 
-
-		inscriptions.ajoute(getComposition);
-		inscriptions.ajoute(getListeComp);
-		inscriptions.ajoute(inscComp);
-		inscriptions.ajoute(desinscComp);
-		inscriptions.ajoute(modNom);
-		inscriptions.ajoute(modMail);
-		inscriptions.ajoute(suppEquipe);
+		inscriptions.ajoute(getOptionComposition());
+		inscriptions.ajoute(getOptionListeComp());
+		inscriptions.ajoute(getOptioninscComp());
+		inscriptions.ajoute(getOptiondesinscComp());
+		inscriptions.ajoute(getOptionmodNom());
+		inscriptions.ajoute(getOptionmodMail());
+		inscriptions.ajoute(getOptionsuppEquipe());
 		inscriptions.ajouteRevenir("r");
-		
-		// - - - - - - - - - - PAT… LUNAIRE INSCRIRE - - - - - - - - - -
-		
-		getComposition.setAction(new Action()
-		{
-			public void optionSelectionnee() {
-				//
-			}
-		});
-		
-		getListeComp.setAction(new Action()
-		{
-			public void optionSelectionnee() {
-				//
-			}
-		});
-		
-		inscComp.setAction(new Action()
-		{
-			public void optionSelectionnee() {
-				//
-			}
-		});
-		
-		desinscComp.setAction(new Action()
-		{
-			public void optionSelectionnee() {
-				//
-			}
-		});
-		
-		modNom.setAction(new Action()
-		{
-			public void optionSelectionnee() {
-				//
-			}
-		});
-		
-		modMail.setAction(new Action()
-		{
-			public void optionSelectionnee() {
-				//
-			}
-		});
-		
-		suppEquipe.setAction(new Action()
-		{
-			public void optionSelectionnee() {
-				//
-			}
-		});
 
 		MenuIndex menu = new MenuIndex();
 		menu.menuAdd(inscriptions);

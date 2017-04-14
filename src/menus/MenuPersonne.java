@@ -6,7 +6,6 @@ import utilitaires.ligneDeCommande.Option;
 
 public class MenuPersonne {
 	
-	
 	static Option getOptionListeComp()
 	{
 		Option listeComp = new Option("Compétitions auxquelles il est inscrit", "1", getActionListeComp());

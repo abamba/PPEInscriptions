@@ -7,42 +7,72 @@ import utilitaires.ligneDeCommande.Option;
 
 public class MenuInscriptions {
 	
+	static Option getOptioncreateComp()
+	{
+		Option Composition = new Option("CrÈer une compÈtition", "1", getActioncreateComp());
+		return Composition;
+	}
+	
+	static Action getActioncreateComp()
+	{
+		return new Action()
+		{
+			public void optionSelectionnee()
+			{
+				int a = utilitaires.EntreesSorties.getInt("Saisissez la premi√®re op√©rande : "),
+						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxi√®me op√©rande : ");
+				System.out.println("" + a + " + " + b + " = " + (a+b));
+			}
+		};
+	}
+	
+	static Option getOptioncreateCand()
+	{
+		Option Composition = new Option("CrÈer un candidat", "2", getActioncreateCand());
+		return Composition;
+	}
+	
+	static Action getActioncreateCand()
+	{
+		return new Action()
+		{
+			public void optionSelectionnee()
+			{
+				int a = utilitaires.EntreesSorties.getInt("Saisissez la premi√®re op√©rande : "),
+						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxi√®me op√©rande : ");
+				System.out.println("" + a + " + " + b + " = " + (a+b));
+			}
+		};
+	}
+	
+	static Option getOptioncreateEquipe()
+	{
+		Option Composition = new Option("CrÈer une Èquipe", "3", getActioncreateEquipe());
+		return Composition;
+	}
+	
+	static Action getActioncreateEquipe()
+	{
+		return new Action()
+		{
+			public void optionSelectionnee()
+			{
+				int a = utilitaires.EntreesSorties.getInt("Saisissez la premi√®re op√©rande : "),
+						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxi√®me op√©rande : ");
+				System.out.println("" + a + " + " + b + " = " + (a+b));
+			}
+		};
+	}
+	
 	public void ajoutmenu()
 	{
 		Menu inscriptions = new Menu("Menu Inscription", "4");
-		
-		Option createComp = new Option("CrÈer une compÈtition", "1"); 
-		Option createCand = new Option("CrÈer un candidat", "2"); 
-		Option createEquipe = new Option("CrÈer une Èquipe", "3");
-		
-		inscriptions.ajoute(createComp); 
-		inscriptions.ajoute(createCand);
-		inscriptions.ajoute(createEquipe);
+
+		inscriptions.ajoute(getOptioncreateComp()); 
+		inscriptions.ajoute(getOptioncreateCand());
+		inscriptions.ajoute(getOptioncreateEquipe());
 		inscriptions.ajouteRevenir("r");
-		
-		// - - - - - - - - - - PAT… LUNAIRE INSCRIRE - - - - - - - - - -
-		
-		createComp.setAction(new Action()
-		{
-			public void optionSelectionnee() {
-				//
-			}
-		});
-		
-		createCand.setAction(new Action()
-		{
-			public void optionSelectionnee() {
-				//
-			}
-		});
-		
-		createEquipe.setAction(new Action()
-		{
-			public void optionSelectionnee() {
-				//
-			}
-		});
-		
+
 		MenuIndex menu = new MenuIndex();
 		menu.menuAdd(inscriptions);
 	}
