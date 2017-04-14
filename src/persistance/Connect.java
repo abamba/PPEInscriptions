@@ -192,55 +192,59 @@ public class Connect {
 	}
 	
 	/**
-	 * Avoir la liste des personnes composant une équipe
-	 * @param id_squad
+	 * Liste des compétitions où est inscrit le candidat
+	 * @param cand
 	 */
 	
-	public void getListeComp(int id_squad)
+	public void ListeComp(Candidat cand)
 	{
-		sql("call getCompet_candidat("+id_squad+")");
+		sql("call ListeComp("+cand.getId()+")");
 	}
 	
 	/**
 	 * Inscrire un candidat à une compétition
-	 * @param id_comp
-	 * @param id_squad
-	 */
+	 * @param cand
+	 * @param comp
+	 */ 
 	
-	public void inscComp(int id_comp,int id_squad)
+	public void inscComp(Candidat cand, Competition comp)
 	{
-		sql("call getCompet_candidat("+id_comp+","+id_squad+")");
+		sql("call inscComp("+cand.getId()+","+comp.getId()+")");
 	}
 	
 	/**
 	 * Désinscrire un candidat d'une compétition
-	 * @param id_comp
-	 * @param id_squad
+	 * @param comp
+	 * @param cand
 	 */
 	
-	public void desinscComp(int id_comp,int id_squad)
+	public void desinscComp(Competition comp, Candidat cand)
 	{
-		sql("call desinsc_candid("+id_comp+","+id_squad+")");
+		sql("call desinscComp("+comp.getId()+","+cand.getId()+")");
 	}
 	
 	/**
-	 * Modifier le nom d'une équipe
-	 * @param id_squad
-	 * @param nom
+	 * Modifier un candidat
+	 * @param cand
 	 */
 	
-	public void modNom(int id_squad, String nom)
+	public void modPers(Candidat cand)
 	{
-		sql("call getCompet_candidat("+id_squad+","+nom+")");
+		sql("call modPers("+cand.getId()+", "+cand.getPrenom()+", "+cand.getNom()+", "+cand.getMail()+")");
 	}
 	
 	/**
-	 * Supprime une équipe
-	 * @param id_squad
+	 * Supprime un candidat
+	 * @param cand
 	 */
 	
-	public void suppEquipe(int id_squad)
+	public void delCandidat(Candidat cand)
 	{
-		sql("call del_candidat("+id_squad+")");
+		sql("call delCandidat("+cand.getId()+")");
+	}
+	
+	public void Composition(Candidat cand)
+	{
+		sql("call Composition("+cand.getId()+")");
 	}
 }
