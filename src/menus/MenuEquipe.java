@@ -1,11 +1,19 @@
 package menus;
 
+import inscriptions.Candidat;
+import inscriptions.Competition;
+import inscriptions.Inscriptions;
+import persistance.Connect;
 import utilitaires.ligneDeCommande.Action;
 import utilitaires.ligneDeCommande.Menu;
 import utilitaires.ligneDeCommande.Option;
 
 public class MenuEquipe {
 
+	static Connect co = Inscriptions.getInscriptions().getConnect();
+	static Competition choix_comp = new Competition(Inscriptions.getInscriptions(), null, null, false);
+	static Candidat choix_cand;
+	
 	static Option getOptionComposition()
 	{
 		Option Composition = new Option("Personnes qui composent l'�quipe", "1", getActionComposition());
@@ -18,9 +26,7 @@ public class MenuEquipe {
 		{
 			public void optionSelectionnee()
 			{
-				int a = utilitaires.EntreesSorties.getInt("Saisissez la première opérande : "),
-						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxième opérande : ");
-				System.out.println("" + a + " + " + b + " = " + (a+b));
+				co.Composition(choix_cand);
 			}
 		};
 	}
@@ -37,9 +43,7 @@ public class MenuEquipe {
 		{
 			public void optionSelectionnee()
 			{
-				int a = utilitaires.EntreesSorties.getInt("Saisissez la première opérande : "),
-						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxième opérande : ");
-				System.out.println("" + a + " + " + b + " = " + (a+b));
+				co.ListeComp(choix_cand);
 			}
 		};
 	}
@@ -56,9 +60,7 @@ public class MenuEquipe {
 		{
 			public void optionSelectionnee()
 			{
-				int a = utilitaires.EntreesSorties.getInt("Saisissez la première opérande : "),
-						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxième opérande : ");
-				System.out.println("" + a + " + " + b + " = " + (a+b));
+				co.inscComp(choix_cand, choix_comp);
 			}
 		};
 	}
@@ -75,9 +77,7 @@ public class MenuEquipe {
 		{
 			public void optionSelectionnee()
 			{
-				int a = utilitaires.EntreesSorties.getInt("Saisissez la première opérande : "),
-						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxième opérande : ");
-				System.out.println("" + a + " + " + b + " = " + (a+b));
+				co.desinscComp(choix_comp, choix_cand);
 			}
 		};
 	}
@@ -94,9 +94,7 @@ public class MenuEquipe {
 		{
 			public void optionSelectionnee()
 			{
-				int a = utilitaires.EntreesSorties.getInt("Saisissez la première opérande : "),
-						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxième opérande : ");
-				System.out.println("" + a + " + " + b + " = " + (a+b));
+				co.modPers(choix_cand);
 			}
 		};
 	}
@@ -113,9 +111,7 @@ public class MenuEquipe {
 		{
 			public void optionSelectionnee()
 			{
-				int a = utilitaires.EntreesSorties.getInt("Saisissez la première opérande : "),
-						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxième opérande : ");
-				System.out.println("" + a + " + " + b + " = " + (a+b));
+				co.modPers(choix_cand);
 			}
 		};
 	}
@@ -132,9 +128,7 @@ public class MenuEquipe {
 		{
 			public void optionSelectionnee()
 			{
-				int a = utilitaires.EntreesSorties.getInt("Saisissez la première opérande : "),
-						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxième opérande : ");
-				System.out.println("" + a + " + " + b + " = " + (a+b));
+				co.delCandidat(choix_cand);
 			}
 		};
 	}

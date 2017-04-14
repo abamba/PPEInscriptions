@@ -63,9 +63,7 @@ public class MenuCompetition {
 		{
 			public void optionSelectionnee()
 			{
-				int a = utilitaires.EntreesSorties.getInt("Saisissez la première opérande : "),
-						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxième opérande : ");
-				System.out.println("" + a + " + " + b + " = " + (a+b));
+				co.desinscComp(choix_comp, choix_cand);
 			}
 		};
 	}
@@ -82,9 +80,7 @@ public class MenuCompetition {
 		{
 			public void optionSelectionnee()
 			{
-				int a = utilitaires.EntreesSorties.getInt("Saisissez la première opérande : "),
-						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxième opérande : ");
-				System.out.println("" + a + " + " + b + " = " + (a+b));
+				co.modComp(choix_comp);
 			}
 		};
 	}
@@ -101,9 +97,7 @@ public class MenuCompetition {
 		{
 			public void optionSelectionnee()
 			{
-				int a = utilitaires.EntreesSorties.getInt("Saisissez la première opérande : "),
-						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxième opérande : ");
-				System.out.println("" + a + " + " + b + " = " + (a+b));
+				co.supprComp(choix_comp);
 			}
 		};
 	}
