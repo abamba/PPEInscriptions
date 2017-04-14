@@ -92,7 +92,6 @@ public class Inscriptions implements Serializable
 	{
 		Competition competition = new Competition(this, nom, dateCloture, enEquipe);
 		competitions.add(competition);
-		Connect.createComp(competition);
 		return competition;
 	}
 
