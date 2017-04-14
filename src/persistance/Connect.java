@@ -243,6 +243,11 @@ public class Connect {
 		sql("call delCandidat("+cand.getId()+")");
 	}
 	
+	/**
+	 * 
+	 * @param cand
+	 */
+	
 	public void Composition(Candidat cand)
 	{
 		sql("call Composition("+cand.getId()+")");
