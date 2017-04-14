@@ -13,7 +13,7 @@ public class Personne extends Candidat
 	private static final long serialVersionUID = 4434646724271327254L;
 	private String prenom, mail;
 	private Set<Equipe> equipes;
-	Personne(Inscriptions inscriptions, String nom, String prenom, String mail)
+	public Personne(Inscriptions inscriptions, String nom, String prenom, String mail)
 	{
 		super(inscriptions, nom);
 		this.prenom = prenom;

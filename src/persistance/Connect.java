@@ -4,6 +4,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.SortedSet;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.ResultSetMetaData;
@@ -244,7 +245,7 @@ public class Connect {
 	}
 	
 	/**
-	 * 
+	 * Candidats qui composent une équipe
 	 * @param cand
 	 */
 	
