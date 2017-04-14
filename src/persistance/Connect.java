@@ -36,7 +36,7 @@ public class Connect {
 		}      
 	}
 	
-	public void sql(String requete) {
+	public static void sql(String requete) {
 
 		String url = DB_URL;
 		String login = USER;
@@ -133,7 +133,7 @@ public class Connect {
 	 */
 	
 
-	public void createComp(Competition competition)
+	public static void createComp(Competition competition)
 	{
 		sql("call create_compet("+competition.getNom()+","+competition.getDateCloture()+","+competition.estEnEquipe()+")");
 	}
