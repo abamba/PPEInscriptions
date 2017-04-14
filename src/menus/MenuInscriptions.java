@@ -9,8 +9,8 @@ public class MenuInscriptions {
 	
 	static Option getOptioncreateComp()
 	{
-		Option Composition = new Option("Créer une compétition", "1", getActioncreateComp());
-		return Composition;
+		Option createComp = new Option("Créer une compétition", "1", getActioncreateComp());
+		return createComp;
 	}
 	
 	static Action getActioncreateComp()
@@ -28,8 +28,8 @@ public class MenuInscriptions {
 	
 	static Option getOptioncreateCand()
 	{
-		Option Composition = new Option("Créer un candidat", "2", getActioncreateCand());
-		return Composition;
+		Option createCand = new Option("Créer un candidat", "2", getActioncreateCand());
+		return createCand;
 	}
 	
 	static Action getActioncreateCand()
@@ -47,8 +47,8 @@ public class MenuInscriptions {
 	
 	static Option getOptioncreateEquipe()
 	{
-		Option Composition = new Option("Créer une équipe", "3", getActioncreateEquipe());
-		return Composition;
+		Option createEquipe = new Option("Créer une équipe", "3", getActioncreateEquipe());
+		return createEquipe;
 	}
 	
 	static Action getActioncreateEquipe()

@@ -27,8 +27,8 @@ public class MenuEquipe {
 	
 	static Option getOptionListeComp()
 	{
-		Option Composition = new Option("Compétitions auxquelles l'équipe est inscrite", "2", getActionListeComp());
-		return Composition;
+		Option ListeComp = new Option("Compétitions auxquelles l'équipe est inscrite", "2", getActionListeComp());
+		return ListeComp;
 	}
 	
 	static Action getActionListeComp()
@@ -46,8 +46,8 @@ public class MenuEquipe {
 	
 	static Option getOptioninscComp()
 	{
-		Option Composition = new Option("Inscrire cette équipe à une compétition", "3", getActioninscComp());
-		return Composition;
+		Option inscComp = new Option("Inscrire cette équipe à une compétition", "3", getActioninscComp());
+		return inscComp;
 	}
 	
 	static Action getActioninscComp()
@@ -65,8 +65,8 @@ public class MenuEquipe {
 	
 	static Option getOptiondesinscComp()
 	{
-		Option Composition = new Option("Désinscrire cette équipe d'une compétition", "4", getActiondesinscComp());
-		return Composition;
+		Option desinscComp = new Option("Désinscrire cette équipe d'une compétition", "4", getActiondesinscComp());
+		return desinscComp;
 	}
 	
 	static Action getActiondesinscComp()
@@ -84,8 +84,8 @@ public class MenuEquipe {
 	
 	static Option getOptionmodNom()
 	{
-		Option Composition = new Option("Modifier le nom", "5", getActionmodNom());
-		return Composition;
+		Option modNom = new Option("Modifier le nom", "5", getActionmodNom());
+		return modNom;
 	}
 	
 	static Action getActionmodNom()
@@ -103,8 +103,8 @@ public class MenuEquipe {
 	
 	static Option getOptionmodMail()
 	{
-		Option Composition = new Option("Modifier l'e-mail", "6", getActionmodMail());
-		return Composition;
+		Option modMail = new Option("Modifier l'e-mail", "6", getActionmodMail());
+		return modMail;
 	}
 	
 	static Action getActionmodMail()
@@ -122,8 +122,8 @@ public class MenuEquipe {
 	
 	static Option getOptionsuppEquipe()
 	{
-		Option Composition = new Option("Supprimer l'équipe", "7", getActionsuppEquipe());
-		return Composition;
+		Option suppEquipe = new Option("Supprimer l'équipe", "7", getActionsuppEquipe());
+		return suppEquipe;
 	}
 	
 	static Action getActionsuppEquipe()
