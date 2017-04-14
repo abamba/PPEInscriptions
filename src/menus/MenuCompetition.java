@@ -22,8 +22,8 @@ public class MenuCompetition {
 		{
 			public void optionSelectionnee()
 			{
-				int a = utilitaires.EntreesSorties.getInt("Saisissez la premiÃ¨re opÃ©rande : "),
-						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxiÃ¨me opÃ©rande : ");
+				int a = utilitaires.EntreesSorties.getInt("Saisissez la première opérande : "),
+						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxième opérande : ");
 				System.out.println("" + a + " + " + b + " = " + (a+b));
 			}
 		};
@@ -41,8 +41,8 @@ public class MenuCompetition {
 		{
 			public void optionSelectionnee()
 			{
-				int a = utilitaires.EntreesSorties.getInt("Saisissez la premiÃ¨re opÃ©rande : "),
-						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxiÃ¨me opÃ©rande : ");
+				int a = utilitaires.EntreesSorties.getInt("Saisissez la première opérande : "),
+						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxième opérande : ");
 				System.out.println("" + a + " + " + b + " = " + (a+b));
 			}
 		};
@@ -60,8 +60,8 @@ public class MenuCompetition {
 		{
 			public void optionSelectionnee()
 			{
-				int a = utilitaires.EntreesSorties.getInt("Saisissez la premiÃ¨re opÃ©rande : "),
-						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxiÃ¨me opÃ©rande : ");
+				int a = utilitaires.EntreesSorties.getInt("Saisissez la première opérande : "),
+						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxième opérande : ");
 				System.out.println("" + a + " + " + b + " = " + (a+b));
 			}
 		};
@@ -79,8 +79,8 @@ public class MenuCompetition {
 		{
 			public void optionSelectionnee()
 			{
-				int a = utilitaires.EntreesSorties.getInt("Saisissez la premiÃ¨re opÃ©rande : "),
-						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxiÃ¨me opÃ©rande : ");
+				int a = utilitaires.EntreesSorties.getInt("Saisissez la première opérande : "),
+						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxième opérande : ");
 				System.out.println("" + a + " + " + b + " = " + (a+b));
 			}
 		};
@@ -98,8 +98,8 @@ public class MenuCompetition {
 		{
 			public void optionSelectionnee()
 			{
-				int a = utilitaires.EntreesSorties.getInt("Saisissez la premiÃ¨re opÃ©rande : "),
-						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxiÃ¨me opÃ©rande : ");
+				int a = utilitaires.EntreesSorties.getInt("Saisissez la première opérande : "),
+						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxième opérande : ");
 				System.out.println("" + a + " + " + b + " = " + (a+b));
 			}
 		};
