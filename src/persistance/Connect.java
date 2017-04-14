@@ -84,84 +84,113 @@ public class Connect {
 	
 	/**
 	 * Retourne la liste des candidats de la compétition id_comp
-	 * @param id_comp
+	 * @param comp
 	 */
-	/* Candidat candidat */
-	static void listeCandidat()
+
+	public void listeCandidat(Competition comp)
 	{
-		System.out.println("Salut");
+		sql("call ListeCandidat("+comp.getId()+")");
 	}
 	
 	/**
-	 * Inscrit le candidat id_cand à la compétition id_comp
-	 * @param id_comp
-	 * @param id_cand
+	 * Inscrit le candidat à la compétition 
+	 * @param comp
+	 * @param cand
 	 */
 	
-	private void inscrireCandidat(Competition comp, Candidat cand)
+	public void inscrireCandidat(Candidat cand, Competition comp)
 	{
-		sql("call addCompet_candidat("+comp.getId()+","+cand.getId()+")");
+		sql("call inscrireCandidat("+cand.getId()+","+comp.getId()+")");
 	}
 	
 	/**
-	 * Supprime le candidate id_cand de la compétition id_cand
-	 * @param id_comp
-	 * @param id_cand
+	 * Supprime le candidat de la compétition 
+	 * @param comp
+	 * @param cand
 	 */
 	
-	private void desinscrireCandidat(Competition competition, Candidat candidat)
+	public void supprCandidat(Competition comp, Candidat cand)
 	{
-		sql("call desinsc_candid("+competition.getId()+","+candidat.getId()+")");
+		sql("call supprCandidat("+comp.getId()+","+cand.getId()+")");
 	}
 	
 	/**
-	 * Changer le nom d'une compétition
-	 * @param id_comp
-	 * @param nom
+	 * Supprimer une compétition
+	 * @param comp
 	 */
 	
-	private void supprComp(Competition competition)
+	public void supprComp(Competition comp)
 	{
-		sql("call del_compet("+competition.getId()+")");
+		sql("call del_compet("+comp.getId()+")");
 	}
 
+	/**
+	 * Modifier une compétition
+	 * @param comp
+	 */
+	
+	public void modComp(Competition comp)
+	{
+		sql("call modComp("+comp.getId()+", "+comp.getNom()+", "+comp.getDateCloture()+", "+comp.estEnEquipe()+")");
+	}
+	
 	/**
 	 * Créer une compétition
-	 * @param nom
-	 * @param date
-	 * @param boo
+	 * @param comp
 	 */
 	
-
-	public static void createComp(Competition competition)
+	public static void createComp(Competition comp)
 	{
-		sql("call create_compet("+competition.getNom()+","+competition.getDateCloture()+","+competition.estEnEquipe()+")");
+		sql("call createComp("+comp.getNom()+","+comp.getDateCloture()+","+comp.estEnEquipe()+")");
 	}
 	
 	/**
 	 * Créer un candidat de type personne
-	 * @param nom
-	 * @param prenom
-	 * @param mail
+	 * @param cand
 	 */
 	
-	private void createCand(Candidat cand)
+	public void createPers(Candidat cand)
 	{
-		sql("call addPersonne_cand("+cand.getNom()+","+cand.getPrenom()+","+cand.getMail()+")");
+		sql("call createPers("+cand.getNom()+","+cand.getPrenom()+","+cand.getMail()+")");
 	}
 	
 	/**
 	 * Créer un candidat de type équipe
-	 * @param nom
-	 * @param prenom
-	 * @param mail
+	 * @param cand
 	 */
 	
-	private void createEquipe(String nom, String prenom, String mail)
+	public void createEq(Candidat cand)
 	{
-		sql("call addEquipe_cand("+nom+","+prenom+","+mail+")");
+		sql("call createEq("+cand.getNom()+","+cand.getPrenom()+","+cand.getMail()+")");
 	}
-
+	
+	/**
+	 * Afficher les compétitions 
+	 */
+	
+	public void afficheComp()
+	{
+		sql("call afficheComp()");
+	}
+	
+	/**
+	 * Afficher les personnes
+	 */
+	
+	public void affichePers()
+	{
+		sql("call affichePers()");
+	}
+	
+	/**
+	 * Afficher les équipes
+	 */
+	
+	public void afficheEq()
+	{
+		sql("call afficheEq()");
+	}
+	
 	/**
 	 * Avoir la liste des personnes composant une équipe
 	 * @param id_squad
