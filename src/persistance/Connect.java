@@ -86,10 +86,10 @@ public class Connect {
 	 * Retourne la liste des candidats de la compétition id_comp
 	 * @param id_comp
 	 */
-	
-	private void listeCandidat(Candidat candidat)
+	/* Candidat candidat */
+	static void listeCandidat()
 	{
-		sql("call getCandidats_insc("+candidat.getId()+")");
+		System.out.println("Salut");
 	}
 	
 	/**

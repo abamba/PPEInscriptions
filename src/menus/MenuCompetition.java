@@ -1,6 +1,8 @@
 package menus;
 
 import inscriptions.Inscriptions;
+import persistance.Connect;
+
 import java.util.Scanner;
 import java.util.Set;
 import utilitaires.ligneDeCommande.Action;
@@ -9,7 +11,8 @@ import utilitaires.ligneDeCommande.Option;
 
 public class MenuCompetition {
 	int comp;	
-
+	static Connect co = Inscriptions.getInscriptions().getConnect();
+	
 	static Option getOptionListeCandidat()
 	{
 		Option listeCandidat = new Option("Liste des candidats", "1", getActionListeCandidat());
@@ -22,9 +25,7 @@ public class MenuCompetition {
 		{
 			public void optionSelectionnee()
 			{
-				int a = utilitaires.EntreesSorties.getInt("Saisissez la première opérande : "),
-						b = utilitaires.EntreesSorties.getInt("Saisissez la deuxième opérande : ");
-				System.out.println("" + a + " + " + b + " = " + (a+b));
+				co.desinscComp(1,1);
 			}
 		};
 	}

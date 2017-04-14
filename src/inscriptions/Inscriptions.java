@@ -28,6 +28,8 @@ public class Inscriptions implements Serializable
 	private SortedSet<Competition> competitions = new TreeSet<>();
 	private SortedSet<Candidat> candidats = new TreeSet<>();
 	
+	private Connect co = new Connect();
+	
 	/**
 	 * Retourne les compétitions.
 	 * @return
@@ -269,10 +271,9 @@ public class Inscriptions implements Serializable
 	
 	// Custom
 	
-	/*Connect getConnect()
+	public Connect getConnect()
 	{
-		return Connect;
-	}*/
-	
+		return co;
+	}
 	
 }
