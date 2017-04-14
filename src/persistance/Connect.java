@@ -37,7 +37,7 @@ public class Connect {
 		}      
 	}
 	
-	public static void sql(String requete) {
+	public void sql(String requete) {
 
 		String url = DB_URL;
 		String login = USER;
@@ -140,7 +140,7 @@ public class Connect {
 	 * @param comp
 	 */
 	
-	public static void createComp(Competition comp)
+	public void createComp(Competition comp)
 	{
 		sql("call createComp("+comp.getNom()+","+comp.getDateCloture()+","+comp.estEnEquipe()+")");
 	}
