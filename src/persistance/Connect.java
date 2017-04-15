@@ -4,13 +4,16 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.SortedSet;
+import java.util.TreeSet;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.ResultSetMetaData;
 
 import inscriptions.Candidat;
 import inscriptions.Competition;
+import inscriptions.Inscriptions;
 
 public class Connect {
 	
@@ -29,7 +32,7 @@ public class Connect {
 		      String passwd = PASS;
 	
 		      @SuppressWarnings("unused")
-			Connection conn = (Connection) DriverManager.getConnection(url, user, passwd);
+		      Connection conn = (Connection) DriverManager.getConnection(url, user, passwd);
 		      System.out.println("Connexion effective !");         
 		         
 		} catch (Exception e) {
@@ -66,6 +69,52 @@ public class Connect {
 		        System.out.println(row);
 			}
 			System.out.println();
+		}
+		catch (SQLException e) {
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				cn.close();
+				st.close();
+			}
+			catch (SQLException e){
+				e.printStackTrace();;
+			}
+		}
+	}
+	
+	/**
+	 * Retourner la liste des compétitions et les stocker dans des variables
+	 */
+	
+	public void getComp()
+	{
+		String url = DB_URL;
+		String log = USER;
+		String pw = PASS;
+		Connection cn = null; Statement st = null; ResultSet rs = null; 
+		SortedSet<Competition> competitions = new TreeSet<>(); 
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			cn = (Connection) DriverManager.getConnection(url, log, pw);
+			st = (Statement) cn.createStatement();
+			String sql = "call afficheComp()";
+			rs = st.executeQuery(sql);
+			
+			while (rs.next()) {
+				Competition competition = new Competition(null, null, null, false);
+		        
+		        competition.setId(rs.getInt(1)); 
+		        competition.setNom(rs.getString(2));
+		        competition.setDateCloture(rs.getDate(3).toLocalDate());
+		        competition.setEnEquipe(rs.getBoolean(4));
+		        competitions.add(competition);
+			}
+			
 		}
 		catch (SQLException e) {
 		}

@@ -102,6 +102,16 @@ public class Competition implements Comparable<Competition>, Serializable
 	}
 	
 	/**
+	 * Modifie le statut équipe de la compétition
+	 * @param enEquipe
+	 */
+	
+	public void setEnEquipe(Boolean enEquipe)
+	{
+		this.enEquipe = enEquipe;
+	}
+	
+	/**
 	 * Modifie la date de cloture des inscriptions. Il est possible de la reculer 
 	 * mais pas de l'avancer.
 	 * @param dateCloture
