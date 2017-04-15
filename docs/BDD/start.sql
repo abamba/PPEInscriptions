@@ -1,13 +1,13 @@
-source C:/Users/anetoferreira/Desktop/BDD/create_sport.sql
+source C:\Users\Viktor von Fatalis\Desktop\BDD2\create_sport.sql
 
-source C:/Users/anetoferreira/Desktop/BDD/insert_sport.sql
+source C:\Users\Viktor von Fatalis\Desktop\BDD2\insert_sport.sql
 
-source C:/Users/anetoferreira/Desktop/BDD/alter_sport.sql
+source C:\Users\Viktor von Fatalis\Desktop\BDD2\alter_sport.sql
 
-source C:/Users/anetoferreira/Desktop/BDD/proc_candidat.sql
+source C:\Users\Viktor von Fatalis\Desktop\BDD2\proc_equipe.sql
 
-source C:/Users/anetoferreira/Desktop/BDD/proc_competition.sql
+source C:\Users\Viktor von Fatalis\Desktop\BDD2\proc_competition.sql
 
-source C:/Users/anetoferreira/Desktop/BDD/proc_composer.sql
+source C:\Users\Viktor von Fatalis\Desktop\BDD2\proc_pers.sql
 
-source C:/Users/anetoferreira/Desktop/BDD/proc_inscrire.sql
+source C:\Users\Viktor von Fatalis\Desktop\BDD2\proc_inscription.sql

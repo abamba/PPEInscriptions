@@ -38,7 +38,7 @@ DELIMITER |
 CREATE PROCEDURE afficheComp()
 BEGIN
     SET @n=0;
-    SELECT @n:=@n+1 AS Ligne, a.nom_compet AS Competition, a.dateClot_compet AS Date_cloture, a.enEquipe AS En_equipe FROM Competition a;
+    SELECT @n:=@n+1 AS Ligne, a.id_compet AS ID, a.nom_compet AS Competition, a.dateClot_compet AS Date_cloture, a.enEquipe AS En_equipe FROM Competition a;
 END |
 DELIMITER ;
 
