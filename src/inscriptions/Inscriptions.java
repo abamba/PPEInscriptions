@@ -25,10 +25,10 @@ public class Inscriptions implements Serializable
 	private static final String FILE_NAME = "Inscriptions.srz";
 	private static Inscriptions inscriptions;
 	
-	private SortedSet<Competition> competitions = new TreeSet<>();
-	private SortedSet<Candidat> candidats = new TreeSet<>();
+	private static SortedSet<Competition> competitions = new TreeSet<>();
+	private static SortedSet<Candidat> candidats = new TreeSet<>();
 	
-	private Connect co = new Connect();
+	private static Connect co = new Connect();
 	
 	/**
 	 * Retourne les compétitions.
@@ -241,6 +241,8 @@ public class Inscriptions implements Serializable
 	
 	public static void main(String[] args)
 	{
+		competitions.addAll(Inscriptions.getInscriptions().getConnect().getComp());
+		System.out.println(competitions);
 		/*
 		Inscriptions inscriptions = Inscriptions.getInscriptions();
 		

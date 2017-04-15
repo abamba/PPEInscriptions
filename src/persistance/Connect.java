@@ -104,9 +104,10 @@ public class Connect {
 			String sql = "call afficheComp();";
 			rs = st.executeQuery(sql);
 			while (rs.next()) {
-				Competition competition = new Competition(Inscriptions.getInscriptions(), rs.getString(3), rs.getDate(4).toLocalDate(), rs.getBoolean(5));
-		        competition.setId(rs.getInt(2));
-				competitions.add(competition);
+				System.out.println("ahoy");
+				//Competition competition = new Competition(Inscriptions.getInscriptions(), rs.getString(3), rs.getDate(4).toLocalDate(), rs.getBoolean(5));
+		        //competition.setId(rs.getInt(2));
+				//competitions.add(competition);
 			}
 		}
 		catch (SQLException e) {

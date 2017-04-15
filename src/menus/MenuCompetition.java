@@ -37,6 +37,7 @@ public class MenuCompetition {
 	
 	public static Competition choixComp()
 	{
+		System.out.println(comp);
 		co.afficheComp();
 		Competition choix;
 		int choix_int;
