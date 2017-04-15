@@ -38,7 +38,7 @@ DELIMITER |
 CREATE PROCEDURE afficheComp()
 BEGIN
     SET @n=0;
-    SELECT @n:=@n+1 AS Ligne, a.nom_compet AS Compétiton, a.dateClot_compet AS Date_cloture, a.enEquipe AS En_equipe FROM Competition a;
+    SELECT @n:=@n+1 AS Ligne, a.nom_compet AS Competition, a.dateClot_compet AS Date_cloture, a.enEquipe AS En_equipe FROM Competition a;
 END |
 DELIMITER ;
 
@@ -49,7 +49,7 @@ DELIMITER |
 CREATE PROCEDURE affichePers()
 BEGIN
     SET @n=0;
-    SELECT @n:=@n+1 AS Ligne, a.nom_candidat AS Nom, a.prenom AS Prénom, a.sub AS E_P, a.mail FROM Candidat a
+    SELECT @n:=@n+1 AS Ligne, a.nom_candidat AS Nom, a.prenom AS Prenom, a.sub AS E_P, a.mail FROM Candidat a
     WHERE sub = 'p' OR sub = 'P';
 END |
 DELIMITER ;
@@ -61,7 +61,7 @@ DELIMITER |
 CREATE PROCEDURE afficheEq()
 BEGIN
     SET @n=0;
-    SELECT @n:=@n+1 AS Ligne, a.nom_candidat AS Nom, a.prenom AS Prénom, a.sub AS E_P, a.mail FROM Candidat a
+    SELECT @n:=@n+1 AS Ligne, a.nom_candidat AS Nom, a.prenom AS Prenom, a.sub AS E_P, a.mail FROM Candidat a
     WHERE sub = 's' OR sub = 'S';
 END |
 DELIMITER ;
