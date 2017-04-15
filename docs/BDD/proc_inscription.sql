@@ -65,3 +65,14 @@ BEGIN
     WHERE sub = 's' OR sub = 'S';
 END |
 DELIMITER ;
+
+# Afficher les candidats (équipes + personnes)
+
+DROP PROCEDURE IF EXISTS afficheCand;
+DELIMITER |
+CREATE PROCEDURE afficheCand()
+BEGIN
+    SET @n=0;
+    SELECT @n:=@n+1 AS Ligne, a.id_candidat AS ID, a.nom_candidat AS Nom, a.prenom AS Prenom, a.sub AS E_P, a.mail FROM Candidat a;
+END |
+DELIMITER ;

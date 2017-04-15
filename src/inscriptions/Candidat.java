@@ -6,17 +6,18 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * Candidat à un événement sportif, soit une personne physique, soit une à©quipe.
+ * Candidat à un événement sportif, soit une personne physique, soit une équipe.
  *
  */
 
-public abstract class Candidat implements Comparable<Candidat>, Serializable
+public class Candidat implements Comparable<Candidat>, Serializable
 {
 	private static final long serialVersionUID = -6035399822298694746L;
 	private Inscriptions inscriptions;
 	private String nom;
 	private String prenom;
 	private String mail;
+	private String sub; 
 	
 	public String getMail() {
 		return mail;
@@ -48,11 +49,19 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 			throw new RuntimeException();
 	}
 
-	Candidat(Inscriptions inscriptions, String nom)
+	public Candidat(Inscriptions inscriptions, String nom)
 	{
 		this.inscriptions = inscriptions;	
 		this.nom = nom;
 		competitions = new TreeSet<>();
+	}
+
+	public String getSub() {
+		return sub;
+	}
+
+	public void setSub(String sub) {
+		this.sub = sub;
 	}
 
 	/**

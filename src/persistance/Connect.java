@@ -90,6 +90,51 @@ public class Connect {
 	 * Retourner la liste des compétitions et les stocker dans des variables
 	 */
 	
+	public SortedSet<Candidat> getCand()
+	{
+		String url = DB_URL;
+		String log = USER;
+		String pw = PASS;
+		Connection cn = null; Statement st = null; ResultSet rs = null; 
+		SortedSet<Candidat> candidats = new TreeSet<>(); 
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			cn = (Connection) DriverManager.getConnection(url, log, pw);
+			st = (Statement) cn.createStatement();
+			String sql = "call afficheCand()";
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				System.out.println("ahoy");
+				Candidat candidat = new Candidat(Inscriptions.getInscriptions(), rs.getString(3));
+		        candidat.setId(rs.getInt(2)); 
+		        if (rs.getString(5).equals('s')||rs.getString(5).equals('S')) 
+		        {
+		        	candidat.setPrenom(null);
+		        }else{
+		        	candidat.setPrenom(rs.getString(4));
+		        }
+		        candidat.setSub(rs.getString(5));
+		        candidat.setMail(rs.getString(6));
+				candidats.add(candidat);
+			}
+		}
+		catch (SQLException e) {
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				cn.close();
+				st.close();
+			}
+			catch (SQLException e){
+				e.printStackTrace();;
+			}
+		}
+		return candidats;
+	}
+	
 	public SortedSet<Competition> getComp()
 	{
 		String url = DB_URL;
@@ -101,13 +146,12 @@ public class Connect {
 			Class.forName("com.mysql.jdbc.Driver");
 			cn = (Connection) DriverManager.getConnection(url, log, pw);
 			st = (Statement) cn.createStatement();
-			String sql = "call afficheComp();";
+			String sql = "call afficheComp()";
 			rs = st.executeQuery(sql);
 			while (rs.next()) {
-				System.out.println("ahoy");
-				//Competition competition = new Competition(Inscriptions.getInscriptions(), rs.getString(3), rs.getDate(4).toLocalDate(), rs.getBoolean(5));
-		        //competition.setId(rs.getInt(2));
-				//competitions.add(competition);
+				Competition competition = new Competition(Inscriptions.getInscriptions(), rs.getString(3), rs.getDate(4).toLocalDate(), rs.getBoolean(5));
+		        competition.setId(rs.getInt(2));
+				competitions.add(competition);
 			}
 		}
 		catch (SQLException e) {
