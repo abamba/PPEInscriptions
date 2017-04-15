@@ -5,18 +5,58 @@ import inscriptions.Competition;
 import inscriptions.Inscriptions;
 import persistance.Connect;
 
-import java.util.Scanner;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import utilitaires.ligneDeCommande.Action;
 import utilitaires.ligneDeCommande.Menu;
 import utilitaires.ligneDeCommande.Option;
 
 public class MenuCompetition {
-	int comp;	
 	static Connect co = Inscriptions.getInscriptions().getConnect();
-	static Competition choix_comp = new Competition(Inscriptions.getInscriptions(), null, null, false);
+	
+	static List<Competition> comp = new ArrayList<Competition>();
+	static List<Candidat> cand = new ArrayList<Candidat>();
+	
+	static Competition choix_comp;
 	static Candidat choix_cand;
-
+	
+	public static Candidat choixCand()
+	{
+		// TODO afficheCand();
+		co.affichePers();
+		Candidat choix;
+		int choix_int;
+		choix_int = utilitaires.EntreesSorties.getInt("Choisissez un candidat : ");
+		while (choix_int < 1 || choix_int > cand.size())
+		{
+			choix_int = utilitaires.EntreesSorties.getInt("Erreur. Choisissez un candidat : ");
+		}
+		choix = cand.get(choix_int-1);
+		return choix;
+	}
+	
+	public static Competition choixComp()
+	{
+		co.afficheComp();
+		Competition choix;
+		int choix_int;
+		choix_int = utilitaires.EntreesSorties.getInt("Choisissez une compétition : ");
+		while (choix_int < 1 || choix_int > comp.size())
+		{
+			choix_int = utilitaires.EntreesSorties.getInt("Erreur. Choisissez une compétition : ");
+		}
+		choix = comp.get(choix_int-1);
+		return choix;
+	}
+	
+	public static void reset()
+	{
+		comp.clear();
+		comp.addAll(Inscriptions.getInscriptions().getCompetitions());
+		cand.clear();
+		cand.addAll(Inscriptions.getInscriptions().getCandidats());
+	}
+	
 	static Option getOptionListeCandidat()
 	{
 		Option listeCandidat = new Option("Liste des candidats", "1", getActionListeCandidat());
@@ -29,6 +69,8 @@ public class MenuCompetition {
 		{
 			public void optionSelectionnee()
 			{
+				reset();
+				choix_comp = choixComp();
 				co.listeCandidat(choix_comp);
 			}
 		};
@@ -46,6 +88,9 @@ public class MenuCompetition {
 		{
 			public void optionSelectionnee()
 			{
+				reset();
+				choix_cand = choixCand();
+				choix_comp = choixComp();
 				co.inscrireCandidat(choix_cand, choix_comp);
 			}
 		};
@@ -63,6 +108,10 @@ public class MenuCompetition {
 		{
 			public void optionSelectionnee()
 			{
+				reset();
+				co.afficheComp();
+				choix_cand = choixCand();
+				choix_comp = choixComp();
 				co.desinscComp(choix_comp, choix_cand);
 			}
 		};
@@ -80,6 +129,9 @@ public class MenuCompetition {
 		{
 			public void optionSelectionnee()
 			{
+				reset();
+				co.afficheComp();
+				choix_comp = choixComp();
 				co.modComp(choix_comp);
 			}
 		};
@@ -97,6 +149,9 @@ public class MenuCompetition {
 		{
 			public void optionSelectionnee()
 			{
+				reset();
+				co.afficheComp();
+				choix_comp = choixComp();
 				co.supprComp(choix_comp);
 			}
 		};

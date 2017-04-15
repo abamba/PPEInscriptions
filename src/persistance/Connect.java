@@ -55,17 +55,17 @@ public class Connect {
 			rs = st.executeQuery(sql);
 			
 			ResultSetMetaData metadata = (ResultSetMetaData) rs.getMetaData();
+			String row = "";
 			int columncount = metadata.getColumnCount();
 			for (int i = 1; i <= columncount; i++) {
-				System.out.println(metadata.getColumnName(i) + ", ");
+				row += metadata.getColumnName(i) + " | ";  
 			}
-			System.out.println();
+	        System.out.println(row);
 			while (rs.next()) {
-		        String row = "";
+		        row = "";
 		        for (int i = 1; i <= columncount; i++) {
 		            row += rs.getString(i) + ", ";          
 		        }
-		        System.out.println();
 		        System.out.println(row);
 			}
 			System.out.println();
@@ -90,31 +90,24 @@ public class Connect {
 	 * Retourner la liste des compétitions et les stocker dans des variables
 	 */
 	
-	public void getComp()
+	public SortedSet<Competition> getComp()
 	{
 		String url = DB_URL;
 		String log = USER;
 		String pw = PASS;
 		Connection cn = null; Statement st = null; ResultSet rs = null; 
 		SortedSet<Competition> competitions = new TreeSet<>(); 
-		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			cn = (Connection) DriverManager.getConnection(url, log, pw);
 			st = (Statement) cn.createStatement();
-			String sql = "call afficheComp()";
+			String sql = "call afficheComp();";
 			rs = st.executeQuery(sql);
-			
 			while (rs.next()) {
-				Competition competition = new Competition(null, null, null, false);
-		        
-		        competition.setId(rs.getInt(1)); 
-		        competition.setNom(rs.getString(2));
-		        competition.setDateCloture(rs.getDate(3).toLocalDate());
-		        competition.setEnEquipe(rs.getBoolean(4));
-		        competitions.add(competition);
+				Competition competition = new Competition(Inscriptions.getInscriptions(), rs.getString(3), rs.getDate(4).toLocalDate(), rs.getBoolean(5));
+		        competition.setId(rs.getInt(2));
+				competitions.add(competition);
 			}
-			
 		}
 		catch (SQLException e) {
 		}
@@ -130,6 +123,7 @@ public class Connect {
 				e.printStackTrace();;
 			}
 		}
+		return competitions;
 	}
 	
 	/**
@@ -229,6 +223,7 @@ public class Connect {
 	
 	public void affichePers()
 	{
+		System.out.println("Coucou");
 		sql("call affichePers()");
 	}
 	

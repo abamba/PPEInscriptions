@@ -42,7 +42,7 @@ public abstract class Candidat implements Comparable<Candidat>, Serializable
 	}
 
 	public void setId(int id) {
-		if (id == -1)
+		if (this.id == -1)
 			this.id = id;
 		else
 			throw new RuntimeException();
