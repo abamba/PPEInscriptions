@@ -37,6 +37,8 @@ public class Inscriptions implements Serializable
 	
 	public SortedSet<Competition> getCompetitions()
 	{
+		competitions.clear();
+		competitions.addAll(co.getComp());
 		return Collections.unmodifiableSortedSet(competitions);
 	}
 	
@@ -47,6 +49,8 @@ public class Inscriptions implements Serializable
 	
 	public SortedSet<Candidat> getCandidats()
 	{
+		candidats.clear();
+		candidats.addAll(co.getCand());
 		return Collections.unmodifiableSortedSet(candidats);
 	}
 
