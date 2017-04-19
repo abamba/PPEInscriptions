@@ -22,7 +22,6 @@ public class MenuEquipe {
 	
 	public static Candidat choixCand(Boolean sub)
 	{
-		// TODO afficheCand();
 		if(sub)
 			co.afficheEq();
 		else 
@@ -73,7 +72,7 @@ public class MenuEquipe {
 			public void optionSelectionnee()
 			{
 				reset();
-				choix_cand = choixCand();
+				choix_cand = choixCand(choix_comp.estEnEquipe());
 				co.Composition(choix_cand);
 			}
 		};
@@ -92,7 +91,7 @@ public class MenuEquipe {
 			public void optionSelectionnee()
 			{
 				reset();
-				choix_cand = choixCand();
+				choix_cand = choixCand(choix_comp.estEnEquipe());
 				co.ListeComp(choix_cand);
 			}
 		};
@@ -111,8 +110,8 @@ public class MenuEquipe {
 			public void optionSelectionnee()
 			{
 				reset();
-				choix_cand = choixCand();
 				choix_comp = choixComp();
+				choix_cand = choixCand(choix_comp.estEnEquipe());
 				co.inscComp(choix_cand, choix_comp);
 			}
 		};
@@ -131,8 +130,8 @@ public class MenuEquipe {
 			public void optionSelectionnee()
 			{
 				reset();
-				choix_cand = choixCand();
 				choix_comp = choixComp();
+				choix_cand = choixCand(choix_comp.estEnEquipe());
 				co.desinscComp(choix_comp, choix_cand);
 			}
 		};
@@ -151,7 +150,7 @@ public class MenuEquipe {
 			public void optionSelectionnee()
 			{
 				reset();
-				choix_cand = choixCand();
+				choix_cand = choixCand(choix_comp.estEnEquipe());
 				co.modPers(choix_cand);
 			}
 		};
@@ -170,8 +169,8 @@ public class MenuEquipe {
 			public void optionSelectionnee()
 			{
 				reset();
-				choix_cand = choixCand();
 				choix_comp = choixComp();
+				choix_cand = choixCand(choix_comp.estEnEquipe());
 				co.modPers(choix_cand);
 			}
 		};
@@ -190,8 +189,8 @@ public class MenuEquipe {
 			public void optionSelectionnee()
 			{
 				reset();
-				choix_cand = choixCand();
 				choix_comp = choixComp();
+				choix_cand = choixCand(choix_comp.estEnEquipe());
 				co.delCandidat(choix_cand);
 			}
 		};
