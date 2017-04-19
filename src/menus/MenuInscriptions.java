@@ -22,7 +22,6 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 	
 	public static Candidat choixCand(Boolean sub)
 	{
-		// TODO afficheCand();
 		if(sub)
 			co.afficheEq();
 		else 

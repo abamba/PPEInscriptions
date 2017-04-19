@@ -22,7 +22,6 @@ public class MenuCompetition {
 	
 	public static Candidat choixCand(Boolean sub)
 	{
-		// TODO afficheCand();
 		if(sub)
 			co.afficheEq();
 		else 
@@ -93,8 +92,8 @@ public class MenuCompetition {
 			public void optionSelectionnee()
 			{
 				reset();
-				choix_cand = choixCand();
 				choix_comp = choixComp();
+				choix_cand = choixCand(choix_comp.estEnEquipe());
 				co.inscrireCandidat(choix_cand, choix_comp);
 			}
 		};
@@ -114,8 +113,8 @@ public class MenuCompetition {
 			{
 				reset();
 				co.afficheComp();
-				choix_cand = choixCand();
 				choix_comp = choixComp();
+				choix_cand = choixCand(choix_comp.estEnEquipe());
 				co.desinscComp(choix_comp, choix_cand);
 			}
 		};

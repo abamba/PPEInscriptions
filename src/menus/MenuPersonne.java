@@ -22,7 +22,6 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 	
 	public static Candidat choixCand(Boolean sub)
 	{
-		// TODO afficheCand();
 		if(sub)
 			co.afficheEq();
 		else 
@@ -92,8 +91,8 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 			public void optionSelectionnee()
 			{
 				reset();
-				choix_cand = choixCand(choix_comp.estEnEquipe());
 				choix_comp = choixComp();
+				choix_cand = choixCand(choix_comp.estEnEquipe());
 				co.inscComp(choix_cand, choix_comp);
 			}
 		};
@@ -112,8 +111,8 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 			public void optionSelectionnee()
 			{
 				reset();
-				choix_cand = choixCand(choix_comp.estEnEquipe());
 				choix_comp = choixComp();
+				choix_cand = choixCand(choix_comp.estEnEquipe());
 				co.desinscComp(choix_comp, choix_cand);
 			}
 		};
@@ -172,8 +171,8 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 			public void optionSelectionnee()
 			{
 				reset();
-				choix_cand = choixCand(choix_comp.estEnEquipe());
 				choix_comp = choixComp();
+				choix_cand = choixCand(choix_comp.estEnEquipe());
 				co.supprCandidat(choix_comp, choix_cand);
 			}
 		};
