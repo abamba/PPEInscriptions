@@ -130,7 +130,6 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 		{
 			public void optionSelectionnee()
 			{
-				// TODO
 				reset();
 				choix_cand = choixCand(choix_comp.estEnEquipe());
 				String choix_nom = utilitaires.EntreesSorties.getString("Choisissez un nom : "); 
@@ -152,7 +151,6 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 		{
 			public void optionSelectionnee()
 			{
-				// TODO
 				reset();
 				choix_cand = choixCand(choix_comp.estEnEquipe());
 				String choix_mail = utilitaires.EntreesSorties.getString("Choisissez un mail : ");

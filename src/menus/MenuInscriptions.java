@@ -1,5 +1,7 @@
 package menus;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +18,9 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 	
 	static List<Competition> comp = new ArrayList<Competition>();
 	static List<Candidat> cand = new ArrayList<Candidat>();
-	
 	static Competition choix_comp;
 	static Candidat choix_cand;
+	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-dd");
 	
 	public static Candidat choixCand(Boolean sub)
 	{
@@ -51,6 +53,31 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 		return choix;
 	}
 	
+	public static String writeString()
+	{
+		return utilitaires.EntreesSorties.getString("");
+	}
+	
+	public static Boolean writeBoo()
+	{
+		Boolean boo;
+		String choix_boo = utilitaires.EntreesSorties.getString("");
+		while (!(choix_boo.equals("0")||choix_boo.equals("1")))
+				choix_boo = utilitaires.EntreesSorties.getString("Erreur. Le résultat doit être 0 ou 1.");
+		if(choix_boo.equals("0"))
+			boo = false;
+		else
+			boo = true;
+		return boo;
+	}
+	
+	public static LocalDate writeDate()
+	{
+		LocalDate date = LocalDate.parse(utilitaires.EntreesSorties.getString(""), formatter);
+		
+		return date;
+	}
+	
 	public static void reset()
 	{
 		comp.clear();
@@ -71,8 +98,18 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 		{
 			public void optionSelectionnee()
 			{
-				// TODO
-				co.createComp(choix_comp);
+				Competition choix_compet = new Competition(Inscriptions.getInscriptions(),"",LocalDate.now(),false);
+				// Le nom
+				System.out.println("Choisissez un nom : ");
+				choix_compet.setNom(writeString());
+				// La date cloture
+				System.out.println("Choisissez une date : ");
+				choix_compet.setDateCloture(writeDate());
+				// En équipe
+				System.out.println("Est-elle en équipe? (0/1)");
+				choix_compet.setEnEquipe(writeBoo());
+				
+				co.createComp(choix_compet);
 			}
 		};
 	}
@@ -89,8 +126,21 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 		{
 			public void optionSelectionnee()
 			{
-				// TODO
-				co.createPers(choix_cand);
+				Candidat choix_candid = new Candidat(Inscriptions.getInscriptions(),"");
+				
+				// Le nom
+				System.out.println("Choisissez un nom : ");
+				choix_candid.setNom(writeString());
+				
+				// Le prénom
+				System.out.println("Choisissez un prénom : ");
+				choix_candid.setPrenom(writeString());
+				
+				// Le mail
+				System.out.println("Choisissez un mail : ");
+				choix_candid.setMail(writeString());
+				
+				co.createPers(choix_candid);
 			}
 		};
 	}
@@ -107,7 +157,16 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 		{
 			public void optionSelectionnee()
 			{
-				// TODO
+				Candidat choix_candid = new Candidat(Inscriptions.getInscriptions(),"");
+				
+				// Le nom
+				System.out.println("Choisissez un nom : ");
+				choix_candid.setNom(writeString());
+				
+				// Le mail
+				System.out.println("Choisissez un mail : ");
+				choix_candid.setMail(writeString());
+				
 				co.createEq(choix_cand);
 			}
 		};

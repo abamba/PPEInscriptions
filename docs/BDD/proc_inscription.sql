@@ -24,10 +24,10 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS createEq;
 DELIMITER |
-CREATE PROCEDURE createEq(nom_cand varchar(25), prenom varchar(25), mail varchar(25))
+CREATE PROCEDURE createEq(nom_cand varchar(25), mail varchar(25))
 BEGIN
     INSERT INTO CANDIDAT(nom_candidat, sub, prenom, mail)
-    VALUES (nom_cand, "s", prenom, mail);
+    VALUES (nom_cand, "s", null, mail);
 END |
 DELIMITER ;
 
