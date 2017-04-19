@@ -133,6 +133,8 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 				// TODO
 				reset();
 				choix_cand = choixCand(choix_comp.estEnEquipe());
+				String choix_nom = utilitaires.EntreesSorties.getString("Choisissez un nom : "); 
+				choix_cand.setNom(choix_nom);
 				co.modPers(choix_cand);
 			}
 		};
@@ -153,6 +155,8 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 				// TODO
 				reset();
 				choix_cand = choixCand(choix_comp.estEnEquipe());
+				String choix_mail = utilitaires.EntreesSorties.getString("Choisissez un mail : ");
+				choix_cand.setMail(choix_mail);
 				co.modPers(choix_cand);
 			}
 		};
