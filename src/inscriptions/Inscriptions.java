@@ -55,12 +55,12 @@ public class Inscriptions implements Serializable
 	 * @return
 	 */
 	
-	public SortedSet<Personne> getPersonnes()
+	public SortedSet<Candidat> getPersonnes()
 	{
-		SortedSet<Personne> personnes = new TreeSet<>();
+		SortedSet<Candidat> personnes = new TreeSet<>();
 		for (Candidat c : getCandidats())
-			if (c instanceof Personne)
-				personnes.add((Personne)c);
+			if (c.getSub().equalsIgnoreCase("p"))
+				personnes.add(c);
 		return Collections.unmodifiableSortedSet(personnes);
 	}
 
@@ -69,12 +69,12 @@ public class Inscriptions implements Serializable
 	 * @return
 	 */
 	
-	public SortedSet<Equipe> getEquipes()
+	public SortedSet<Candidat> getEquipes()
 	{
-		SortedSet<Equipe> equipes = new TreeSet<>();
+		SortedSet<Candidat> equipes = new TreeSet<>();
 		for (Candidat c : getCandidats())
-			if (c instanceof Equipe)
-				equipes.add((Equipe)c);
+			if (c.getSub().equalsIgnoreCase("s"))
+				equipes.add(c);
 		return Collections.unmodifiableSortedSet(equipes);
 	}
 
@@ -96,36 +96,21 @@ public class Inscriptions implements Serializable
 	}
 
 	/**
-	 * Créée une Candidat de type Personne. Ceci est le seul moyen, il n'y a pas
-	 * de constructeur public dans {@link Personne}.
-
+	 * Créer un Candidat. 
 	 * @param nom
 	 * @param prenom
 	 * @param mail
 	 * @return
 	 */
 	
-	public Personne createPersonne(String nom, String prenom, String mail)
+	public Candidat createCandidat(String nom, String prenom, String mail, String sub)
 	{
-		Personne personne = new Personne(this, nom, prenom, mail);
-		candidats.add(personne);
-		return personne;
-	}
-	
-	/**
-	 * Créer un Candidat de type équipe. Ceci est le seul moyen, il n'y a pas
-	 * de constructeur public dans {@link Equipe}.
-	 * @param nom
-	 * @param prenom
-	 * @param mail
-	 * @return
-	 */
-	
-	public Equipe createEquipe(String nom)
-	{
-		Equipe equipe = new Equipe(this, nom);
-		candidats.add(equipe);
-		return equipe;
+		Candidat cand = new Candidat(this, nom);
+		cand.setPrenom(prenom);
+		cand.setMail(mail);
+		cand.setSub(sub);
+		candidats.add(cand);
+		return cand;
 	}
 	
 	public void remove(Competition competition)

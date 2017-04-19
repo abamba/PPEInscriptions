@@ -137,45 +137,24 @@ public class Competition implements Comparable<Competition>, Serializable
 	}
 	
 	/**
-	 * Inscrit un candidat de type Personne à la compétition. Provoque une
+	 * Inscrit un candidat à la compétition. Provoque une
 	 * exception si la compétition est réservée aux équipes ou que les 
 	 * inscriptions sont closes.
 	 * @param personne
 	 * @return
 	 */
 	
-	public boolean add(Personne personne)
+	public boolean add(Candidat cand)
 	{
 		LocalDate date1 = LocalDate.now();
 		LocalDate date2 = dateCloture;
 		// Si la date du jour est avant par la date de cloture
 		if(date1.isBefore(date2)||date1.isEqual(date2))
-			if (!enEquipe)
-			{
-				personne.add(this);
-			}
-		return candidats.add(personne);
-	}
-
-	/**
-	 * Inscrit un candidat de type Equipe à la compétition. Provoque une
-	 * exception si la compétition est réservée aux personnes ou que 
-	 * les inscriptions sont closes.
-	 * @param personne
-	 * @return
-	 */
-
-	public boolean add(Equipe equipe)
-	{
-		LocalDate date1 = LocalDate.now();
-		LocalDate date2 = dateCloture;
-		// Si la date du jour est avant par la date de cloture
-		if(date1.isBefore(date2)||date1.isEqual(date2))
-			if (enEquipe)
-			{
-				equipe.add(this);
-			}
-		return candidats.add(equipe);
+			if (!enEquipe && cand.getSub().equalsIgnoreCase("p"))
+				cand.add(this);
+			else if (enEquipe && cand.getSub().equalsIgnoreCase("s")) 
+				cand.add(this);
+		return candidats.add(cand);
 	}
 
 	/**
