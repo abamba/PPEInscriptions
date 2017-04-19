@@ -20,6 +20,20 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 	static Competition choix_comp;
 	static Candidat choix_cand;
 	
+	public static Candidat choixCand()
+	{
+		co.afficheCand();
+		Candidat choix;
+		int choix_int;
+		choix_int = utilitaires.EntreesSorties.getInt("Choisissez un candidat : ");
+		while (choix_int < 1 || choix_int > cand.size())
+		{
+			choix_int = utilitaires.EntreesSorties.getInt("Erreur. Choisissez un candidat : ");
+		}
+		choix = cand.get(choix_int-1);
+		return choix;
+	}
+	
 	public static Candidat choixCand(Boolean sub)
 	{
 		if(sub)
@@ -72,7 +86,7 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 			public void optionSelectionnee()
 			{
 				reset();
-				choix_cand = choixCand(choix_comp.estEnEquipe());
+				choix_cand = choixCand();
 				co.ListeComp(choix_cand);
 			}
 		};

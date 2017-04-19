@@ -254,6 +254,15 @@ public class Connect {
 	}
 	
 	/**
+	 * Afficher les candidats
+	 */
+	
+	public void afficheCand() 
+	{
+		sql("call afficheCand()");
+	}
+	
+	/**
 	 * Afficher les compétitions 
 	 */
 	
