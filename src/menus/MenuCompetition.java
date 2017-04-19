@@ -20,10 +20,13 @@ public class MenuCompetition {
 	static Competition choix_comp;
 	static Candidat choix_cand;
 	
-	public static Candidat choixCand()
+	public static Candidat choixCand(Boolean sub)
 	{
 		// TODO afficheCand();
-		co.affichePers();
+		if(sub)
+			co.afficheEq();
+		else 
+			co.affichePers();
 		Candidat choix;
 		int choix_int;
 		choix_int = utilitaires.EntreesSorties.getInt("Choisissez un candidat : ");

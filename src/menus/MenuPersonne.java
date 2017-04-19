@@ -20,10 +20,13 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 	static Competition choix_comp;
 	static Candidat choix_cand;
 	
-	public static Candidat choixCand()
+	public static Candidat choixCand(Boolean sub)
 	{
 		// TODO afficheCand();
-		co.affichePers();
+		if(sub)
+			co.afficheEq();
+		else 
+			co.affichePers();
 		Candidat choix;
 		int choix_int;
 		choix_int = utilitaires.EntreesSorties.getInt("Choisissez un candidat : ");
@@ -70,7 +73,7 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 			public void optionSelectionnee()
 			{
 				reset();
-				choix_cand = choixCand();
+				choix_cand = choixCand(choix_comp.estEnEquipe());
 				co.ListeComp(choix_cand);
 			}
 		};
@@ -89,7 +92,7 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 			public void optionSelectionnee()
 			{
 				reset();
-				choix_cand = choixCand();
+				choix_cand = choixCand(choix_comp.estEnEquipe());
 				choix_comp = choixComp();
 				co.inscComp(choix_cand, choix_comp);
 			}
@@ -109,7 +112,7 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 			public void optionSelectionnee()
 			{
 				reset();
-				choix_cand = choixCand();
+				choix_cand = choixCand(choix_comp.estEnEquipe());
 				choix_comp = choixComp();
 				co.desinscComp(choix_comp, choix_cand);
 			}
@@ -130,7 +133,7 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 			{
 				// TODO
 				reset();
-				choix_cand = choixCand();
+				choix_cand = choixCand(choix_comp.estEnEquipe());
 				co.modPers(choix_cand);
 			}
 		};
@@ -150,7 +153,7 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 			{
 				// TODO
 				reset();
-				choix_cand = choixCand();
+				choix_cand = choixCand(choix_comp.estEnEquipe());
 				co.modPers(choix_cand);
 			}
 		};
@@ -169,7 +172,7 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 			public void optionSelectionnee()
 			{
 				reset();
-				choix_cand = choixCand();
+				choix_cand = choixCand(choix_comp.estEnEquipe());
 				choix_comp = choixComp();
 				co.supprCandidat(choix_comp, choix_cand);
 			}
