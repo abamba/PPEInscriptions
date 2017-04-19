@@ -240,7 +240,7 @@ public class Connect {
 	
 	public void createPers(Candidat cand)
 	{
-		sql("call createPers("+cand.getNom()+","+cand.getPrenom()+","+cand.getMail()+")");
+		sql("call createPers(\""+cand.getNom()+"\",\""+cand.getPrenom()+"\",\""+cand.getMail()+"\")");
 	}
 	
 	/**
@@ -250,7 +250,7 @@ public class Connect {
 	
 	public void createEq(Candidat cand)
 	{
-		sql("call createEq("+cand.getNom()+","+cand.getMail()+")");
+		sql("call createEq(\""+cand.getNom()+"\",\""+cand.getMail()+"\")");
 	}
 	
 	/**

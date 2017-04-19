@@ -103,7 +103,7 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 				System.out.println("Choisissez un nom : ");
 				choix_compet.setNom(writeString());
 				// La date cloture
-				System.out.println("Choisissez une date : ");
+				System.out.println("Choisissez une date (aaaa-mm-jj) : ");
 				choix_compet.setDateCloture(writeDate());
 				// En équipe
 				System.out.println("Est-elle en équipe? (0/1)");
@@ -167,7 +167,7 @@ static Connect co = Inscriptions.getInscriptions().getConnect();
 				System.out.println("Choisissez un mail : ");
 				choix_candid.setMail(writeString());
 				
-				co.createEq(choix_cand);
+				co.createEq(choix_candid);
 			}
 		};
 	}
