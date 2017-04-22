@@ -104,7 +104,6 @@ public class Connect {
 			String sql = "call afficheCand()";
 			rs = st.executeQuery(sql);
 			while (rs.next()) {
-				System.out.println("ahoy");
 				Candidat candidat = new Candidat(Inscriptions.getInscriptions(), rs.getString(3));
 		        candidat.setId(rs.getInt(2)); 
 		        if (rs.getString(5).equals('s')||rs.getString(5).equals('S')) 
@@ -179,6 +178,56 @@ public class Connect {
 	public void listeCandidat(Competition comp)
 	{
 		sql("call ListeCandidat("+comp.getId()+")");
+	}
+	
+	/**
+	 * Retourne la liste des candidats de la compétition id_comp
+	 * @param comp
+	 * @return 
+	 */
+	
+	public SortedSet<Candidat> getlisteCandidat(Competition comp)
+	{
+		String url = DB_URL;
+		String log = USER;
+		String pw = PASS;
+		Connection cn = null; Statement st = null; ResultSet rs = null; 
+		SortedSet<Candidat> candidats = new TreeSet<>(); 
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			cn = (Connection) DriverManager.getConnection(url, log, pw);
+			st = (Statement) cn.createStatement();
+			String sql = "call ListeCandidat("+comp.getId()+")";
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				Candidat candidat = new Candidat(Inscriptions.getInscriptions(), rs.getString(2));
+		        candidat.setId(rs.getInt(1)); 
+		        if (rs.getBoolean(3)) 
+		        {
+		        	candidat.setPrenom(null);
+		        }else{
+		        	candidat.setPrenom(rs.getString(4));
+		        }
+		        candidat.setSub(rs.getBoolean(3));
+		        candidat.setMail(rs.getString(5));
+				candidats.add(candidat);
+			}
+		}
+		catch (SQLException e) {
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				cn.close();
+				st.close();
+			}
+			catch (SQLException e){
+				e.printStackTrace();;
+			}
+		}
+		return candidats;
 	}
 	
 	/**
