@@ -2,9 +2,6 @@ package menus;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
 import inscriptions.Candidat;
 import inscriptions.Competition;
 import utilitaires.ligneDeCommande.Action;
@@ -73,7 +70,7 @@ public class MenuCompetition extends MenuIndex {
 				int i = 0;
 				for (Candidat c : candInscrits)
 				{
-					System.out.println(i+1+" | "+candInscrits.get(i).getNom());
+					System.out.println(i+1+" | "+c.getNom());
 					i++;
 				}
 				if(i > 0)

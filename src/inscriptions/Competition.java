@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.TreeSet;
-import javax.swing.plaf.synth.SynthSeparatorUI;
 
 /**
  * Représente une compétition, c'est-à-dire un ensemble de candidats 

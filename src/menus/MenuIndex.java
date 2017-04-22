@@ -70,18 +70,12 @@ public class MenuIndex {
 		if(sub)
 		{
 			affEq();
-			for(Candidat c : eq)
-			{
-				i++;
-			}
+			i = eq.size();
 		}
 		else
 		{
 			affPers();
-			for(Candidat c : pers)
-			{
-				i++;
-			}
+			i = pers.size();
 		}
 		Candidat choix;
 		int choix_int;
@@ -120,10 +114,7 @@ public class MenuIndex {
 	{
 		int i = 0;
 		affComp();
-		for(Competition c : comp)
-		{
-			i++;
-		}
+		i = comp.size();
 		Competition choix;
 		int choix_int;
 		choix_int = utilitaires.EntreesSorties.getInt("Choisissez une compétition : ");

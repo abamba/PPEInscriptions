@@ -230,37 +230,9 @@ public class Inscriptions implements Serializable
 	
 	public static void main(String[] args)
 	{
-		competitions.addAll(Inscriptions.getInscriptions().getConnect().getComp());
-		System.out.println(competitions);
-		/*
-		Inscriptions inscriptions = Inscriptions.getInscriptions();
-		
-		Competition flechettes = inscriptions.createCompetition("Mondial de fléchettes", null, false);
-		Personne tony = inscriptions.createPersonne("Tony", "Dent de plomb", "azerty"), 
-				boris = inscriptions.createPersonne("Boris", "le Hachoir", "ytreza");
-		flechettes.add(tony);
-		Equipe lesManouches = inscriptions.createEquipe("Les Manouches");
-		lesManouches.add(boris);
-		lesManouches.add(tony);
-		System.out.println(inscriptions);
-		lesManouches.delete();
-		System.out.println(inscriptions);
-		try
-		{
-			inscriptions.sauvegarder();
-		} 
-		catch (IOException e)
-		{
-			System.out.println("Sauvegarde impossible." + e);
-		}
-		*/
-		
-		MenuIndex m = new MenuIndex();
-		m.Index();
+		MenuIndex.Index();
 	}
-	
-	// Custom
-	
+
 	public Connect getConnect()
 	{
 		return co;

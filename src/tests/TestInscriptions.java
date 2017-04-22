@@ -1,105 +1,83 @@
 package tests;
 
-
 import static org.junit.Assert.*;
-import java.util.SortedSet;
-import java.util.TreeSet;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import inscriptions.Candidat;
-import inscriptions.Competition;
-import inscriptions.Equipe;
-import inscriptions.Inscriptions;
-import inscriptions.Personne;
 
 public class TestInscriptions {
 
-	private SortedSet<Competition> competitions = new TreeSet<>();
-	private SortedSet<Candidat> candidats = new TreeSet<>();
-	private SortedSet<Equipe> testequipe = new TreeSet<>();
-	private SortedSet<Competition> vide = new TreeSet<>();
-	private Inscriptions i  = Inscriptions.getInscriptions();
-	
-	@Before
-	public void initialiser() throws Exception {
-		Personne tony = i.createPersonne("Tony", "Dent de plomb", "azerty");
-		candidats.add(tony);
-	}
-	
-	@After
-	public void nettoyer() throws Exception {
-	  competitions = null;
-	  candidats = null;
-	  testequipe = null;
-	  vide = null;
-	  i.reinitialiser();
-	}
-	
-	@Test	// Avoir la liste des compétitions
+	@Test
 	public void testGetCompetitions() {
-		
-		assertEquals(competitions,i.getCompetitions());
+		fail("Not yet implemented");
 	}
 
-	@Test	// Avoir la liste des candidats
+	@Test
 	public void testGetCandidats() {
-		assertEquals(candidats,i.getCandidats());
+		fail("Not yet implemented");
 	}
 
-	@Test	// Récupérer une personne
+	@Test
 	public void testGetPersonnes() {
-		assertEquals(candidats,i.getPersonnes());
+		fail("Not yet implemented");
 	}
 
-	@Test	// Récupérer les équipes
+	@Test
 	public void testGetEquipes() {
-		
-		assertEquals(testequipe,i.getEquipes());
+		fail("Not yet implemented");
 	}
 
-	@Test	// Créer une compétition
+	@Test
 	public void testCreateCompetition() {
-		assertEquals(competitions,i.getCompetitions());
+		fail("Not yet implemented");
 	}
 
-	@Test	// Créer une personne
-	public void testCreatePersonne() {
-		assertEquals(candidats,i.getPersonnes());
+	@Test
+	public void testCreateCandidat() {
+		fail("Not yet implemented");
 	}
 
-	@Test	// Créer une équipe
-	public void testCreateEquipe() {
-		assertEquals(testequipe,i.getEquipes());
-	}
-
-	@Test	// Enlever les compétitions
+	@Test
 	public void testRemoveCompetition() {
-		assertEquals(vide,i.getCompetitions());
+		fail("Not yet implemented");
 	}
 
-	@Test	// Enlever un candidat
+	@Test
 	public void testRemoveCandidat() {
-		Personne tony = i.createPersonne("Tony", "Dent de plomb", "azerty");
-		candidats.remove(tony);
-		assertEquals(vide,candidats);
+		fail("Not yet implemented");
 	}
 
-	@Test	// Avoir la liste des inscriptions
+	@Test
 	public void testGetInscriptions() {
-		assertEquals(i,i.getInscriptions());
+		fail("Not yet implemented");
 	}
 
-	@Test	// Réinitialiser la une inscription
+	@Test
 	public void testReinitialiser() {
-		Inscriptions i = new Inscriptions();
-		assertNotNull(i);
+		fail("Not yet implemented");
 	}
 
-	@Test	// Remettre à zéro une inscription
+	@Test
 	public void testRecharger() {
-		Inscriptions i  = null;
-		assertNull(i);
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSauvegarder() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testToString() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testMain() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetConnect() {
+		fail("Not yet implemented");
 	}
 
 }
