@@ -156,7 +156,7 @@ public class MenuInscriptions extends MenuIndex {
 	
 	public void ajoutmenu()
 	{
-		Menu inscriptions = new Menu("Menu Inscription", "4");
+		Menu inscriptions = new Menu("Menu Inscription", "1");
 
 		inscriptions.ajoute(getOptioncreateComp()); 
 		inscriptions.ajoute(getOptioncreateCand());

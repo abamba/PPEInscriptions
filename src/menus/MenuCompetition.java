@@ -148,7 +148,7 @@ public class MenuCompetition extends MenuIndex {
 	
 	public void ajoutmenu()
 	{
-		Menu inscriptions = new Menu("Menu Competition", "3");
+		Menu inscriptions = new Menu("Menu Competition", "2");
 
 		// Code élégant
 		
