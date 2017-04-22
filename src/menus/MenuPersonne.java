@@ -121,9 +121,8 @@ public class MenuPersonne extends MenuIndex {
 			public void optionSelectionnee()
 			{
 				reset();
-				choix_comp = choixComp();
-				choix_cand = choixCand(choix_comp.estEnEquipe());
-				co.supprCandidat(choix_comp, choix_cand);
+				choix_cand = choixCand();
+				co.delCandidat(choix_cand);
 			}
 		};
 	}
