@@ -28,7 +28,12 @@ public class MenuPersonne extends MenuIndex {
 			{
 				reset();
 				choix_cand = choixCand();
-				co.ListeComp(choix_cand);
+				if(choix_cand!=null)
+				{
+					co.ListeComp(choix_cand);
+				}
+				else
+					System.out.println("Personne n'est inscrit ici !");
 			}
 		};
 	}
@@ -47,8 +52,17 @@ public class MenuPersonne extends MenuIndex {
 			{
 				reset();
 				choix_comp = choixComp();
-				choix_cand = choixCand(choix_comp.estEnEquipe());
-				co.inscComp(choix_cand, choix_comp);
+				if(choix_comp!=null)
+				{
+					choix_cand = choixCand(choix_comp.estEnEquipe()); 
+					if(choix_cand!=null) 
+						co.inscComp(choix_cand, choix_comp);
+					else
+						System.out.println("Personne n'est inscrit ici !");
+					
+				}
+				else
+					System.out.println("Il n'y a pas de compétitions !");
 			}
 		};
 	}
@@ -111,26 +125,30 @@ public class MenuPersonne extends MenuIndex {
 			{
 				reset();
 				choix_cand = choixCand();
-				
-				// Le nom
-				System.out.println("Choisir un nom (vide pour ne pas modifier)");
-				String nom = writeString();
-				if (nom.length()>0)
-					choix_cand.setNom(nom);
-				
-				// Le prénom
-				System.out.println("Choisir un prénom (vide pour ne pas modifier)");
-				String prenom = writeString();
-				if (prenom.length()>0)
-					choix_cand.setPrenom(prenom);
-				
-				// En équipe
-				System.out.println("Choisir un mail (vide pour ne pas modifier)");
-				String mail = writeString();
-				if (mail.length()>0)
-					choix_cand.setMail(mail);
-				
-				co.modPers(choix_cand);
+				if(choix_cand!=null)
+				{
+					// Le nom
+					System.out.println("Choisir un nom (vide pour ne pas modifier)");
+					String nom = writeString();
+					if (nom.length()>0)
+						choix_cand.setNom(nom);
+					
+					// Le prénom
+					System.out.println("Choisir un prénom (vide pour ne pas modifier)");
+					String prenom = writeString();
+					if (prenom.length()>0)
+						choix_cand.setPrenom(prenom);
+					
+					// En équipe
+					System.out.println("Choisir un mail (vide pour ne pas modifier)");
+					String mail = writeString();
+					if (mail.length()>0)
+						choix_cand.setMail(mail);
+					
+					co.modPers(choix_cand);
+				}
+				else
+					System.out.println("Personne n'est inscrit ici !");
 			}
 		};
 	}
@@ -149,7 +167,12 @@ public class MenuPersonne extends MenuIndex {
 			{
 				reset();
 				choix_cand = choixCand();
-				co.delCandidat(choix_cand);
+				if(choix_cand!=null)
+				{
+					co.delCandidat(choix_cand);
+				}
+				else
+					System.out.println("Personne n'est inscrit ici !");
 			}
 		};
 	}
