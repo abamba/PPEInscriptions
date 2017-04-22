@@ -139,6 +139,7 @@ public class MenuIndex {
 		int i = 0;
 		for(Competition c : comp)
 		{
+			i++;
 			System.out.println(i + " | "+c.getNom());
 		}
 	}
