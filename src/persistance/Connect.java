@@ -375,9 +375,9 @@ public class Connect {
 	 */
 	
 	public void modPers(Candidat cand)
-	{
-		sql("call modPers("+cand.getId()+", "+cand.getPrenom()+", "+cand.getNom()+", "+cand.getMail()+")");
-	}
+    {
+        sql("call modPers("+cand.getId()+", \""+cand.getPrenom()+"\",\""+cand.getNom()+"\",\" "+cand.getMail()+"\")");
+    }
 	
 	/**
 	 * Supprime un candidat
