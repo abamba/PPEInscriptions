@@ -1,5 +1,8 @@
 package menus;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import inscriptions.Candidat;
 import inscriptions.Competition;
 import utilitaires.ligneDeCommande.Action;
@@ -64,8 +67,32 @@ public class MenuPersonne extends MenuIndex {
 			{
 				reset();
 				choix_comp = choixComp();
-				choix_cand = choixCand(choix_comp.estEnEquipe());
-				co.desinscComp(choix_comp, choix_cand);
+				List<Candidat> candInscrits = new ArrayList<Candidat>();
+				if(choix_comp!=null)
+				{
+					candInscrits.addAll(co.getlisteCandidat(choix_comp));
+					int i = 0;
+					for (Candidat c : candInscrits)
+					{
+						System.out.println(i+1+" | "+c.getNom());
+						i++;
+					}
+					if(i > 0)
+					{
+						Candidat choix;
+						int choix_int;
+						choix_int = utilitaires.EntreesSorties.getInt("Choisissez un candidat : ");
+						while (choix_int < 1 || choix_int > i)
+						{
+							choix_int = utilitaires.EntreesSorties.getInt("Erreur. Choisissez un candidat : ");
+						}
+						choix = candInscrits.get(choix_int-1);
+						if(choix_comp!=null)
+							co.desinscComp(choix_comp, choix);
+					}
+					else
+						System.out.println("Personne n'est inscrit ici!");
+				}
 			}
 		};
 	}
