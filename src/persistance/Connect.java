@@ -106,7 +106,7 @@ public class Connect {
 			while (rs.next()) {
 				Candidat candidat = new Candidat(Inscriptions.getInscriptions(), rs.getString(3));
 		        candidat.setId(rs.getInt(2)); 
-		        if (rs.getString(5).equals('s')||rs.getString(5).equals('S')) 
+		        if (rs.getBoolean(5)) 
 		        {
 		        	candidat.setPrenom(null);
 		        }else{
@@ -376,7 +376,8 @@ public class Connect {
 	
 	public void modPers(Candidat cand)
     {
-        sql("call modPers("+cand.getId()+", \""+cand.getPrenom()+"\",\""+cand.getNom()+"\",\" "+cand.getMail()+"\")");
+        sql("call modPers("+cand.getId()+", \""+cand.getPrenom()+"\",\""+cand.getNom()+"\",\""+cand.getMail()+"\")");
+        System.out.println("call modPers("+cand.getId()+", \""+cand.getPrenom()+"\",\""+cand.getNom()+"\",\""+cand.getMail()+"\")");
     }
 	
 	/**
