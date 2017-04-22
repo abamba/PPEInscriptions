@@ -1,5 +1,6 @@
 package menus;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import inscriptions.Candidat;
@@ -112,22 +113,26 @@ public class MenuCompetition extends MenuIndex {
 			{
 				reset();
 				choix_comp = choixComp();
-				
-				// Le nom
-				System.out.println("Choisir un nom (vide pour ne pas modifier)");
-				String nom = writeString();
-				if (nom.length()>0)
-					choix_comp.setNom(nom);
-				
-				// La date de cloture
-				System.out.println("Choisir une date");
-				choix_comp.setDateCloture(writeDate());
-				
-				// En équipe
-				System.out.println("La compétition est-elle en équipe? (0/1)");
-				choix_comp.setEnEquipe(writeBoo());
-				if(choix_comp!=null)
-					co.modComp(choix_comp);
+				if (choix_comp!=null)
+				{
+					// Le nom
+					System.out.println("Choisir un nom (vide pour ne pas modifier)");
+					String nom = writeString();
+					if (nom.length()>0)
+						choix_comp.setNom(nom);
+					
+					// La date de cloture
+					System.out.println("Choisir une date");
+					LocalDate date = writeDate();
+					if(date!=null)
+						choix_comp.setDateCloture(date);
+					
+					// En équipe
+					System.out.println("La compétition est-elle en équipe? (0/1)");
+					choix_comp.setEnEquipe(writeBoo());
+					if(choix_comp!=null)
+						co.modComp(choix_comp);
+				}
 			}
 		};
 	}

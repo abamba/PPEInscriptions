@@ -187,21 +187,21 @@ public class MenuIndex {
 	
 	public static Boolean writeBoo()
 	{
-		Boolean boo;
+		Boolean boo = true;
 		String choix_boo = utilitaires.EntreesSorties.getString("");
 		while (!(choix_boo.equals("0")||choix_boo.equals("1")))
 				choix_boo = utilitaires.EntreesSorties.getString("Erreur. Le résultat doit être 0 ou 1.");
 		if(choix_boo.equals("0"))
 			boo = false;
-		else
-			boo = true;
 		return boo;
 	}
 	
 	public static LocalDate writeDate()
 	{
-		LocalDate date = LocalDate.parse(utilitaires.EntreesSorties.getString(""), formatter);
-		
+		String dated = utilitaires.EntreesSorties.getString("");
+		LocalDate date = null;
+		if(dated.length()==10)
+			date = LocalDate.parse(dated, formatter);
 		return date;
 	}
 	
