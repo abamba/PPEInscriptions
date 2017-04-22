@@ -129,7 +129,7 @@ public class MenuPersonne extends MenuIndex {
 	
 	public void ajoutmenu()
 	{
-		Menu inscriptions = new Menu("Menu Personne", "1");
+		Menu inscriptions = new Menu("Menu Candidat", "3");
 		
 		inscriptions.ajoute(getOptionListeComp());
 		inscriptions.ajoute(getOptioninscComp());

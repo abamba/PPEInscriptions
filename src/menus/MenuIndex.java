@@ -29,12 +29,12 @@ public class MenuIndex {
 	
 	public static void Index()
 	{
-		MenuPersonne menupers = new MenuPersonne();
-		menupers.ajoutmenu();
-		MenuCompetition menucomp = new MenuCompetition();
-		menucomp.ajoutmenu();
 		MenuInscriptions menuinsc = new MenuInscriptions();
 		menuinsc.ajoutmenu();
+		MenuCompetition menucomp = new MenuCompetition();
+		menucomp.ajoutmenu();
+		MenuPersonne menupers = new MenuPersonne();
+		menupers.ajoutmenu();
 		menuIndex.start();
 	}
 	
