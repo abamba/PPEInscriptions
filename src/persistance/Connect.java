@@ -113,7 +113,7 @@ public class Connect {
 		        }else{
 		        	candidat.setPrenom(rs.getString(4));
 		        }
-		        candidat.setSub(rs.getString(5));
+		        candidat.setSub(rs.getBoolean(5));
 		        candidat.setMail(rs.getString(6));
 				candidats.add(candidat);
 			}

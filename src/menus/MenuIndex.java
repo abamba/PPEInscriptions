@@ -31,8 +31,6 @@ public class MenuIndex {
 	{
 		MenuPersonne menupers = new MenuPersonne();
 		menupers.ajoutmenu();
-		MenuEquipe menuequipe = new MenuEquipe();
-		menuequipe.ajoutmenu();
 		MenuCompetition menucomp = new MenuCompetition();
 		menucomp.ajoutmenu();
 		MenuInscriptions menuinsc = new MenuInscriptions();
@@ -48,7 +46,7 @@ public class MenuIndex {
 		for(Candidat c : cand)
 		{
 			i++;
-			if(c.getSub().equalsIgnoreCase("s"))
+			if(c.getSub())
 				System.out.println(i+" | "+c.getNom());
 			else
 				System.out.println(i+" | "+c.getNom()+" | "+c.getPrenom());
@@ -121,11 +119,11 @@ public class MenuIndex {
 		pers.clear();
 		for (Candidat c : cand)
 		{
-			if(c.getSub().equalsIgnoreCase("s"))
+			if(c.getSub())
 			{
 				eq.add(c);
 			}
-			else if(c.getSub().equalsIgnoreCase("p"))
+			else if(!c.getSub())
 			{
 				pers.add(c);
 			}

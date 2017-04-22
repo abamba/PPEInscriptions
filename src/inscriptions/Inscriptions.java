@@ -63,7 +63,7 @@ public class Inscriptions implements Serializable
 	{
 		SortedSet<Candidat> personnes = new TreeSet<>();
 		for (Candidat c : getCandidats())
-			if (c.getSub().equalsIgnoreCase("p"))
+			if (!c.getSub())
 				personnes.add(c);
 		return Collections.unmodifiableSortedSet(personnes);
 	}
@@ -77,7 +77,7 @@ public class Inscriptions implements Serializable
 	{
 		SortedSet<Candidat> equipes = new TreeSet<>();
 		for (Candidat c : getCandidats())
-			if (c.getSub().equalsIgnoreCase("s"))
+			if (c.getSub())
 				equipes.add(c);
 		return Collections.unmodifiableSortedSet(equipes);
 	}
@@ -107,7 +107,7 @@ public class Inscriptions implements Serializable
 	 * @return
 	 */
 	
-	public Candidat createCandidat(String nom, String prenom, String mail, String sub)
+	public Candidat createCandidat(String nom, String prenom, String mail, Boolean sub)
 	{
 		Candidat cand = new Candidat(this, nom);
 		cand.setPrenom(prenom);

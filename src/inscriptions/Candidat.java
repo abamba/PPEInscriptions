@@ -17,7 +17,7 @@ public class Candidat implements Comparable<Candidat>, Serializable
 	private String nom;
 	private String prenom;
 	private String mail;
-	private String sub; 
+	private Boolean sub; 
 	
 	public String getMail() {
 		return mail;
@@ -56,11 +56,11 @@ public class Candidat implements Comparable<Candidat>, Serializable
 		competitions = new TreeSet<>();
 	}
 
-	public String getSub() {
+	public Boolean getSub() {
 		return sub;
 	}
 
-	public void setSub(String sub) {
+	public void setSub(Boolean sub) {
 		this.sub = sub;
 	}
 

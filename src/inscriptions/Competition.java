@@ -150,9 +150,9 @@ public class Competition implements Comparable<Competition>, Serializable
 		LocalDate date2 = dateCloture;
 		// Si la date du jour est avant par la date de cloture
 		if(date1.isBefore(date2)||date1.isEqual(date2))
-			if (!enEquipe && cand.getSub().equalsIgnoreCase("p"))
+			if (!enEquipe && !cand.getSub())
 				cand.add(this);
-			else if (enEquipe && cand.getSub().equalsIgnoreCase("s")) 
+			else if (enEquipe && cand.getSub()) 
 				cand.add(this);
 		return candidats.add(cand);
 	}
