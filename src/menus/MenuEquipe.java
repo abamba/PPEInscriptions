@@ -23,7 +23,7 @@ public class MenuEquipe extends MenuIndex {
 			public void optionSelectionnee()
 			{
 				reset();
-				choix_cand = choixCand(choix_comp.estEnEquipe());
+				choix_cand = choixCand();
 				co.Composition(choix_cand);
 			}
 		};
@@ -42,7 +42,7 @@ public class MenuEquipe extends MenuIndex {
 			public void optionSelectionnee()
 			{
 				reset();
-				choix_cand = choixCand(choix_comp.estEnEquipe());
+				choix_cand = choixCand();
 				co.ListeComp(choix_cand);
 			}
 		};

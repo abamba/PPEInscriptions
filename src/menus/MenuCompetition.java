@@ -83,7 +83,6 @@ public class MenuCompetition extends MenuIndex {
 			public void optionSelectionnee()
 			{
 				reset();
-				co.afficheComp();
 				choix_comp = choixComp();
 				co.modComp(choix_comp);
 			}
