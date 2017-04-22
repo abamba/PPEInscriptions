@@ -265,7 +265,6 @@ public class Connect {
 	public void modComp(Competition comp)
 	{
 		sql("call modComp("+comp.getId()+", \""+comp.getNom()+"\",\""+comp.getDateCloture()+"\", "+comp.estEnEquipe()+")");
-		System.out.println("call modComp("+comp.getId()+", \""+comp.getNom()+"\",\""+comp.getDateCloture()+"\", "+comp.estEnEquipe()+")");
 	}
 	
 	/**
@@ -319,7 +318,6 @@ public class Connect {
 	
 	public void affichePers()
 	{
-		System.out.println("Coucou");
 		sql("call affichePers()");
 	}
 	
@@ -372,7 +370,6 @@ public class Connect {
 	public void modPers(Candidat cand)
     {
         sql("call modPers("+cand.getId()+", \""+cand.getPrenom()+"\",\""+cand.getNom()+"\",\""+cand.getMail()+"\")");
-        System.out.println("call modPers("+cand.getId()+", \""+cand.getPrenom()+"\",\""+cand.getNom()+"\",\""+cand.getMail()+"\")");
     }
 	
 	/**
