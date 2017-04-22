@@ -69,6 +69,44 @@ public class MenuPersonne extends MenuIndex {
 		};
 	}
 	
+	static Option getOptionModifierCand()
+	{
+		Option ModifierCand = new Option("Modifier le candidat", "4", getActionModifierCand());
+		return ModifierCand;
+	}
+	
+	static Action getActionModifierCand()
+	{
+		return new Action()
+		{
+			public void optionSelectionnee()
+			{
+				reset();
+				choix_cand = choixCand();
+				
+				// Le nom
+				System.out.println("Choisir un nom (vide pour ne pas modifier)");
+				String nom = writeString();
+				if (nom.length()>0)
+					choix_cand.setNom(nom);
+				
+				// Le prénom
+				System.out.println("Choisir un prénom (vide pour ne pas modifier)");
+				String prenom = writeString();
+				if (prenom.length()>0)
+					choix_cand.setPrenom(prenom);
+				
+				// En équipe
+				System.out.println("Choisir un mail (vide pour ne pas modifier)");
+				String mail = writeString();
+				if (mail.length()>0)
+					choix_cand.setMail(mail);
+				
+				co.modPers(choix_cand);
+			}
+		};
+	}
+	
 	static Option getOptionmodNom()
 	{
 		Option modNom = new Option("Changer le nom", "4", getActionmodNom());
@@ -90,30 +128,9 @@ public class MenuPersonne extends MenuIndex {
 		};
 	}
 	
-	static Option getOptionmodMail()
-	{
-		Option modMail = new Option("Changer l'email", "5", getActionmodMail());
-		return modMail;
-	}
-	
-	static Action getActionmodMail()
-	{
-		return new Action()
-		{
-			public void optionSelectionnee()
-			{
-				reset();
-				choix_cand = choixCand(choix_comp.estEnEquipe());
-				String choix_mail = utilitaires.EntreesSorties.getString("Choisissez un mail : ");
-				choix_cand.setMail(choix_mail);
-				co.modPers(choix_cand);
-			}
-		};
-	}
-	
 	static Option getOptionsuppPersonne()
 	{
-		Option suppPersonne = new Option("Supprimer", "6", getActionsuppPersonne());
+		Option suppPersonne = new Option("Supprimer", "5", getActionsuppPersonne());
 		return suppPersonne;
 	}
 	
@@ -138,8 +155,7 @@ public class MenuPersonne extends MenuIndex {
 		inscriptions.ajoute(getOptionListeComp());
 		inscriptions.ajoute(getOptioninscComp());
 		inscriptions.ajoute(getOptiondesinscComp());
-		inscriptions.ajoute(getOptionmodNom());
-		inscriptions.ajoute(getOptionmodMail());
+		inscriptions.ajoute(getOptionModifierCand());
 		inscriptions.ajoute(getOptionsuppPersonne());
 		inscriptions.ajouteRevenir("r");
 		
