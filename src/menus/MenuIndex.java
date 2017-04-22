@@ -16,6 +16,8 @@ public class MenuIndex {
 	static Connect co = Inscriptions.getInscriptions().getConnect();
 	static List<Competition> comp = new ArrayList<Competition>();
 	static List<Candidat> cand = new ArrayList<Candidat>();
+	static List<Candidat> eq = new ArrayList<Candidat>();
+	static List<Candidat> pers = new ArrayList<Candidat>();
 	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-dd");
 	
 	public static Menu menuIndex = new Menu("Index");
@@ -40,9 +42,17 @@ public class MenuIndex {
 	
 	public static Candidat choixCand()
 	{
-		co.afficheCand();
+		int i = 0;
 		Candidat choix;
 		int choix_int;
+		for(Candidat c : cand)
+		{
+			i++;
+			if(c.getSub().equalsIgnoreCase("s"))
+				System.out.println(i+" | "+c.getNom());
+			else
+				System.out.println(i+" | "+c.getNom()+" | "+c.getPrenom());
+		}
 		choix_int = utilitaires.EntreesSorties.getInt("Choisissez un candidat : ");
 		while (choix_int < 1 || choix_int > cand.size())
 		{
@@ -56,22 +66,16 @@ public class MenuIndex {
 	{
 		int i = 0;
 		if(sub)
-			for(Candidat c : cand)
+			for(Candidat c : eq)
 			{
-				if(c.getSub().equalsIgnoreCase("s"))
-				{
-					i++;
-					System.out.println(i+" | "+c.getNom());
-				}
+				i++;
+				System.out.println(i+" | "+c.getNom());
 			}
 		else 
-			for(Candidat c : cand)
+			for(Candidat c : pers)
 			{
-				if(c.getSub().equalsIgnoreCase("p"))
-				{
-					i++;
-					System.out.println(i+" | "+c.getNom()+" | "+c.getPrenom());
-				}
+				i++;
+				System.out.println(i+" | "+c.getNom()+" | "+c.getPrenom());
 			}
 		Candidat choix;
 		int choix_int;
@@ -80,7 +84,11 @@ public class MenuIndex {
 		{
 			choix_int = utilitaires.EntreesSorties.getInt("Erreur. Choisissez un candidat : ");
 		}
-		choix = cand.get(choix_int-1);
+		if(sub)
+			choix = eq.get(choix_int-1);
+		else
+			choix = pers.get(choix_int-1);
+		System.out.println(choix.getId()+choix.getNom());
 		return choix;
 	}
 	
@@ -109,6 +117,19 @@ public class MenuIndex {
 		comp.addAll(Inscriptions.getInscriptions().getCompetitions());
 		cand.clear();
 		cand.addAll(Inscriptions.getInscriptions().getCandidats());
+		eq.clear();
+		pers.clear();
+		for (Candidat c : cand)
+		{
+			if(c.getSub().equalsIgnoreCase("s"))
+			{
+				eq.add(c);
+			}
+			else if(c.getSub().equalsIgnoreCase("p"))
+			{
+				pers.add(c);
+			}
+		}
 	}
 	
 	public static String writeString()
