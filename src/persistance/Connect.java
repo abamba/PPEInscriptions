@@ -15,14 +15,13 @@ import inscriptions.Inscriptions;
 public class Connect {
 	
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://localhost:3306/inscription";
+	static final String DB_URL = "jdbc:mysql://localhost:3306/inscription?useSSL=false";
 	static final String USER = "root";
 	static final String PASS = "";
 	
 	public Connect() {
 		try {
 		      Class.forName("com.mysql.jdbc.Driver");
-		      System.out.println("Driver O.K.");
 	
 		      String url = DB_URL;
 		      String user = USER;
@@ -30,7 +29,6 @@ public class Connect {
 	
 		      @SuppressWarnings("unused")
 		      Connection conn = (Connection) DriverManager.getConnection(url, user, passwd);
-		      System.out.println("Connexion effective !");         
 		         
 		} catch (Exception e) {
 		      e.printStackTrace();
