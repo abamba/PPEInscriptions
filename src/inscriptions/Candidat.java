@@ -7,7 +7,6 @@ import java.util.TreeSet;
 
 /**
  * Candidat à un événement sportif, soit une personne physique, soit une équipe.
- *
  */
 
 public class Candidat implements Comparable<Candidat>, Serializable
