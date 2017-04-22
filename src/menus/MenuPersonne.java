@@ -16,6 +16,7 @@ public class MenuPersonne extends MenuIndex {
 		return listeComp;
 	}
 	
+	// add choix entre eq et pers ?
 	static Action getActionListeComp()
 	{
 		return new Action()
