@@ -220,7 +220,8 @@ public class Connect {
 	
 	public void modComp(Competition comp)
 	{
-		sql("call modComp("+comp.getId()+", "+comp.getNom()+", "+comp.getDateCloture()+", "+comp.estEnEquipe()+")");
+		sql("call modComp("+comp.getId()+", \""+comp.getNom()+"\",\""+comp.getDateCloture()+"\", "+comp.estEnEquipe()+")");
+		System.out.println("call modComp("+comp.getId()+", \""+comp.getNom()+"\",\""+comp.getDateCloture()+"\", "+comp.estEnEquipe()+")");
 	}
 	
 	/**

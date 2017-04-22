@@ -33,7 +33,7 @@ DELIMITER ;
 #Modifier une compétition
 DROP PROCEDURE IF EXISTS modComp;
 DELIMITER |
-CREATE PROCEDURE modComp(id_comp int, nom_comp int, dateClot date, enEq bool)
+CREATE PROCEDURE modComp(id_comp int, nom_comp varchar(25), dateClot date, enEq bool)
 BEGIN
     UPDATE COMPETITION
     SET nom_compet = nom_comp, dateClot_compet = dateClot, enEquipe = enEq

@@ -2,6 +2,7 @@ package menus;
 
 import inscriptions.Candidat;
 import inscriptions.Competition;
+import javafx.beans.value.WritableBooleanValue;
 import utilitaires.ligneDeCommande.Action;
 import utilitaires.ligneDeCommande.Menu;
 import utilitaires.ligneDeCommande.Option;
@@ -84,6 +85,21 @@ public class MenuCompetition extends MenuIndex {
 			{
 				reset();
 				choix_comp = choixComp();
+				
+				// Le nom
+				System.out.println("Choisir un nom (vide pour ne pas modifier)");
+				String nom = writeString();
+				if (nom.length()>0)
+					choix_comp.setNom(nom);
+				
+				// La date de cloture
+				System.out.println("Choisir une date");
+				choix_comp.setDateCloture(writeDate());
+				
+				// En équipe
+				System.out.println("La compétition est-elle en équipe? (0/1)");
+				choix_comp.setEnEquipe(writeBoo());
+				
 				co.modComp(choix_comp);
 			}
 		};
