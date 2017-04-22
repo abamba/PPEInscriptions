@@ -57,16 +57,16 @@ DROP PROCEDURE IF EXISTS delCandidat;
 DELIMITER | 
 CREATE PROCEDURE delCandidat(id_c int) 
 BEGIN 
-    DECLARE subtype varchar(1);
+    DECLARE subtype Bool;
     
     DELETE FROM CANDIDAT WHERE id_candidat=id_c;
     
-    SET subtype = (SELECT sub FROM CANDIDAT WHERE id_candidat=id_c); 
-    IF (subtype = "p" OR subtype = "P")
+    SET subtype = (SELECT sub FROM CANDIDAT WHERE id_candidat=id_c);
+    IF (subtype)
        THEN DELETE FROM COMPOSER WHERE id_candidat_pers=id_c;
-    ELSEIF (subtype = "s" OR subtype = "S")
+    ELSEIF (!subtype)
        THEN DELETE FROM COMPOSER WHERE id_candidat_squad=id_c;
     END IF;
-    
+    DELETE FROM INSCRIRE WHERE id_candidat=id_c;
 END |
 DELIMITER ; 

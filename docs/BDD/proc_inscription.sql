@@ -13,21 +13,10 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS createPers;
 DELIMITER |
-CREATE PROCEDURE createPers(nom_cand varchar(25), prenom varchar(25), mail varchar(25))
+CREATE PROCEDURE createPers(nom_cand varchar(25),type bool, prenom varchar(25), mail varchar(25))
 BEGIN
     INSERT INTO CANDIDAT (nom_candidat, sub, prenom, mail)
-    VALUES (nom_cand, "p", prenom, mail);
-END |
-DELIMITER ;
-
-# Créer une équipe
-
-DROP PROCEDURE IF EXISTS createEq;
-DELIMITER |
-CREATE PROCEDURE createEq(nom_cand varchar(25), mail varchar(25))
-BEGIN
-    INSERT INTO CANDIDAT(nom_candidat, sub, prenom, mail)
-    VALUES (nom_cand, "s", null, mail);
+    VALUES (nom_cand, type, prenom, mail);
 END |
 DELIMITER ;
 
@@ -50,7 +39,7 @@ CREATE PROCEDURE affichePers()
 BEGIN
     SET @n=0;
     SELECT @n:=@n+1 AS Ligne, a.nom_candidat AS Nom, a.prenom AS Prenom, a.sub AS E_P, a.mail FROM Candidat a
-    WHERE sub = 'p' OR sub = 'P';
+    WHERE sub;
 END |
 DELIMITER ;
 
@@ -62,7 +51,7 @@ CREATE PROCEDURE afficheEq()
 BEGIN
     SET @n=0;
     SELECT @n:=@n+1 AS Ligne, a.nom_candidat AS Nom, a.prenom AS Prenom, a.sub AS E_P, a.mail FROM Candidat a
-    WHERE sub = 's' OR sub = 'S';
+    WHERE !sub;
 END |
 DELIMITER ;
 

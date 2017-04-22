@@ -22,7 +22,7 @@ CREATE TABLE COMPETITION(
 CREATE TABLE CANDIDAT(
         id_candidat  int auto_increment  NOT NULL ,
         nom_candidat Varchar (25) NOT NULL ,
-        sub          Varchar (1)  NOT NULL , #pour diff squad et personne
+        sub          Bool NOT NULL ,
         prenom       Varchar (25) ,
         mail         Varchar (25) ,
         PRIMARY KEY (id_candidat )
