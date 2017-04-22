@@ -26,7 +26,8 @@ public class MenuCompetition extends MenuIndex {
 			{
 				reset();
 				choix_comp = choixComp();
-				co.listeCandidat(choix_comp);
+				if(choix_comp!=null)
+					co.listeCandidat(choix_comp);
 			}
 		};
 	}
@@ -45,8 +46,10 @@ public class MenuCompetition extends MenuIndex {
 			{
 				reset();
 				choix_comp = choixComp();
-				choix_cand = choixCand(choix_comp.estEnEquipe());
-				co.inscrireCandidat(choix_cand, choix_comp);
+				if(choix_comp!=null)
+					choix_cand = choixCand(choix_comp.estEnEquipe());
+				if(choix_comp!=null&&choix_cand!=null)
+					co.inscrireCandidat(choix_cand, choix_comp);
 			}
 		};
 	}
@@ -66,28 +69,31 @@ public class MenuCompetition extends MenuIndex {
 				reset();
 				choix_comp = choixComp();
 				List<Candidat> candInscrits = new ArrayList<Candidat>();
-				candInscrits.addAll(co.getlisteCandidat(choix_comp));
-				int i = 0;
-				for (Candidat c : candInscrits)
+				if(choix_comp!=null)
 				{
-					System.out.println(i+1+" | "+c.getNom());
-					i++;
-				}
-				if(i > 0)
-				{
-					Candidat choix;
-					int choix_int;
-					choix_int = utilitaires.EntreesSorties.getInt("Choisissez un candidat : ");
-					while (choix_int < 1 || choix_int > i)
+					candInscrits.addAll(co.getlisteCandidat(choix_comp));
+					int i = 0;
+					for (Candidat c : candInscrits)
 					{
-						choix_int = utilitaires.EntreesSorties.getInt("Erreur. Choisissez un candidat : ");
+						System.out.println(i+1+" | "+c.getNom());
+						i++;
 					}
-					choix = candInscrits.get(choix_int-1);
-					
-					co.desinscComp(choix_comp, choix);
+					if(i > 0)
+					{
+						Candidat choix;
+						int choix_int;
+						choix_int = utilitaires.EntreesSorties.getInt("Choisissez un candidat : ");
+						while (choix_int < 1 || choix_int > i)
+						{
+							choix_int = utilitaires.EntreesSorties.getInt("Erreur. Choisissez un candidat : ");
+						}
+						choix = candInscrits.get(choix_int-1);
+						if(choix_comp!=null)
+							co.desinscComp(choix_comp, choix);
+					}
+					else
+						System.out.println("Personne n'est inscrit ici!");
 				}
-				else
-					System.out.println("Personne n'est inscrit ici!");
 			}
 		};
 	}
@@ -120,8 +126,8 @@ public class MenuCompetition extends MenuIndex {
 				// En équipe
 				System.out.println("La compétition est-elle en équipe? (0/1)");
 				choix_comp.setEnEquipe(writeBoo());
-				
-				co.modComp(choix_comp);
+				if(choix_comp!=null)
+					co.modComp(choix_comp);
 			}
 		};
 	}
@@ -139,9 +145,9 @@ public class MenuCompetition extends MenuIndex {
 			public void optionSelectionnee()
 			{
 				reset();
-				co.afficheComp();
 				choix_comp = choixComp();
-				co.supprComp(choix_comp);
+				if(choix_comp!=null)
+					co.supprComp(choix_comp);
 			}
 		};
 	}

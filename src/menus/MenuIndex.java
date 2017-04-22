@@ -40,16 +40,26 @@ public class MenuIndex {
 	
 	public static Candidat choixCand()
 	{
-		Candidat choix;
-		int choix_int;
-		affCand();
-		choix_int = utilitaires.EntreesSorties.getInt("Choisissez un candidat : ");
-		while (choix_int < 1 || choix_int > cand.size())
+		if (cand.size()>0)
 		{
-			choix_int = utilitaires.EntreesSorties.getInt("Erreur. Choisissez un candidat : ");
+			Candidat choix = null;
+			if(cand.size()>0)
+			{
+				int choix_int;
+				affCand();
+				choix_int = utilitaires.EntreesSorties.getInt("Choisissez un candidat : ");
+				while (choix_int < 1 || choix_int > cand.size())
+				{
+					choix_int = utilitaires.EntreesSorties.getInt("Erreur. Choisissez un candidat : ");
+				}
+				choix = cand.get(choix_int-1);
+			}
+			return choix;
 		}
-		choix = cand.get(choix_int-1);
-		return choix;
+		else
+		{
+			return null;
+		}
 	}
 	
 	public static void affCand() {
@@ -66,30 +76,37 @@ public class MenuIndex {
 
 	public static Candidat choixCand(Boolean sub)
 	{
-		int i = 0;
-		if(sub)
+		if(cand.size()>0)
 		{
-			affEq();
-			i = eq.size();
+			int i = 0;
+			if(sub)
+			{
+				affEq();
+				i = eq.size();
+			}
+			else
+			{
+				affPers();
+				i = pers.size();
+			}
+			Candidat choix;
+			int choix_int;
+			choix_int = utilitaires.EntreesSorties.getInt("Choisissez un candidat : ");
+			while (choix_int < 1 || choix_int > i)
+			{
+				choix_int = utilitaires.EntreesSorties.getInt("Erreur. Choisissez un candidat : ");
+			}
+			if(sub)
+				choix = eq.get(choix_int-1);
+			else
+				choix = pers.get(choix_int-1);
+			System.out.println(choix.getId()+choix.getNom());
+			return choix;
 		}
 		else
 		{
-			affPers();
-			i = pers.size();
+			return null;
 		}
-		Candidat choix;
-		int choix_int;
-		choix_int = utilitaires.EntreesSorties.getInt("Choisissez un candidat : ");
-		while (choix_int < 1 || choix_int > i)
-		{
-			choix_int = utilitaires.EntreesSorties.getInt("Erreur. Choisissez un candidat : ");
-		}
-		if(sub)
-			choix = eq.get(choix_int-1);
-		else
-			choix = pers.get(choix_int-1);
-		System.out.println(choix.getId()+choix.getNom());
-		return choix;
 	}
 	
 	public static void affPers() {
@@ -112,18 +129,25 @@ public class MenuIndex {
 
 	public static Competition choixComp()
 	{
-		int i = 0;
-		affComp();
-		i = comp.size();
 		Competition choix;
-		int choix_int;
-		choix_int = utilitaires.EntreesSorties.getInt("Choisissez une compétition : ");
-		while (choix_int < 1 || choix_int > i)
+		if(comp.size()>0)
 		{
-			choix_int = utilitaires.EntreesSorties.getInt("Erreur. Choisissez une compétition : ");
+			int i = 0;
+			affComp();
+			i = comp.size();
+			int choix_int;
+			choix_int = utilitaires.EntreesSorties.getInt("Choisissez une compétition : ");
+			while (choix_int < 1 || choix_int > i)
+			{
+				choix_int = utilitaires.EntreesSorties.getInt("Erreur. Choisissez une compétition : ");
+			}
+			choix = comp.get(choix_int-1);
+			return choix;
 		}
-		choix = comp.get(choix_int-1);
-		return choix;
+		else
+		{
+			return null;
+		}
 	}
 	
 	public static void affComp() {
