@@ -1,10 +1,10 @@
 use inscription;
 
 INSERT INTO CANDIDAT VALUES
-(1, "Tony", 1,"Bullet-Tooth", "qwerty"),
-(2, "Boris", 1, "The Blade", "ytrewq"),
-(3, "Les Manouches", 0, null , null),
-(4, "Brick Top", 0, null, "feedem");
+(1, "Tony", 0,"Bullet-Tooth", "qwerty"),
+(2, "Boris", 0, "The Blade", "ytrewq"),
+(3, "Les Manouches", 1, null , null),
+(4, "The Wild Bunch", 1, null, "feedem");
 
 INSERT INTO COMPETITION VALUES
 (1, "Mondial de flechettes", "2017-06-21", 0),
