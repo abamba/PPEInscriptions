@@ -107,27 +107,6 @@ public class MenuPersonne extends MenuIndex {
 		};
 	}
 	
-	static Option getOptionmodNom()
-	{
-		Option modNom = new Option("Changer le nom", "4", getActionmodNom());
-		return modNom;
-	}
-	
-	static Action getActionmodNom()
-	{
-		return new Action()
-		{
-			public void optionSelectionnee()
-			{
-				reset();
-				choix_cand = choixCand(choix_comp.estEnEquipe());
-				String choix_nom = utilitaires.EntreesSorties.getString("Choisissez un nom : "); 
-				choix_cand.setNom(choix_nom);
-				co.modPers(choix_cand);
-			}
-		};
-	}
-	
 	static Option getOptionsuppPersonne()
 	{
 		Option suppPersonne = new Option("Supprimer", "5", getActionsuppPersonne());
