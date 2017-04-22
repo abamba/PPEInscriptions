@@ -40,17 +40,9 @@ public class MenuIndex {
 	
 	public static Candidat choixCand()
 	{
-		int i = 0;
 		Candidat choix;
 		int choix_int;
-		for(Candidat c : cand)
-		{
-			i++;
-			if(c.getSub())
-				System.out.println(i+" | "+c.getNom());
-			else
-				System.out.println(i+" | "+c.getNom()+" | "+c.getPrenom());
-		}
+		affCand();
 		choix_int = utilitaires.EntreesSorties.getInt("Choisissez un candidat : ");
 		while (choix_int < 1 || choix_int > cand.size())
 		{
@@ -60,21 +52,37 @@ public class MenuIndex {
 		return choix;
 	}
 	
+	public static void affCand() {
+		int i = 0;
+		for(Candidat c : cand)
+		{
+			i++;
+			if(c.getSub())
+				System.out.println(i+" | "+c.getNom());
+			else
+				System.out.println(i+" | "+c.getNom()+" | "+c.getPrenom());
+		}
+	}
+
 	public static Candidat choixCand(Boolean sub)
 	{
 		int i = 0;
 		if(sub)
+		{
+			affEq();
 			for(Candidat c : eq)
 			{
 				i++;
-				System.out.println(i+" | "+c.getNom());
 			}
-		else 
+		}
+		else
+		{
+			affPers();
 			for(Candidat c : pers)
 			{
 				i++;
-				System.out.println(i+" | "+c.getNom()+" | "+c.getPrenom());
 			}
+		}
 		Candidat choix;
 		int choix_int;
 		choix_int = utilitaires.EntreesSorties.getInt("Choisissez un candidat : ");
@@ -90,13 +98,31 @@ public class MenuIndex {
 		return choix;
 	}
 	
+	public static void affPers() {
+		int i = 0;
+		for(Candidat c : pers)
+		{
+			i++;
+			System.out.println(i+" | "+c.getNom()+" | "+c.getPrenom());
+		}
+	}
+
+	public static void affEq() {
+		int i = 0;
+		for(Candidat c : eq)
+		{
+			i++;
+			System.out.println(i+" | "+c.getNom());
+		}
+	}
+
 	public static Competition choixComp()
 	{
 		int i = 0;
+		affComp();
 		for(Competition c : comp)
 		{
 			i++;
-			System.out.println(i+" | "+c.getNom()+" | "+c.getDateCloture());
 		}
 		Competition choix;
 		int choix_int;
@@ -109,6 +135,14 @@ public class MenuIndex {
 		return choix;
 	}
 	
+	public static void affComp() {
+		int i = 0;
+		for(Competition c : comp)
+		{
+			System.out.println(i + " | "+c.getNom());
+		}
+	}
+
 	public static void reset()
 	{
 		comp.clear();

@@ -100,6 +100,60 @@ public class MenuInscriptions extends MenuIndex {
 		};
 	}
 	
+	static Option getOptionaffComp()
+	{
+		Option affComp = new Option("Afficher les compétitions", "4", getActionaffComp());
+		return affComp;
+	}
+	
+	static Action getActionaffComp()
+	{
+		return new Action()
+		{
+			public void optionSelectionnee()
+			{
+				reset();
+				affComp();
+			}
+		};
+	}
+	
+	static Option getOptionaffCand()
+	{
+		Option affCand = new Option("Afficher les candidats", "5", getActionaffCand());
+		return affCand;
+	}
+	
+	static Action getActionaffCand()
+	{
+		return new Action()
+		{
+			public void optionSelectionnee()
+			{
+				reset();
+				affCand();
+			}
+		};
+	}
+	
+	static Option getOptionaffEquipe()
+	{
+		Option affEquipe = new Option("Afficher les équipes", "6", getActionaffEquipe());
+		return affEquipe;
+	}
+	
+	static Action getActionaffEquipe()
+	{
+		return new Action()
+		{
+			public void optionSelectionnee()
+			{
+				reset();
+				affEq();
+			}
+		};
+	}
+	
 	public void ajoutmenu()
 	{
 		Menu inscriptions = new Menu("Menu Inscription", "4");
@@ -107,6 +161,9 @@ public class MenuInscriptions extends MenuIndex {
 		inscriptions.ajoute(getOptioncreateComp()); 
 		inscriptions.ajoute(getOptioncreateCand());
 		inscriptions.ajoute(getOptioncreateEquipe());
+		inscriptions.ajoute(getOptionaffComp());
+		inscriptions.ajoute(getOptionaffCand());
+		inscriptions.ajoute(getOptionaffEquipe());
 		inscriptions.ajouteRevenir("r");
 
 		MenuIndex menu = new MenuIndex();
