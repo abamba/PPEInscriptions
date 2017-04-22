@@ -76,7 +76,7 @@ public class MenuIndex {
 		Candidat choix;
 		int choix_int;
 		choix_int = utilitaires.EntreesSorties.getInt("Choisissez un candidat : ");
-		while (choix_int < 1 || choix_int > cand.size())
+		while (choix_int < 1 || choix_int > i)
 		{
 			choix_int = utilitaires.EntreesSorties.getInt("Erreur. Choisissez un candidat : ");
 		}
@@ -86,12 +86,16 @@ public class MenuIndex {
 	
 	public static Competition choixComp()
 	{
-		System.out.println(comp);
-		co.afficheComp();
+		int i = 0;
+		for(Competition c : comp)
+		{
+			i++;
+			System.out.println(i+" | "+c.getNom()+" | "+c.getDateCloture());
+		}
 		Competition choix;
 		int choix_int;
 		choix_int = utilitaires.EntreesSorties.getInt("Choisissez une compétition : ");
-		while (choix_int < 1 || choix_int > comp.size())
+		while (choix_int < 1 || choix_int > i)
 		{
 			choix_int = utilitaires.EntreesSorties.getInt("Erreur. Choisissez une compétition : ");
 		}
