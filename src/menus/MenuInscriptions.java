@@ -66,6 +66,7 @@ public class MenuInscriptions extends MenuIndex {
 				System.out.println("Choisissez un mail : ");
 				choix_candid.setMail(writeString());
 				
+				choix_candid.setSub(false);
 				co.createPers(choix_candid);
 			}
 		};
@@ -93,7 +94,8 @@ public class MenuInscriptions extends MenuIndex {
 				System.out.println("Choisissez un mail : ");
 				choix_candid.setMail(writeString());
 				
-				co.createEq(choix_candid);
+				choix_candid.setSub(true);
+				co.createPers(choix_candid);
 			}
 		};
 	}

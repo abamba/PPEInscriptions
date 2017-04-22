@@ -234,23 +234,20 @@ public class Connect {
 	}
 	
 	/**
-	 * Créer un candidat de type personne
+	 * Créer un candidat
 	 * @param cand
 	 */
 	
 	public void createPers(Candidat cand)
 	{
-		sql("call createPers(\""+cand.getNom()+"\",\""+cand.getPrenom()+"\",\""+cand.getMail()+"\")");
-	}
-	
-	/**
-	 * Créer un candidat de type équipe
-	 * @param cand
-	 */
-	
-	public void createEq(Candidat cand)
-	{
-		sql("call createEq(\""+cand.getNom()+"\",\""+cand.getMail()+"\")");
+		if(cand.getSub())
+		{
+			sql("call createPers(\""+cand.getNom()+"\","+cand.getSub()+",null,\""+cand.getMail()+"\")");
+		}
+		else
+		{
+			sql("call createPers(\""+cand.getNom()+"\","+cand.getSub()+",\""+cand.getPrenom()+"\",\""+cand.getMail()+"\")");
+		}
 	}
 	
 	/**
