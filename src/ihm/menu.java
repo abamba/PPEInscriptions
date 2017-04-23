@@ -157,6 +157,7 @@ public class menu extends JFrame {
 					tglbtnInscAddCompEnEq.setText("Non");
 			}
 		});
+		
 		tglbtnInscAddCompEnEq.setBounds(228, 60, 206, 20);
 		panInscAddComp.add(tglbtnInscAddCompEnEq);
 		
