@@ -38,7 +38,10 @@ import javax.swing.JTable;
 public class ihmCand extends JFrame {
 	
 	static List listCand = new List();
+	static ArrayList<Competition> Listecomp = new ArrayList<Competition>();
 	static ArrayList<Candidat> Listecand = new ArrayList<Candidat>();
+	static ArrayList<Candidat> Listeeq = new ArrayList<Candidat>();
+    static ArrayList<Candidat> Listepers = new ArrayList<Candidat>();
 	private JPanel contentPane;
 	private Connect co = Inscriptions.getInscriptions().getConnect();
 	private JTable tableCandEstInsc;
@@ -164,6 +167,26 @@ public class ihmCand extends JFrame {
 		});
 		buttonCandSuppr.setBounds(10, 10, 199, 22);
 		panCandSuppr.add(buttonCandSuppr);
+		listCand.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(listCand.getSelectedIndex()>=0)
+				{
+					DefaultTableModel ModelCandEstInsc = new DefaultTableModel();
+					tableCandEstInsc.setModel(ModelCandEstInsc);
+					ModelCandEstInsc.setRowCount(0);
+					ModelCandEstInsc.addColumn(new Object[]{"Nom"});
+
+					ModelCandEstInsc.addRow(new Object[]{"Nom"});
+			        Listecand.addAll(Inscriptions.getInscriptions().getCandidats()); 
+			        
+			        for(Competition c : co.getListeComp(Listecand.get(listCand.getSelectedIndex())))
+			        {
+			        	ModelCandEstInsc.addRow(new Object[]{c.getNom()});
+			        }
+				}
+			}
+		});
 		
 		
 		//Liste des candidats
@@ -185,16 +208,20 @@ public class ihmCand extends JFrame {
 			else
 				list.add(c.getPrenom()+" "+c.getNom());			
 		}
-		DefaultTableModel tableCandEstInsc = new DefaultTableModel();
-		tabCandEstInsc.setModel(tableCandEstInsc);
-        tableCandEstInsc.setRowCount(0);
-        tableCandEstInsc.addColumn(new Object[]{"Nom"});
+		if(listCand.getSelectedIndex()>=0)
+		{
+			DefaultTableModel ModelCandEstInsc = new DefaultTableModel();
+			tableCandEstInsc.setModel(ModelCandEstInsc);
+			ModelCandEstInsc.setRowCount(0);
+			ModelCandEstInsc.addColumn(new Object[]{"Nom"});
 
-        tableCandEstInsc.addRow(new Object[]{"Nom"});
-
-        for(Competition c : co.getListeComp())
-        {
-            tableCandEstInsc.addRow(new Object[]{c.getNom(),c.getDateCloture(),c.estEnEquipe()});
-        }
+			ModelCandEstInsc.addRow(new Object[]{"Nom"});
+	        Listecand.addAll(Inscriptions.getInscriptions().getCandidats()); 
+	        
+	        for(Competition c : co.getListeComp(Listecand.get(listCand.getSelectedIndex())))
+	        {
+	        	ModelCandEstInsc.addRow(new Object[]{c.getNom()});
+	        }
+		}
 	}
 }
