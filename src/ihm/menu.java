@@ -49,10 +49,13 @@ import java.awt.event.KeyEvent;
 
 import java.time.format.DateTimeFormatter;
 import javax.swing.JSplitPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class menu extends JFrame {
 	static List listComp = new List();
 	static List listCompInsc = new List();
+	static List listCompDesinsc = new List();
 	static ArrayList<Competition> Listecomp = new ArrayList<Competition>();
 	static ArrayList<Candidat> Listecand = new ArrayList<Candidat>();
 	static ArrayList<Candidat> Listeeq = new ArrayList<Candidat>();
@@ -72,6 +75,9 @@ public class menu extends JFrame {
 	private JTextField tFInscAddCandMail;
 	private JTextField tFInscAddEqNom;
 	private JTable tabCompListeComp;
+	private JTextField tFCompModCompNom;
+	private JTextField tFCompModCompDate;
+	private JTextField tFCompModCompEq;
 	/**
 	 * Launch the application.
 	 */
@@ -341,7 +347,6 @@ public class menu extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				ArrayList<Candidat> Uneliste = new ArrayList<Candidat>();
 				Uneliste.addAll(co.getNonInscrits(Listecomp.get(listComp.getSelectedIndex())));
-				System.out.println(Uneliste);
 				co.inscComp(Uneliste.get(listCompInsc.getSelectedIndex()), Listecomp.get(listComp.getSelectedIndex()));
 				menuReset();
 			}
@@ -353,16 +358,97 @@ public class menu extends JFrame {
 		
 		JPanel panCompDésinscCand = new JPanel();
 		panCompIntérieur.addTab("D\u00E9sinscrire", null, panCompDésinscCand, null);
+		panCompDésinscCand.setLayout(null);
+		
+		JButton btnCompDesinsc = new JButton("D\u00E9sinscrire");
+		btnCompDesinsc.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ArrayList<Candidat> Uneliste = new ArrayList<Candidat>();
+				Uneliste.addAll(co.getlisteCandidat(Listecomp.get(listComp.getSelectedIndex())));
+				co.desinscComp(Listecomp.get(listComp.getSelectedIndex()), Uneliste.get(listCompDesinsc.getSelectedIndex()));
+				menuReset();
+			}
+		});
+		btnCompDesinsc.setBounds(10, 323, 199, 23);
+		panCompDésinscCand.add(btnCompDesinsc);
+		
+		listCompDesinsc.setBounds(10, 10, 199, 307);
+		panCompDésinscCand.add(listCompDesinsc);
 		
 		// Modifier une compétition
 		
 		JPanel panCompModCamp = new JPanel();
 		panCompIntérieur.addTab("Modifier", null, panCompModCamp, null);
+		panCompModCamp.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Nom");
+		lblNewLabel.setBounds(10, 11, 87, 14);
+		panCompModCamp.add(lblNewLabel);
+		
+		tFCompModCompNom = new JTextField();
+		tFCompModCompNom.setBounds(107, 8, 102, 20);
+		panCompModCamp.add(tFCompModCompNom);
+		tFCompModCompNom.setColumns(10);
+		
+		JLabel lblDateDeCloture = new JLabel("Date de Cloture");
+		lblDateDeCloture.setBounds(10, 36, 87, 14);
+		panCompModCamp.add(lblDateDeCloture);
+		
+		tFCompModCompDate = new JTextField();
+		tFCompModCompDate.setColumns(10);
+		tFCompModCompDate.setBounds(107, 33, 102, 20);
+		panCompModCamp.add(tFCompModCompDate);
+		
+		JLabel lblEnquipe = new JLabel("En \u00E9quipe");
+		lblEnquipe.setBounds(10, 61, 87, 14);
+		panCompModCamp.add(lblEnquipe);
+		
+		tFCompModCompEq = new JTextField();
+		tFCompModCompEq.setColumns(10);
+		tFCompModCompEq.setBounds(107, 58, 102, 20);
+		panCompModCamp.add(tFCompModCompEq);
+		
+		JButton btnCompModCompValider = new JButton("Valider");
+		btnCompModCompValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				boolean boo = false;
+				String dated = tFCompModCompDate.getText();
+				LocalDate date = LocalDate.parse(dated, formatter);
+				if(tFCompModCompEq.getText().equalsIgnoreCase("1"))
+					boo = true;
+				Competition Unecomp = Listecomp.get(listComp.getSelectedIndex());
+				Unecomp.setNom(tFCompModCompNom.getText());
+				Unecomp.setDateCloture(date);
+				Unecomp.setEnEquipe(boo);
+				co.modComp(Unecomp);
+			}
+		});
+		btnCompModCompValider.setBounds(10, 86, 199, 23);
+		panCompModCamp.add(btnCompModCompValider);
 		
 		// Supprimer une compétition
 		
 		JPanel panCompSuppComp = new JPanel();
 		panCompIntérieur.addTab("Supprimer", null, panCompSuppComp, null);
+		panCompSuppComp.setLayout(null);
+		
+		JButton btnCompSupp = new JButton("Supprimer");
+		btnCompSupp.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				co.supprComp(Listecomp.get(listComp.getSelectedIndex()));
+				
+				listComp.removeAll();
+				
+				for(Competition c : Inscriptions.getInscriptions().getCompetitions())
+				{
+					listComp.add(c.getNom());
+				}
+			}
+		});
+		btnCompSupp.setBounds(10, 11, 199, 23);
+		panCompSuppComp.add(btnCompSupp);
 		
 		// Update de la liste
 		listComp.addMouseListener(new MouseAdapter() {
@@ -372,22 +458,34 @@ public class menu extends JFrame {
 				menuCompUpdateInsc();
 				menuCompUpdateDesinsc();
 				menuCompUpdateMod();
-				menuCompUpdateSupp();
-			}
-
-			private void menuCompUpdateSupp() {
-				// TODO Auto-generated method stub
-				
 			}
 
 			private void menuCompUpdateMod() {
-				// TODO Auto-generated method stub
-				
+				String Eq = "0";
+				Competition choix = Listecomp.get(listComp.getSelectedIndex());
+				tFCompModCompNom.setText(choix.getNom());
+				tFCompModCompDate.setText(choix.getDateCloture().toString());
+				if(choix.estEnEquipe())
+					Eq = "1";
+				tFCompModCompEq.setText(Eq);
 			}
 
 			private void menuCompUpdateDesinsc() {
-				// TODO Auto-generated method stub
-				
+				listCompDesinsc.removeAll();
+				ArrayList<Candidat> Uneliste = new ArrayList<Candidat>();
+				Uneliste.addAll(co.getlisteCandidat((Listecomp.get(listComp.getSelectedIndex()))));
+
+				for(Candidat c : Uneliste)
+				{
+					if(c.getSub()==Listecomp.get(listComp.getSelectedIndex()).estEnEquipe())
+					{
+						if(c.getSub())
+							listCompDesinsc.add(c.getNom());
+						else
+							listCompDesinsc.add(c.getNom()+" "+c.getPrenom());
+					}
+							
+				}
 			}
 
 			private void menuCompUpdateInsc() {
@@ -505,6 +603,20 @@ public class menu extends JFrame {
 						listCompInsc.add(c.getNom());
 					else
 						listCompInsc.add(c.getNom()+" "+c.getPrenom());
+				}
+			}
+		
+		listCompDesinsc.removeAll();
+		
+		if(listComp.getSelectedIndex()>=0)
+			for(Candidat c : co.getNonInscrits(Listecomp.get(listComp.getSelectedIndex())))
+			{
+				if(c.getSub()==Listecomp.get(listComp.getSelectedIndex()).estEnEquipe())
+				{
+					if(c.getSub())
+						listCompDesinsc.add(c.getNom());
+					else
+						listCompDesinsc.add(c.getNom()+" "+c.getPrenom());
 				}
 			}
 	}
