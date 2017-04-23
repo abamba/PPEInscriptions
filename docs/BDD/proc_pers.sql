@@ -70,3 +70,16 @@ BEGIN
     DELETE FROM INSCRIRE WHERE id_candidat=id_c;
 END |
 DELIMITER ; 
+
+DROP PROCEDURE IF EXISTS getListeComp;
+DELIMITER |
+CREATE PROCEDURE getListeComp(id_c int)
+BEGIN
+    SET @n=0;
+    SELECT @n:=@n+1 AS Ligne, a.id_compet AS ID, a.nom_compet AS Competition, a.dateClot_compet AS Date_cloture, a.enEquipe AS En_equipe
+    FROM COMPETITION a, INSCRIRE, CANDIDAT
+    WHERE INSCRIRE.id_compet = a.id_compet
+    AND INSCRIRE.id_candidat = CANDIDAT.id_candidat
+    AND CANDIDAT.id_candidat=id_c;
+END |
+DELIMITER ;

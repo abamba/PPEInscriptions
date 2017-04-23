@@ -165,6 +165,42 @@ public class Connect {
 		return competitions;
 	}
 	
+	public SortedSet<Competition> getListeComp(Candidat cand)
+	{
+		String url = DB_URL;
+		String log = USER;
+		String pw = PASS;
+		Connection cn = null; Statement st = null; ResultSet rs = null; 
+		SortedSet<Competition> competitions = new TreeSet<>(); 
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			cn = (Connection) DriverManager.getConnection(url, log, pw);
+			st = (Statement) cn.createStatement();
+			String sql = "call ListeComp("+cand.getId()+")";
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				Competition competition = new Competition(Inscriptions.getInscriptions(), rs.getString(3), rs.getDate(4).toLocalDate(), rs.getBoolean(5));
+		        competition.setId(rs.getInt(2));
+				competitions.add(competition);
+			}
+		}
+		catch (SQLException e) {
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				cn.close();
+				st.close();
+			}
+			catch (SQLException e){
+				e.printStackTrace();;
+			}
+		}
+		return competitions;
+	}
+	
 	/**
 	 * Retourne la liste des candidats de la compétition id_comp
 	 * @param comp

@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import persistance.Connect;
 
@@ -30,12 +31,14 @@ import java.awt.GridBagConstraints;
 import java.awt.List;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.awt.Button;
 import javax.swing.JTable;
 
 public class ihmCand extends JFrame {
 	
 	static List listCand = new List();
+	static ArrayList<Candidat> Listecand = new ArrayList<Candidat>();
 	private JPanel contentPane;
 	private Connect co = Inscriptions.getInscriptions().getConnect();
 	private JTable tableCandEstInsc;
@@ -92,7 +95,7 @@ public class ihmCand extends JFrame {
 		panCandEstInsc.setLayout(null);
 		
 		tableCandEstInsc = new JTable();
-		tableCandEstInsc.setBounds(10, 339, 199, -327);
+		tableCandEstInsc.setBounds(10, 11, 199, 336);
 		panCandEstInsc.add(tableCandEstInsc);
 		for(Candidat c : Inscriptions.getInscriptions().getCandidats())
 		{
@@ -146,8 +149,22 @@ public class ihmCand extends JFrame {
 		panCandSuppr.setLayout(null);
 		
 		Button buttonCandSuppr = new Button("Supprimer le candidat");
+		buttonCandSuppr.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				co.delCandidat(Listecand.get(listCand.getSelectedIndex()));
+				
+				listCand.removeAll();
+				
+				for(Competition c : Inscriptions.getInscriptions().getCompetitions())
+				{
+					listCand.add(c.getNom());
+				}
+			}
+		});
 		buttonCandSuppr.setBounds(10, 10, 199, 22);
 		panCandSuppr.add(buttonCandSuppr);
+		
 		
 		//Liste des candidats
 		
@@ -168,5 +185,16 @@ public class ihmCand extends JFrame {
 			else
 				list.add(c.getPrenom()+" "+c.getNom());			
 		}
+		DefaultTableModel tableCandEstInsc = new DefaultTableModel();
+		tabCandEstInsc.setModel(tableCandEstInsc);
+        tableCandEstInsc.setRowCount(0);
+        tableCandEstInsc.addColumn(new Object[]{"Nom"});
+
+        tableCandEstInsc.addRow(new Object[]{"Nom"});
+
+        for(Competition c : co.getListeComp())
+        {
+            tableCandEstInsc.addRow(new Object[]{c.getNom(),c.getDateCloture(),c.estEnEquipe()});
+        }
 	}
 }
