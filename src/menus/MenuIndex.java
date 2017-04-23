@@ -73,7 +73,7 @@ public class MenuIndex {
 				System.out.println(i+" | "+c.getNom()+" | "+c.getPrenom());
 		}
 	}
-
+	
 	public static Candidat choixCand(Boolean sub)
 	{
 		if(cand.size()>0)
@@ -113,8 +113,11 @@ public class MenuIndex {
 		int i = 0;
 		for(Candidat c : pers)
 		{
-			i++;
-			System.out.println(i+" | "+c.getNom()+" | "+c.getPrenom());
+			if(!c.getSub())
+			{
+				i++;
+				System.out.println(i+" | "+c.getNom()+" | "+c.getPrenom());
+			}
 		}
 	}
 

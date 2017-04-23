@@ -131,7 +131,7 @@ public class MenuInscriptions extends MenuIndex {
 			public void optionSelectionnee()
 			{
 				reset();
-				affCand();
+				affPers();
 			}
 		};
 	}
