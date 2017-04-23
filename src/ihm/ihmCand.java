@@ -7,7 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import persistance.Connect;
+
 import inscriptions.Candidat;
+import inscriptions.Competition;
 import inscriptions.Inscriptions;
 
 import javax.swing.JTabbedPane;
@@ -30,8 +33,10 @@ import java.awt.event.MouseEvent;
 import java.awt.Button;
 
 public class ihmCand extends JFrame {
-
+	
+	static List listCand = new List();
 	private JPanel contentPane;
+	private Connect co = Inscriptions.getInscriptions().getConnect();
 
 	/**
 	 * Launch the application.
@@ -87,6 +92,10 @@ public class ihmCand extends JFrame {
 		List listCandEstInsc = new List();
 		listCandEstInsc.setBounds(10, 10, 199, 338);
 		panCandEstInsc.add(listCandEstInsc);
+		for(Candidat c : Inscriptions.getInscriptions().getCandidats())
+		{
+			listCandEstInsc = co.ListeComp(listCand.getSelectedObjects());		
+		}
 		
 		//Inscrire un candidat à une compétition
 		JPanel panCandInscA = new JPanel();
@@ -139,8 +148,23 @@ public class ihmCand extends JFrame {
 		panCandSuppr.add(buttonCandSuppr);
 		
 		//Liste des candidats
-		List listCand = new List();
+		
 		listCand.setBounds(10, 11, 219, 403);
 		panCand.add(listCand);
+		
+		menuCandReset(listCand);
+	}
+	
+	public void menuCandReset(List list)
+	{
+		list.removeAll();
+		
+		for(Candidat c : Inscriptions.getInscriptions().getCandidats())
+		{
+			if(c.getSub())
+				list.add("Equipe \""+c.getNom()+"\"");
+			else
+				list.add(c.getPrenom()+" "+c.getNom());			
+		}
 	}
 }
