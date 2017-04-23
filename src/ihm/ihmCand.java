@@ -31,12 +31,14 @@ import java.awt.List;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Button;
+import javax.swing.JTable;
 
 public class ihmCand extends JFrame {
 	
 	static List listCand = new List();
 	private JPanel contentPane;
 	private Connect co = Inscriptions.getInscriptions().getConnect();
+	private JTable tableCandEstInsc;
 
 	/**
 	 * Launch the application.
@@ -89,9 +91,9 @@ public class ihmCand extends JFrame {
 		PaneCandIntérieur.addTab("Est inscrit \u00E0", null, panCandEstInsc, null);
 		panCandEstInsc.setLayout(null);
 		
-		List listCandEstInsc = new List();
-		listCandEstInsc.setBounds(10, 10, 199, 338);
-		panCandEstInsc.add(listCandEstInsc);
+		tableCandEstInsc = new JTable();
+		tableCandEstInsc.setBounds(10, 339, 199, -327);
+		panCandEstInsc.add(tableCandEstInsc);
 		for(Candidat c : Inscriptions.getInscriptions().getCandidats())
 		{
 			listCandEstInsc = co.ListeComp(listCand.getSelectedObjects());		
