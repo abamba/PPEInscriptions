@@ -36,6 +36,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import javax.swing.JSlider;
 import javax.swing.JTextPane;
@@ -47,9 +48,15 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import java.time.format.DateTimeFormatter;
+import javax.swing.JSplitPane;
 
 public class menu extends JFrame {
-
+	static List listComp = new List();
+	static ArrayList<Competition> Listecomp = new ArrayList<Competition>();
+	static ArrayList<Candidat> Listecand = new ArrayList<Candidat>();
+	static ArrayList<Candidat> Listeeq = new ArrayList<Candidat>();
+	static ArrayList<Candidat> Listepers = new ArrayList<Candidat>();
+	
 	private JPanel contentPane;
 	private JTable tabInscAffComp;
 	private JTable tabInscAffCand;
@@ -63,6 +70,7 @@ public class menu extends JFrame {
 	private JTextField tFInscAddCandPrenom;
 	private JTextField tFInscAddCandMail;
 	private JTextField tFInscAddEqNom;
+	private JTable tabCompListeComp;
 	/**
 	 * Launch the application.
 	 */
@@ -95,6 +103,7 @@ public class menu extends JFrame {
 		contentPane.add(Conteneur);
 		
 		menuInsc(Conteneur);
+		menuComp(Conteneur);
 	}
 
 	public void menuInsc(JTabbedPane tabbedPane)
@@ -169,7 +178,7 @@ public class menu extends JFrame {
 				LocalDate date = LocalDate.parse(dated, formatter);
 				Competition comp = new Competition(Inscriptions.getInscriptions(),FtfInscAddCompNomComp.getText(),date,tglbtnInscAddCompEnEq.isSelected());
 				co.createComp(comp);
-				menuInscReset(tabInscAffComp,tabInscAffCand,tabInscAffEq);
+				menuReset();
 			}
 		});
 
@@ -218,7 +227,7 @@ public class menu extends JFrame {
 				cand.setMail(tFInscAddCandMail.getText());
 				cand.setSub(false);
 				co.createPers(cand);
-				menuInscReset(tabInscAffComp, tabInscAffCand, tabInscAffEq);
+				menuReset();
 			}
 		});
 		btnInscAddCandCréer.setBounds(172, 86, 100, 23);
@@ -248,7 +257,7 @@ public class menu extends JFrame {
 				Candidat cand = new Candidat(Inscriptions.getInscriptions(),tFInscAddEqNom.getText());
 				cand.setSub(true);
 				co.createPers(cand);
-				menuInscReset(tabInscAffComp, tabInscAffCand, tabInscAffEq);
+				menuReset();
 			}
 		});
 		btnInscAddEqCréer.setBounds(172, 86, 100, 23);
@@ -290,7 +299,109 @@ public class menu extends JFrame {
 		tabInscAffEq.setBounds(10, 10, 424, 336);
 		panInscAffEq.add(tabInscAffEq);
 
-		menuInscReset(tabInscAffComp, tabInscAffCand, tabInscAffEq);
+		menuReset();
+	}
+
+	public void menuComp(JTabbedPane tabbedPane)
+	{
+		// Onglet des Compétitions
+		
+		JPanel panComp = new JPanel();
+		tabbedPane.addTab("Comp\u00E9tition", null, panComp, null);
+		panComp.setLayout(null);
+		
+		JTabbedPane panCompIntérieur = new JTabbedPane(JTabbedPane.TOP);
+		panCompIntérieur.setBounds(234, 11, 224, 401);
+		panComp.add(panCompIntérieur);
+		
+		// Liste des candidats inscrits
+		
+		JPanel panCompListeCand = new JPanel();
+		panCompIntérieur.addTab("Inscrits", null, panCompListeCand, null);
+		panCompListeCand.setLayout(null);
+		
+		tabCompListeComp = new JTable();
+		tabCompListeComp.setBounds(10, 10, 199, 336);
+		tabCompListeComp.setEnabled(false);
+		panCompListeCand.add(tabCompListeComp);
+		
+		// Inscrire un candidat
+		
+		JPanel panCompInscCand = new JPanel();
+		panCompIntérieur.addTab("Inscrire", null, panCompInscCand, null);
+		
+		// Désinscrire un candidat
+		
+		JPanel panCompDésinscCand = new JPanel();
+		panCompIntérieur.addTab("D\u00E9sinscrire", null, panCompDésinscCand, null);
+		
+		// Modifier une compétition
+		
+		JPanel panCompModCamp = new JPanel();
+		panCompIntérieur.addTab("Modifier", null, panCompModCamp, null);
+		
+		// Supprimer une compétition
+		
+		JPanel panCompSuppComp = new JPanel();
+		panCompIntérieur.addTab("Supprimer", null, panCompSuppComp, null);
+		
+		// Update de la liste
+		listComp.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				menuCompUpdateListe(tabCompListeComp);
+				menuCompUpdateInsc();
+				menuCompUpdateDesinsc();
+				menuCompUpdateMod();
+				menuCompUpdateSupp();
+			}
+
+			private void menuCompUpdateSupp() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			private void menuCompUpdateMod() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			private void menuCompUpdateDesinsc() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			private void menuCompUpdateInsc() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			private void menuCompUpdateListe(JTable tabCompListeComp) {
+				DefaultTableModel modelTabCompListeComp = new DefaultTableModel();
+				tabCompListeComp.setModel(modelTabCompListeComp);
+				modelTabCompListeComp.setRowCount(0);
+				modelTabCompListeComp.addColumn(new Object[]{"Nom","Date de cloture","En équipe"});
+				
+				modelTabCompListeComp.addRow(new Object[]{"Nom","Date de cloture","En équipe"});
+				
+				Listecomp.addAll(Inscriptions.getInscriptions().getCompetitions());
+				
+				for(Candidat c : co.getlisteCandidat(Listecomp.get(listComp.getSelectedIndex())))
+				{
+					modelTabCompListeComp.addRow(new Object[]{c.getNom()});
+				}
+			}
+		});
+		listComp.setBounds(10, 11, 218, 401);
+		panComp.add(listComp);
+		
+		menuCompReset(listComp);
+	}
+	
+	public void menuReset()
+	{
+		menuInscReset(tabInscAffComp,tabInscAffCand,tabInscAffEq);
+		menuCompReset(listComp);
 	}
 	
 	public void menuInscReset(JTable tabInscAffComp, JTable tabInscAffCand, JTable tabInscAffEq)
@@ -338,6 +449,16 @@ public class menu extends JFrame {
 		{
 			if(c.getSub())
 				modelTabInscAffEq.addRow(new Object[]{c.getNom()});
+		}
+	}
+
+	public void menuCompReset(List list)
+	{
+		list.removeAll();
+		
+		for(Competition c : Inscriptions.getInscriptions().getCompetitions())
+		{
+			list.add(c.getNom());
 		}
 	}
 }
