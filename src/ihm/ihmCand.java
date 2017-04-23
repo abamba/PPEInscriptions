@@ -102,7 +102,7 @@ public class ihmCand extends JFrame {
 		panCandEstInsc.add(tableCandEstInsc);
 		for(Candidat c : Inscriptions.getInscriptions().getCandidats())
 		{
-			listCandEstInsc = co.ListeComp(listCand.getSelectedObjects());		
+			//listCandEstInsc = co.ListeComp(listCand.getSelectedObjects());		
 		}
 		
 		//Inscrire un candidat à une compétition
@@ -179,7 +179,7 @@ public class ihmCand extends JFrame {
 
 					ModelCandEstInsc.addRow(new Object[]{"Nom"});
 			        Listecand.addAll(Inscriptions.getInscriptions().getCandidats()); 
-			        
+
 			        for(Competition c : co.getListeComp(Listecand.get(listCand.getSelectedIndex())))
 			        {
 			        	ModelCandEstInsc.addRow(new Object[]{c.getNom()});

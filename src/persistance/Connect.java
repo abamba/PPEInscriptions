@@ -176,7 +176,7 @@ public class Connect {
 			Class.forName("com.mysql.jdbc.Driver");
 			cn = (Connection) DriverManager.getConnection(url, log, pw);
 			st = (Statement) cn.createStatement();
-			String sql = "call ListeComp("+cand.getId()+")";
+			String sql = "call getListeComp("+cand.getId()+")";
 			rs = st.executeQuery(sql);
 			while (rs.next()) {
 				Competition competition = new Competition(Inscriptions.getInscriptions(), rs.getString(3), rs.getDate(4).toLocalDate(), rs.getBoolean(5));
