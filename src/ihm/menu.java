@@ -52,6 +52,7 @@ import javax.swing.JSplitPane;
 
 public class menu extends JFrame {
 	static List listComp = new List();
+	static List listCompInsc = new List();
 	static ArrayList<Competition> Listecomp = new ArrayList<Competition>();
 	static ArrayList<Candidat> Listecand = new ArrayList<Candidat>();
 	static ArrayList<Candidat> Listeeq = new ArrayList<Candidat>();
@@ -329,6 +330,24 @@ public class menu extends JFrame {
 		
 		JPanel panCompInscCand = new JPanel();
 		panCompIntérieur.addTab("Inscrire", null, panCompInscCand, null);
+		panCompInscCand.setLayout(null);
+		
+		listCompInsc.setBounds(10, 10, 199, 310);
+		panCompInscCand.add(listCompInsc);
+		
+		JButton btnCompInscCompInsc = new JButton("Inscrire");
+		btnCompInscCompInsc.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ArrayList<Candidat> Uneliste = new ArrayList<Candidat>();
+				Uneliste.addAll(co.getNonInscrits(Listecomp.get(listComp.getSelectedIndex())));
+				System.out.println(Uneliste);
+				co.inscComp(Uneliste.get(listCompInsc.getSelectedIndex()), Listecomp.get(listComp.getSelectedIndex()));
+				menuReset();
+			}
+		});
+		btnCompInscCompInsc.setBounds(10, 323, 199, 23);
+		panCompInscCand.add(btnCompInscCompInsc);
 		
 		// Désinscrire un candidat
 		
@@ -349,7 +368,7 @@ public class menu extends JFrame {
 		listComp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				menuCompUpdateListe(tabCompListeComp);
+				menuCompUpdateListe();
 				menuCompUpdateInsc();
 				menuCompUpdateDesinsc();
 				menuCompUpdateMod();
@@ -372,11 +391,25 @@ public class menu extends JFrame {
 			}
 
 			private void menuCompUpdateInsc() {
-				// TODO Auto-generated method stub
 				
+				listCompInsc.removeAll();
+				ArrayList<Candidat> Uneliste = new ArrayList<Candidat>();
+				Uneliste.addAll(co.getNonInscrits(Listecomp.get(listComp.getSelectedIndex())));
+				
+				for(Candidat c : Uneliste)
+				{
+					if(c.getSub()==Listecomp.get(listComp.getSelectedIndex()).estEnEquipe())
+					{
+						if(c.getSub())
+							listCompInsc.add(c.getNom());
+						else
+							listCompInsc.add(c.getNom()+" "+c.getPrenom());
+					}
+							
+				}
 			}
 
-			private void menuCompUpdateListe(JTable tabCompListeComp) {
+			private void menuCompUpdateListe() {
 				DefaultTableModel modelTabCompListeComp = new DefaultTableModel();
 				tabCompListeComp.setModel(modelTabCompListeComp);
 				modelTabCompListeComp.setRowCount(0);
@@ -460,5 +493,19 @@ public class menu extends JFrame {
 		{
 			list.add(c.getNom());
 		}
+		
+		listCompInsc.removeAll();
+		
+		if(listComp.getSelectedIndex()>=0)
+			for(Candidat c : co.getNonInscrits(Listecomp.get(listComp.getSelectedIndex())))
+			{
+				if(c.getSub()==Listecomp.get(listComp.getSelectedIndex()).estEnEquipe())
+				{
+					if(c.getSub())
+						listCompInsc.add(c.getNom());
+					else
+						listCompInsc.add(c.getNom()+" "+c.getPrenom());
+				}
+			}
 	}
 }

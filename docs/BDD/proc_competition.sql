@@ -49,3 +49,12 @@ BEGIN
     DELETE FROM COMPETITION WHERE id_compet=id_cpt; 
 END |
 DELIMITER ;
+
+#Candidats non inscrits
+DROP PROCEDURE IF EXISTS getNonInscrits;
+DELIMITER |
+CREATE PROCEDURE getNonInscrits(id_comp int)
+BEGIN
+    select * from Candidat WHERE id_candidat NOT IN (SELECT id_candidat from Inscrire WHERE id_compet = id_comp) AND Candidat.sub IN (SELECT enEquipe FROM Competition WHERE id_compet = id_comp);
+END |
+DELIMITER ;
