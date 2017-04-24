@@ -581,6 +581,14 @@ public class menu extends JFrame {
 			if(c.getSub())
 				modelTabInscAffEq.addRow(new Object[]{c.getNom()});
 		}
+		
+		tFInscAddCandNom.setText("");
+		tFInscAddCandPrenom.setText("");
+		tFInscAddCandMail.setText("");
+		tFInscAddCompAnnee.setText("");
+		tFInscAddCompMois.setText("");
+		tFInscAddCompJour.setText("");
+		tFInscAddEqNom.setText("");
 	}
 
 	public void menuCompReset(List list)

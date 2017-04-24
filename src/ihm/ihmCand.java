@@ -176,6 +176,15 @@ public class ihmCand extends JFrame {
 				choix.setPrenom(tFModCandPrenom.getText());
 				choix.setMail(tFModCandMail.getText());
 				co.modPers(choix);
+				listCand.removeAll();
+
+		        for(Candidat c : Inscriptions.getInscriptions().getCandidats())
+		        {
+		            if(c.getSub())
+		                listCand.add("Equipe \""+c.getNom()+"\"");
+		            else
+		                listCand.add(c.getPrenom()+" "+c.getNom());
+		        }
 			}
 		});
 		btnModCand.setBounds(10, 98, 199, 23);
@@ -234,16 +243,6 @@ public class ihmCand extends JFrame {
 			        tFModCandNom.setText(choix.getNom());
 			        tFModCandPrenom.setText(choix.getPrenom());
 					tFModCandMail.setText(choix.getMail());
-					
-					listCand.removeAll();
-
-			        for(Candidat c : Inscriptions.getInscriptions().getCandidats())
-			        {
-			            if(c.getSub())
-			                listCand.add("Equipe \""+c.getNom()+"\"");
-			            else
-			                listCand.add(c.getPrenom()+" "+c.getNom());
-			        }
 				}
 			}
 		});
