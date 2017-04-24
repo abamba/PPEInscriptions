@@ -467,8 +467,96 @@ public class Connect {
 	 * @param cand
 	 */
 	
-	public void Composition(Candidat cand)
+	public SortedSet<Candidat> Composition(Candidat cand)
 	{
-		sql("call Composition("+cand.getId()+")");
+			String url = DB_URL;
+			String log = USER;
+			String pw = PASS;
+			Connection cn = null; Statement st = null; ResultSet rs = null; 
+			SortedSet<Candidat> candidats = new TreeSet<>(); 
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				cn = (Connection) DriverManager.getConnection(url, log, pw);
+				st = (Statement) cn.createStatement();
+				String sql = "call Composition("+cand.getId()+")";
+				rs = st.executeQuery(sql);
+				while (rs.next()) {
+					Candidat candidat = new Candidat(Inscriptions.getInscriptions(), rs.getString(2));
+			        candidat.setId(rs.getInt(1)); 
+			        if (rs.getBoolean(3)) 
+			        {
+			        	candidat.setPrenom(null);
+			        }else{
+			        	candidat.setPrenom(rs.getString(4));
+			        }
+			        candidat.setSub(rs.getBoolean(3));
+			        candidat.setMail(rs.getString(5));
+					candidats.add(candidat);
+				}
+			}
+			catch (SQLException e) {
+			}
+			catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			finally {
+				try {
+					cn.close();
+					st.close();
+				}
+				catch (SQLException e){
+					e.printStackTrace();;
+				}
+			}
+			return candidats;
+	}
+	
+	public SortedSet<Candidat> CompositionEquipe(Candidat cand)
+	{
+			String url = DB_URL;
+			String log = USER;
+			String pw = PASS;
+			Connection cn = null; Statement st = null; ResultSet rs = null; 
+			SortedSet<Candidat> candidats = new TreeSet<>(); 
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				cn = (Connection) DriverManager.getConnection(url, log, pw);
+				st = (Statement) cn.createStatement();
+				String sql = "call CompositionEquipe("+cand.getId()+")";
+				rs = st.executeQuery(sql);
+				while (rs.next()) {
+					Candidat candidat = new Candidat(Inscriptions.getInscriptions(), rs.getString(2));
+			        candidat.setId(rs.getInt(1)); 
+			        if (rs.getBoolean(3)) 
+			        {
+			        	candidat.setPrenom(null);
+			        }else{
+			        	candidat.setPrenom(rs.getString(4));
+			        }
+			        candidat.setSub(rs.getBoolean(3));
+			        candidat.setMail(rs.getString(5));
+					candidats.add(candidat);
+				}
+			}
+			catch (SQLException e) {
+			}
+			catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			finally {
+				try {
+					cn.close();
+					st.close();
+				}
+				catch (SQLException e){
+					e.printStackTrace();;
+				}
+			}
+			return candidats;
+	}
+	
+	public void Compose(Candidat choix_eq, Candidat choix)
+	{
+		sql("call Compose("+choix_eq.getId()+","+choix.getId()+")");
 	}
 }

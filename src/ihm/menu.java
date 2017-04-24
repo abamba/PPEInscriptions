@@ -1,6 +1,7 @@
 package ihm;
 
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -43,6 +44,7 @@ import javax.swing.JTextPane;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JToggleButton;
+import javax.swing.UIManager;
 import javax.swing.JButton;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -56,15 +58,22 @@ public class menu extends JFrame {
 	static List listComp = new List();
 	static List listCompInsc = new List();
 	static List listCompDesinsc = new List();
+	static List listCand = new List();
 	static ArrayList<Competition> Listecomp = new ArrayList<Competition>();
 	static ArrayList<Candidat> Listecand = new ArrayList<Candidat>();
 	static ArrayList<Candidat> Listeeq = new ArrayList<Candidat>();
 	static ArrayList<Candidat> Listepers = new ArrayList<Candidat>();
 	
+	private JTable tableCandEstInsc;
+	private JTextField tFModCandNom;
+	private JTextField tFModCandPrenom;
+	private JTextField tFModCandMail;
+	
 	private JPanel contentPane;
 	private JTable tabInscAffComp;
 	private JTable tabInscAffCand;
 	private JTable tabInscAffEq;
+	private JTextField tFInscAddCompNom;
 	private JTextField tFInscAddCompAnnee;
 	private JTextField tFInscAddCompMois;
 	private JTextField tFInscAddCompJour;
@@ -78,6 +87,7 @@ public class menu extends JFrame {
 	private JTextField tFCompModCompNom;
 	private JTextField tFCompModCompDate;
 	private JTextField tFCompModCompEq;
+	private JTable tabCandAppartEq;
 	/**
 	 * Launch the application.
 	 */
@@ -111,6 +121,7 @@ public class menu extends JFrame {
 		
 		menuInsc(Conteneur);
 		menuComp(Conteneur);
+		menuCand(Conteneur);
 	}
 
 	public void menuInsc(JTabbedPane tabbedPane)
@@ -132,9 +143,9 @@ public class menu extends JFrame {
 		panInscIntérieur.addTab("Cr\u00E9er Comp\u00E9tition", null, panInscAddComp, null);
 		panInscAddComp.setLayout(null);
 		
-		JFormattedTextField FtfInscAddCompNomComp = new JFormattedTextField();
-		FtfInscAddCompNomComp.setBounds(228, 11, 206, 20);
-		panInscAddComp.add(FtfInscAddCompNomComp);
+		JTextField tFInscAddCompNom = new JTextField();
+		tFInscAddCompNom.setBounds(228, 11, 206, 20);
+		panInscAddComp.add(tFInscAddCompNom);
 		
 		JLabel LblInscAddCompNomComp = new JLabel("Nom de la Comp\u00E9tition");
 		LblInscAddCompNomComp.setBounds(10, 14, 206, 14);
@@ -183,7 +194,7 @@ public class menu extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				String dated = tFInscAddCompAnnee.getText()+"-"+tFInscAddCompMois.getText()+"-"+tFInscAddCompJour.getText();
 				LocalDate date = LocalDate.parse(dated, formatter);
-				Competition comp = new Competition(Inscriptions.getInscriptions(),FtfInscAddCompNomComp.getText(),date,tglbtnInscAddCompEnEq.isSelected());
+				Competition comp = new Competition(Inscriptions.getInscriptions(),tFInscAddCompNom.getText(),date,tglbtnInscAddCompEnEq.isSelected());
 				co.createComp(comp);
 				menuReset();
 			}
@@ -349,6 +360,11 @@ public class menu extends JFrame {
 				Uneliste.addAll(co.getNonInscrits(Listecomp.get(listComp.getSelectedIndex())));
 				co.inscComp(Uneliste.get(listCompInsc.getSelectedIndex()), Listecomp.get(listComp.getSelectedIndex()));
 				menuReset();
+				
+				for(Candidat c : Uneliste)
+				{
+					listCompDesinsc.add(c.getNom());
+				}
 			}
 		});
 		btnCompInscCompInsc.setBounds(10, 323, 199, 23);
@@ -422,6 +438,14 @@ public class menu extends JFrame {
 				Unecomp.setDateCloture(date);
 				Unecomp.setEnEquipe(boo);
 				co.modComp(Unecomp);
+				
+				listComp.removeAll();
+				Listecomp.clear();
+				Listecomp.addAll(co.getComp());
+				for(Competition c : Inscriptions.getInscriptions().getCompetitions())
+				{
+					listComp.add(c.getNom());
+				}
 			}
 		});
 		btnCompModCompValider.setBounds(10, 86, 199, 23);
@@ -533,6 +557,7 @@ public class menu extends JFrame {
 	{
 		menuInscReset(tabInscAffComp,tabInscAffCand,tabInscAffEq);
 		menuCompReset(listComp);
+		menuCandReset(listCand);
 	}
 	
 	public void menuInscReset(JTable tabInscAffComp, JTable tabInscAffCand, JTable tabInscAffEq)
@@ -627,5 +652,325 @@ public class menu extends JFrame {
 						listCompDesinsc.add(c.getNom()+" "+c.getPrenom());
 				}
 			}
+	}
+	
+	public void menuCand(JTabbedPane tabbedPane)
+	{	
+		//Onglet Candidat 
+		
+		JPanel panCand = new JPanel();
+		tabbedPane.addTab("Candidat", null, panCand, null);
+		panCand.setLayout(null);
+		
+		JTabbedPane PaneCandIntérieur = new JTabbedPane(JTabbedPane.TOP);
+		PaneCandIntérieur.setBounds(235, 11, 224, 402);
+		panCand.add(PaneCandIntérieur);
+		
+		//Liste des inscriptions d'un candidat
+		JPanel panCandEstInsc = new JPanel();
+		panCandEstInsc.setBackground(UIManager.getColor("Button.light"));
+		PaneCandIntérieur.addTab("Est inscrit \u00E0", null, panCandEstInsc, null);
+		panCandEstInsc.setLayout(null);
+		
+		tableCandEstInsc = new JTable();
+		tableCandEstInsc.setEnabled(false);
+		tableCandEstInsc.setRowSelectionAllowed(false);
+		tableCandEstInsc.setBounds(10, 11, 199, 336);
+		panCandEstInsc.add(tableCandEstInsc);
+		
+		
+		//Inscrire un candidat à une compétition
+		JPanel panCandInscA = new JPanel();
+		PaneCandIntérieur.addTab("Inscrire \u00E0", null, panCandInscA, null);
+		panCandInscA.setLayout(null);
+		
+		List listCandInscA = new List();
+		listCandInscA.setBounds(10, 10, 199, 281);
+		panCandInscA.add(listCandInscA);
+		
+		Button btnCandInscA = new Button("Enregistrer");
+		btnCandInscA.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Candidat choix = Listecand.get(listCand.getSelectedIndex());
+				Listecomp.clear();
+				for (Competition c : Inscriptions.getInscriptions().getCompetitions())
+				{
+					if(c.estEnEquipe()==choix.getSub())
+						Listecomp.add(c);
+				}
+				Competition choix_comp = Listecomp.get(listCandInscA.getSelectedIndex());
+				co.inscComp(choix, choix_comp);
+			}
+		});
+		btnCandInscA.setActionCommand("Enregistrer");
+		btnCandInscA.setBounds(74, 297, 70, 22);
+		panCandInscA.add(btnCandInscA);
+		
+		//Désinscrire un candidat d'une compétition
+		JPanel panCandDesisnc = new JPanel();
+		PaneCandIntérieur.addTab("D\u00E9sinscrire de", null, panCandDesisnc, null);
+		panCandDesisnc.setLayout(null);
+		
+		List listCandDesinscDe = new List();
+		listCandDesinscDe.setBounds(10, 10, 199, 287);
+		panCandDesisnc.add(listCandDesinscDe);
+		
+		Button btnCandDesinsc = new Button("D\u00E9sinscrire");
+		btnCandDesinsc.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Candidat choixCandidat = Listecand.get(listCand.getSelectedIndex());
+				Listecomp.addAll(co.getListeComp(choixCandidat));
+				Competition choixComp = Listecomp.get(listCandDesinscDe.getSelectedIndex());
+				co.desinscComp(choixComp, choixCandidat);
+				listCandDesinscDe.removeAll();
+				for(Competition c : co.getListeComp(choixCandidat))
+				{
+					listCandDesinscDe.add(c.getNom());
+				}
+				menuReset();
+			}
+		});
+		btnCandDesinsc.setBounds(72, 303, 70, 22);
+		panCandDesisnc.add(btnCandDesinsc);
+		
+		//Modifier un candidat
+		JPanel panCandMod = new JPanel();
+		PaneCandIntérieur.addTab("Modifier", null, panCandMod, null);
+		panCandMod.setLayout(null);
+		
+		JLabel lblNom = new JLabel("Nom");
+		lblNom.setBounds(10, 11, 46, 14);
+		panCandMod.add(lblNom);
+		
+		tFModCandNom = new JTextField();
+		tFModCandNom.setBounds(66, 8, 143, 20);
+		panCandMod.add(tFModCandNom);
+		tFModCandNom.setColumns(10);
+		
+		JLabel lblPrnom = new JLabel("Pr\u00E9nom");
+		lblPrnom.setBounds(10, 42, 46, 14);
+		panCandMod.add(lblPrnom);
+		
+		tFModCandPrenom = new JTextField();
+		tFModCandPrenom.setBounds(66, 39, 143, 20);
+		panCandMod.add(tFModCandPrenom);
+		tFModCandPrenom.setColumns(10);
+		
+		JLabel lblMail = new JLabel("Mail");
+		lblMail.setBounds(10, 73, 46, 14);
+		panCandMod.add(lblMail);
+		
+		tFModCandMail = new JTextField();
+		tFModCandMail.setBounds(66, 70, 143, 20);
+		panCandMod.add(tFModCandMail);
+		tFModCandMail.setColumns(10);
+		
+		JButton btnModCand = new JButton("Enregistrer");
+		btnModCand.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Candidat choix = Listecand.get(listCand.getSelectedIndex());
+				choix.setNom(tFModCandNom.getText());
+				choix.setPrenom(tFModCandPrenom.getText());
+				choix.setMail(tFModCandMail.getText());
+				co.modPers(choix);
+				menuCandReset(listCand);
+			}
+		});
+		btnModCand.setBounds(10, 98, 199, 23);
+		panCandMod.add(btnModCand);
+		
+		//Equipes auxquels appartient un candidat
+		JPanel panCandAppartEq = new JPanel();
+		PaneCandIntérieur.addTab("Equipes", null, panCandAppartEq, null);
+		panCandAppartEq.setLayout(null);
+		
+		List listCandAppartEq = new List();
+		listCandAppartEq.setBounds(10, 171, 199, 101);
+		panCandAppartEq.add(listCandAppartEq);
+		
+		tabCandAppartEq = new JTable();
+		tabCandAppartEq.setBounds(10, 39, 199, 101);
+		panCandAppartEq.add(tabCandAppartEq);
+		
+		JButton btnValiderEquipe = new JButton("Ajouter");
+		btnValiderEquipe.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Candidat choix = Listecand.get(listCand.getSelectedIndex());
+				Listeeq.clear();
+				for(Candidat c : Inscriptions.getInscriptions().getCandidats())
+				{
+					if(c.getSub()!=choix.getSub())
+					{
+						Listeeq.add(c);
+					}
+				}
+				Candidat choix_eq = Listeeq.get(listCandAppartEq.getSelectedIndex());
+				if(choix.getSub())
+					co.Compose(choix_eq,choix);
+				else
+					co.Compose(choix,choix_eq);
+			}
+		});
+		btnValiderEquipe.setBounds(67, 278, 89, 23);
+		panCandAppartEq.add(btnValiderEquipe);
+		
+		JLabel lblMembresEquipes = new JLabel("Membres / Equipes");
+		lblMembresEquipes.setBounds(10, 11, 199, 14);
+		panCandAppartEq.add(lblMembresEquipes);
+		
+		JLabel lblNewLabel_1 = new JLabel("Ajouter un Membre / Equipe");
+		lblNewLabel_1.setBounds(10, 151, 199, 14);
+		panCandAppartEq.add(lblNewLabel_1);
+		
+		//Supprimer un candidat
+		JPanel panCandSuppr = new JPanel();
+		PaneCandIntérieur.addTab("Supprimer", null, panCandSuppr, null);
+		panCandSuppr.setLayout(null);
+		
+		Button buttonCandSuppr = new Button("Supprimer le candidat");
+		buttonCandSuppr.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				co.delCandidat(Listecand.get(listCand.getSelectedIndex()));
+				menuCandReset(listCand);
+			}
+		});
+		buttonCandSuppr.setBounds(10, 10, 199, 22);
+		panCandSuppr.add(buttonCandSuppr);
+		listCand.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(listCand.getSelectedIndex()>=0)
+				{
+					menuCandUpdateEstInsc();
+					menuCandUpdateDesinsc();
+					menuCandUpdateModInsc();
+					menuCandUpdateComposer();
+					menuCandUpdateInscrire();
+				}
+			}
+
+			private void menuCandUpdateInscrire() {
+				Candidat choix = Listecand.get(listCand.getSelectedIndex());
+				listCandInscA.removeAll();
+				for(Competition c : Inscriptions.getInscriptions().getCompetitions())
+				{
+					if(c.estEnEquipe()==choix.getSub())
+						listCandInscA.add(c.getNom());
+				}
+			}
+
+			private void menuCandUpdateComposer() {
+				
+				DefaultTableModel ModeltabCandInscA = new DefaultTableModel();
+				tabCandAppartEq.setModel(ModeltabCandInscA);
+				ModeltabCandInscA.setRowCount(0);
+				ModeltabCandInscA.addColumn(new Object[]{"Nom"});
+
+				ModeltabCandInscA.addRow(new Object[]{"Nom"});
+		        Listecand.addAll(Inscriptions.getInscriptions().getCandidats()); 
+
+				Candidat choix = Listecand.get(listCand.getSelectedIndex());
+				if(choix.getSub())
+					for(Candidat c : co.Composition(choix))
+					{
+						ModeltabCandInscA.addRow(new Object[]{c.getNom()});
+					}
+				else
+					for(Candidat c : co.CompositionEquipe(choix))
+					{
+						ModeltabCandInscA.addRow(new Object[]{"Equipe "+c.getNom()});
+					}
+				
+				listCandAppartEq.removeAll();
+				
+				for(Candidat c : Inscriptions.getInscriptions().getCandidats())
+				{
+					if(c.getSub()!=choix.getSub())
+					{
+						listCandAppartEq.add(c.getNom());
+					}
+				}
+				
+			}
+
+			private void menuCandUpdateModInsc() {
+				Candidat choix = Listecand.get(listCand.getSelectedIndex());
+		        tFModCandNom.setText(choix.getNom());
+		        tFModCandPrenom.setText(choix.getPrenom());
+				tFModCandMail.setText(choix.getMail());
+			}
+
+			private void menuCandUpdateEstInsc() {
+				DefaultTableModel ModelCandEstInsc = new DefaultTableModel();
+				tableCandEstInsc.setModel(ModelCandEstInsc);
+				ModelCandEstInsc.setRowCount(0);
+				ModelCandEstInsc.addColumn(new Object[]{"Nom"});
+
+				ModelCandEstInsc.addRow(new Object[]{"Nom"});
+		        Listecand.addAll(Inscriptions.getInscriptions().getCandidats()); 
+
+		        for(Competition c : co.getListeComp(Listecand.get(listCand.getSelectedIndex())))
+		        {
+		        	ModelCandEstInsc.addRow(new Object[]{c.getNom()});
+		        }
+			}
+
+			private void menuCandUpdateDesinsc() {
+				listCandDesinscDe.removeAll();
+				for (Competition c : co.getListeComp(Listecand.get(listCand.getSelectedIndex())))
+				{
+					listCandDesinscDe.add(c.getNom());
+				}
+			}
+		});
+		
+		
+		//Liste des candidats
+		
+		listCand.setBounds(10, 11, 219, 403);
+		panCand.add(listCand);
+		
+		menuCandReset(listCand);
+	}
+	
+	public void menuCandReset(List list)
+	{
+		list.removeAll();
+		
+		for(Candidat c : Inscriptions.getInscriptions().getCandidats())
+		{
+			if(c.getSub())
+				list.add("Equipe \""+c.getNom()+"\"");
+			else
+				list.add(c.getPrenom()+" "+c.getNom());			
+		}
+		if(listCand.getSelectedIndex()>=0)
+		{
+			DefaultTableModel ModelCandEstInsc = new DefaultTableModel();
+			tableCandEstInsc.setModel(ModelCandEstInsc);
+			ModelCandEstInsc.setRowCount(0);
+			ModelCandEstInsc.addColumn(new Object[]{"Nom"});
+
+			ModelCandEstInsc.addRow(new Object[]{"Nom"});
+	        Listecand.addAll(Inscriptions.getInscriptions().getCandidats()); 
+	        
+	        for(Competition c : co.getListeComp(Listecand.get(listCand.getSelectedIndex())))
+	        {
+	        	ModelCandEstInsc.addRow(new Object[]{c.getNom()});
+	        }
+		}
+		listCand.removeAll();
+		Listecand.clear();
+		Listecand.addAll(Inscriptions.getInscriptions().getCandidats());
+		
+		for(Candidat c : Listecand)
+		{
+			listCand.add(c.getNom());
+		}
 	}
 }
