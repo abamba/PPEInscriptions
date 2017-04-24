@@ -34,6 +34,9 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.awt.Button;
 import javax.swing.JTable;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
 
 public class ihmCand extends JFrame {
 	
@@ -45,6 +48,9 @@ public class ihmCand extends JFrame {
 	private JPanel contentPane;
 	private Connect co = Inscriptions.getInscriptions().getConnect();
 	private JTable tableCandEstInsc;
+	private JTextField tFModCandNom;
+	private JTextField tFModCandPrenom;
+	private JTextField tFModCandMail;
 
 	/**
 	 * Launch the application.
@@ -100,10 +106,7 @@ public class ihmCand extends JFrame {
 		tableCandEstInsc = new JTable();
 		tableCandEstInsc.setBounds(10, 11, 199, 336);
 		panCandEstInsc.add(tableCandEstInsc);
-		for(Candidat c : Inscriptions.getInscriptions().getCandidats())
-		{
-			//listCandEstInsc = co.ListeComp(listCand.getSelectedObjects());		
-		}
+		
 		
 		//Inscrire un candidat à une compétition
 		JPanel panCandInscA = new JPanel();
@@ -137,6 +140,47 @@ public class ihmCand extends JFrame {
 		PaneCandIntérieur.addTab("Modifier", null, panCandMod, null);
 		panCandMod.setLayout(null);
 		
+		JLabel lblNom = new JLabel("Nom");
+		lblNom.setBounds(10, 11, 46, 14);
+		panCandMod.add(lblNom);
+		
+		tFModCandNom = new JTextField();
+		tFModCandNom.setBounds(66, 8, 143, 20);
+		panCandMod.add(tFModCandNom);
+		tFModCandNom.setColumns(10);
+		
+		JLabel lblPrnom = new JLabel("Pr\u00E9nom");
+		lblPrnom.setBounds(10, 42, 46, 14);
+		panCandMod.add(lblPrnom);
+		
+		tFModCandPrenom = new JTextField();
+		tFModCandPrenom.setBounds(66, 39, 143, 20);
+		panCandMod.add(tFModCandPrenom);
+		tFModCandPrenom.setColumns(10);
+		
+		JLabel lblMail = new JLabel("Mail");
+		lblMail.setBounds(10, 73, 46, 14);
+		panCandMod.add(lblMail);
+		
+		tFModCandMail = new JTextField();
+		tFModCandMail.setBounds(66, 70, 143, 20);
+		panCandMod.add(tFModCandMail);
+		tFModCandMail.setColumns(10);
+		
+		JButton btnModCand = new JButton("Enregistrer");
+		btnModCand.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Candidat choix = Listecand.get(listCand.getSelectedIndex());
+				choix.setNom(tFModCandNom.getText());
+				choix.setPrenom(tFModCandPrenom.getText());
+				choix.setMail(tFModCandMail.getText());
+				co.modPers(choix);
+			}
+		});
+		btnModCand.setBounds(10, 98, 199, 23);
+		panCandMod.add(btnModCand);
+		
 		//Equipes auxquels appartient un candidat
 		JPanel panCandAppartEq = new JPanel();
 		PaneCandIntérieur.addTab("Appartient \u00E0", null, panCandAppartEq, null);
@@ -159,7 +203,7 @@ public class ihmCand extends JFrame {
 				
 				listCand.removeAll();
 				
-				for(Competition c : Inscriptions.getInscriptions().getCompetitions())
+				for(Candidat c : Inscriptions.getInscriptions().getCandidats())
 				{
 					listCand.add(c.getNom());
 				}
@@ -183,6 +227,22 @@ public class ihmCand extends JFrame {
 			        for(Competition c : co.getListeComp(Listecand.get(listCand.getSelectedIndex())))
 			        {
 			        	ModelCandEstInsc.addRow(new Object[]{c.getNom()});
+			        }
+			        
+			        
+			        Candidat choix = Listecand.get(listCand.getSelectedIndex());
+			        tFModCandNom.setText(choix.getNom());
+			        tFModCandPrenom.setText(choix.getPrenom());
+					tFModCandMail.setText(choix.getMail());
+					
+					listCand.removeAll();
+
+			        for(Candidat c : Inscriptions.getInscriptions().getCandidats())
+			        {
+			            if(c.getSub())
+			                listCand.add("Equipe \""+c.getNom()+"\"");
+			            else
+			                listCand.add(c.getPrenom()+" "+c.getNom());
 			        }
 				}
 			}
