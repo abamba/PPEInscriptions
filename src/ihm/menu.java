@@ -136,7 +136,7 @@ public class menu extends JFrame {
 		// Onglet des inscriptions
 
 		JPanel panInsc = new JPanel();
-		tabbedPane.addTab("Inscription", null, panInsc, null);
+		tabbedPane.addTab("Affichage", null, panInsc, null);
 		panInsc.setLayout(null);
 		JTabbedPane panInscIntérieur = new JTabbedPane(JTabbedPane.TOP);
 		panInscIntérieur.setBounds(10, 11, 449, 401);
@@ -599,9 +599,14 @@ public class menu extends JFrame {
 		
 		modelTabInscAffComp.addRow(new Object[]{"Nom","Date de cloture","Est en équipe"});
 		
+		String enEquipe;
+		
 		for(Competition c : Inscriptions.getInscriptions().getCompetitions())
 		{
-			modelTabInscAffComp.addRow(new Object[]{c.getNom(),c.getDateCloture(),c.estEnEquipe()});
+			enEquipe = "Solo";
+			if(c.estEnEquipe())
+				enEquipe = "Equipe";
+			modelTabInscAffComp.addRow(new Object[]{c.getNom(),c.getDateCloture(),enEquipe});
 		}
 		
 		// Reset l'affichage des candidats
