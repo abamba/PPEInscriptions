@@ -31,6 +31,7 @@ import javax.swing.JTextField;
 import java.awt.GridBagConstraints;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JRadioButton;
 import java.awt.List;
 import java.awt.event.MouseAdapter;
@@ -107,6 +108,7 @@ public class menu extends JFrame {
 			}
 		});
 		MenuIndex.Index();
+		
 	}
 
 	/**
@@ -212,7 +214,7 @@ public class menu extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				Candidat cand = new Candidat(Inscriptions.getInscriptions(),tFInscAddEqNom.getText());
 				cand.setSub(true);
-				co.createPers(cand);
+				i.createCandidat(cand.getNom(), cand.getPrenom(), cand.getMail(), cand.getSub());
 				menuReset();
 			}
 		});
@@ -918,7 +920,6 @@ public class menu extends JFrame {
 		
 		listCandDesinscDe.setBounds(10, 10, 199, 287);
 		panCandDesisnc.add(listCandDesinscDe);
-		
 		Button btnCandDesinsc = new Button("D\u00E9sinscrire");
 		btnCandDesinsc.addMouseListener(new MouseAdapter() {
 			@Override

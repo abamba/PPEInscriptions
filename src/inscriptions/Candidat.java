@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
+import persistance.Connect;
+
 /**
  * Candidat à un événement sportif, soit une personne physique, soit une équipe.
  */
@@ -17,6 +19,7 @@ public class Candidat implements Comparable<Candidat>, Serializable
 	private String prenom;
 	private String mail;
 	private Boolean sub; 
+	static Connect co = Inscriptions.getInscriptions().getConnect();
 	
 	public String getMail() {
 		return mail;
@@ -24,6 +27,7 @@ public class Candidat implements Comparable<Candidat>, Serializable
 
 	public void setMail(String mail) {
 		this.mail = mail;
+		co.modPers(this);
 	}
 
 	public String getPrenom() {
@@ -32,6 +36,7 @@ public class Candidat implements Comparable<Candidat>, Serializable
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
+		co.modPers(this);
 	}
 
 	private Set<Competition> competitions;
@@ -61,6 +66,7 @@ public class Candidat implements Comparable<Candidat>, Serializable
 
 	public void setSub(Boolean sub) {
 		this.sub = sub;
+		co.modPers(this);
 	}
 
 	/**
@@ -81,6 +87,7 @@ public class Candidat implements Comparable<Candidat>, Serializable
 	public void setNom(String nom)
 	{
 		this.nom = nom;
+		co.modPers(this);
 	}
 
 	/**
@@ -90,16 +97,20 @@ public class Candidat implements Comparable<Candidat>, Serializable
 
 	public Set<Competition> getCompetitions()
 	{
+		competitions.clear();
+		competitions.addAll(co.getComp());
 		return Collections.unmodifiableSet(competitions);
 	}
 	
 	boolean add(Competition competition)
 	{
+		co.inscComp(this, competition);
 		return competitions.add(competition);
 	}
 
 	boolean remove(Competition competition)
 	{
+		co.desinscComp(competition, this);
 		return competitions.remove(competition);
 	}
 
@@ -111,6 +122,7 @@ public class Candidat implements Comparable<Candidat>, Serializable
 	{
 		for (Competition c : competitions)
 			c.remove(this);
+		co.delCandidat(this);
 		inscriptions.remove(this);
 	}
 	
