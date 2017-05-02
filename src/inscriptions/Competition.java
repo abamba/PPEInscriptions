@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.util.Set;
 import java.util.TreeSet;
 
+import persistance.Connect;
+
 /**
  * Représente une compétition, c'est-à-dire un ensemble de candidats 
  * inscrits à un événement, les inscriptions sont closes à la date dateCloture.
@@ -21,7 +23,8 @@ public class Competition implements Comparable<Competition>, Serializable
 	private LocalDate dateCloture;
 	private boolean enEquipe = false;
 	private int id = -1; 
-
+	static Connect co = Inscriptions.getInscriptions().getConnect();
+	
 	public int getId() 
 	{
 		return id;
@@ -61,6 +64,7 @@ public class Competition implements Comparable<Competition>, Serializable
 	public void setNom(String nom)
 	{
 		this.nom = nom ;
+		co.modComp(this);
 	}
 	
 	/**
@@ -108,6 +112,7 @@ public class Competition implements Comparable<Competition>, Serializable
 	public void setEnEquipe(Boolean enEquipe)
 	{
 		this.enEquipe = enEquipe;
+		co.modComp(this);
 	}
 	
 	/**
@@ -132,6 +137,8 @@ public class Competition implements Comparable<Competition>, Serializable
 	
 	public Set<Candidat> getCandidats()
 	{
+		candidats.clear();
+		candidats.addAll(co.getCand());
 		return Collections.unmodifiableSet(candidats);
 	}
 	
@@ -153,6 +160,7 @@ public class Competition implements Comparable<Competition>, Serializable
 				cand.add(this);
 			else if (enEquipe && cand.getSub()) 
 				cand.add(this);
+		co.inscrireCandidat(cand, this);
 		return candidats.add(cand);
 	}
 
@@ -165,6 +173,7 @@ public class Competition implements Comparable<Competition>, Serializable
 	public boolean remove(Candidat candidat)
 	{
 		candidat.remove(this);
+		co.desinscComp(this, candidat);
 		return candidats.remove(candidat);
 	}
 	
@@ -176,6 +185,7 @@ public class Competition implements Comparable<Competition>, Serializable
 	{
 		for (Candidat candidat : candidats)
 			remove(candidat);
+		co.supprComp(this);
 		inscriptions.remove(this);
 	}
 	

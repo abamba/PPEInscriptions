@@ -100,6 +100,7 @@ public class Inscriptions implements Serializable
 	{
 		Competition competition = new Competition(this, nom, dateCloture, enEquipe);
 		competitions.add(competition);
+		co.createComp(competition);
 		return competition;
 	}
 
@@ -118,17 +119,20 @@ public class Inscriptions implements Serializable
 		cand.setMail(mail);
 		cand.setSub(sub);
 		candidats.add(cand);
+		co.createPers(cand);
 		return cand;
 	}
 	
 	public void remove(Competition competition)
 	{
 		competitions.remove(competition);
+		co.supprComp(competition);
 	}
 	
 	void remove(Candidat candidat)
 	{
 		candidats.remove(candidat);
+		co.delCandidat(candidat);
 	}
 	
 	/**
