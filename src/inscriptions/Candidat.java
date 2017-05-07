@@ -98,8 +98,13 @@ public class Candidat implements Comparable<Candidat>, Serializable
 	public Set<Competition> getCompetitions()
 	{
 		competitions.clear();
-		competitions.addAll(co.getComp());
+		competitions.addAll(co.getListeComp(this));
 		return Collections.unmodifiableSet(competitions);
+	}
+	
+	public Set<Competition> getNonCompetitions()
+	{
+		return Collections.unmodifiableSet(co.getListeNonComp(this));
 	}
 	
 	boolean add(Competition competition)

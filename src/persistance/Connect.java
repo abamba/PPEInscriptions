@@ -559,4 +559,40 @@ public class Connect {
 	{
 		sql("call Compose("+choix_eq.getId()+","+choix.getId()+")");
 	}
+	
+	public SortedSet<Competition> getListeNonComp(Candidat cand)
+	{
+		String url = DB_URL;
+		String log = USER;
+		String pw = PASS;
+		Connection cn = null; Statement st = null; ResultSet rs = null; 
+		SortedSet<Competition> competitions = new TreeSet<>(); 
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			cn = (Connection) DriverManager.getConnection(url, log, pw);
+			st = (Statement) cn.createStatement();
+			String sql = "SELECT * FROM Competition WHERE COMPETITION.id_compet NOT IN (SELECT INSCRIRE.id_compet FROM Inscrire WHERE id_candidat = "+cand.getId()+")";
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				Competition competition = new Competition(Inscriptions.getInscriptions(), rs.getString(2), rs.getDate(3).toLocalDate(), rs.getBoolean(4));
+		        competition.setId(rs.getInt(1));
+				competitions.add(competition);
+			}
+		}
+		catch (SQLException e) {
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				cn.close();
+				st.close();
+			}
+			catch (SQLException e){
+				e.printStackTrace();;
+			}
+		}
+		return competitions;
+	}
 }

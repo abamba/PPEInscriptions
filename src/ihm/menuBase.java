@@ -44,6 +44,7 @@ import java.util.Date;
 import java.util.Calendar;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.JList;
 
 public class menuBase extends JFrame {
 
@@ -55,6 +56,9 @@ public class menuBase extends JFrame {
 	static ArrayList<Candidat> Listepers = new ArrayList<Candidat>();
 	static ArrayList<Candidat> Listeeq = new ArrayList<Candidat>();
 	static ArrayList<Candidat> Listecompcand = new ArrayList<Candidat>();
+	static ArrayList<Candidat> Listecandeq = new ArrayList<Candidat>();
+	static ArrayList<Competition> Listecandcomp = new ArrayList<Competition>();
+	static ArrayList<Competition> Listecandcompremove = new ArrayList<Competition>();
 	
 	static JTabbedPane General = new JTabbedPane(JTabbedPane.TOP);
 	static JTabbedPane panelCompOptions = new JTabbedPane(JTabbedPane.TOP);
@@ -92,6 +96,31 @@ public class menuBase extends JFrame {
 	private final JButton CompModValider = new JButton("Modifier");
 	private final List ListCompInsc = new List();
 	private final JButton CompInscValider = new JButton("Inscrire");
+	private final List ListPers = new List();
+	private final JTabbedPane panelCandOptions = new JTabbedPane(JTabbedPane.TOP);
+	private final JPanel panPersAdd = new JPanel();
+	private final JPanel panPersMod = new JPanel();
+	private final JPanel panPersSupp = new JPanel();
+	private final JPanel panPersComp = new JPanel();
+	private final JLabel lblNewLabel_2 = new JLabel("Nom");
+	private final JTextField PersAddNom = new JTextField();
+	private final JLabel label_4 = new JLabel("Pr\u00E9nom");
+	private final JTextField PersAddPrenom = new JTextField();
+	private final JLabel label_5 = new JLabel("Mail");
+	private final JTextField PersAddMail = new JTextField();
+	private final JButton PersAddValider = new JButton("Cr\u00E9er");
+	private final JLabel label_6 = new JLabel("Nom");
+	private final JTextField PersModNom = new JTextField();
+	private final JTextField PersModPrenom = new JTextField();
+	private final JLabel label_7 = new JLabel("Pr\u00E9nom");
+	private final JLabel label_8 = new JLabel("Mail");
+	private final JTextField PersModMail = new JTextField();
+	private final JButton PersModValider = new JButton("Modifier");
+	private final JButton PersSuppValider = new JButton("Supprimer");
+	private final JButton PersCompAddValider = new JButton("Inscrire");
+	private final JButton PersCompRemoveValider = new JButton("D\u00E9sinscrire");
+	private final List ListPersCompAdd = new List();
+	private final List ListPersCompRemove = new List();
 	
 	/**
 	 * Launch the application.
@@ -113,6 +142,8 @@ public class menuBase extends JFrame {
 	 * Create the frame.
 	 */
 	public menuBase() {
+		PersAddNom.setBounds(118, 8, 100, 20);
+		PersAddNom.setColumns(10);
 		
 		// Fenêtre par défaut
 		
@@ -178,6 +209,124 @@ public class menuBase extends JFrame {
 		// Personne
 		
 		General.addTab("Personne", null, panelPers, null);
+		panelPers.setLayout(null);
+		ListPers.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				PersModUpdate();
+				PersCompUpdate();
+			}
+
+			private void PersCompUpdate() {
+				Listecandcomp.clear();
+				Listecandcomp.addAll(getPers().getCompetitions());
+				Listecandcompremove.clear();
+				Listecandcompremove.addAll(getPers().getNonCompetitions());
+				ListPersCompAdd.removeAll();
+				ListPersCompRemove.removeAll();
+				for(Competition c : Listecandcomp)
+				{
+					ListPersCompRemove.add(c.getNom());
+				}
+				for(Competition c : Listecandcompremove)
+				{
+					ListPersCompAdd.add(c.getNom());
+				}
+			}
+
+			private void PersModUpdate() {
+				PersModNom.setText(getPers().getNom());
+				PersModPrenom.setText(getPers().getPrenom());
+				PersModMail.setText(getPers().getMail());
+			}
+		});
+		ListPers.setBounds(10, 10, 200, 391);
+		
+		panelPers.add(ListPers);
+		panelCandOptions.setBounds(216, 10, 233, 391);
+		
+		panelPers.add(panelCandOptions);
+		panPersAdd.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				PersAddNom.setText("");
+				PersAddPrenom.setText("");
+				PersAddMail.setText("");
+			}
+		});
+		
+		panelCandOptions.addTab("Cr\u00E9er", null, panPersAdd, null);
+		panPersAdd.setLayout(null);
+		lblNewLabel_2.setBounds(10, 11, 100, 14);
+		
+		panPersAdd.add(lblNewLabel_2);
+		
+		panPersAdd.add(PersAddNom);
+		label_4.setBounds(10, 39, 100, 14);
+		
+		panPersAdd.add(label_4);
+		PersAddPrenom.setColumns(10);
+		PersAddPrenom.setBounds(118, 36, 100, 20);
+		
+		panPersAdd.add(PersAddPrenom);
+		label_5.setBounds(10, 67, 100, 14);
+		
+		panPersAdd.add(label_5);
+		PersAddMail.setColumns(10);
+		PersAddMail.setBounds(118, 64, 100, 20);
+		
+		panPersAdd.add(PersAddMail);
+		PersAddValider.setBounds(10, 92, 208, 23);
+		
+		panPersAdd.add(PersAddValider);
+		
+		panelCandOptions.addTab("Modifier", null, panPersMod, null);
+		panPersMod.setLayout(null);
+		label_6.setBounds(10, 14, 100, 14);
+		
+		panPersMod.add(label_6);
+		PersModNom.setColumns(10);
+		PersModNom.setBounds(118, 11, 100, 20);
+		
+		panPersMod.add(PersModNom);
+		PersModPrenom.setColumns(10);
+		PersModPrenom.setBounds(118, 39, 100, 20);
+		
+		panPersMod.add(PersModPrenom);
+		label_7.setBounds(10, 42, 100, 14);
+		
+		panPersMod.add(label_7);
+		label_8.setBounds(10, 70, 100, 14);
+		
+		panPersMod.add(label_8);
+		PersModMail.setColumns(10);
+		PersModMail.setBounds(118, 67, 100, 20);
+		
+		panPersMod.add(PersModMail);
+		PersModValider.setBounds(10, 95, 208, 23);
+		
+		panPersMod.add(PersModValider);
+		
+		panelCandOptions.addTab("Supprimer", null, panPersSupp, null);
+		panPersSupp.setLayout(null);
+		PersSuppValider.setBounds(10, 11, 208, 23);
+		
+		panPersSupp.add(PersSuppValider);
+		
+		panelCandOptions.addTab("Comp\u00E9titions", null, panPersComp, null);
+		panPersComp.setLayout(null);
+		
+		PersCompAddValider.setBounds(10, 150, 208, 23);
+		
+		panPersComp.add(PersCompAddValider);
+		PersCompRemoveValider.setBounds(10, 319, 208, 23);
+		
+		panPersComp.add(PersCompRemoveValider);
+		ListPersCompAdd.setBounds(10, 10, 208, 134);
+		
+		panPersComp.add(ListPersCompAdd);
+		ListPersCompRemove.setBounds(10, 179, 208, 134);
+		
+		panPersComp.add(ListPersCompRemove);
 		
 		// Equipe
 		
@@ -185,14 +334,13 @@ public class menuBase extends JFrame {
 		
 		menuCompInit();
 		menuCompUpdate();
+		menuPersInit();
+		menuPersUpdate();
+		menuEqInit();
+		menuEqUpdate();
 	}
 	
-	public void menuCompInit()
-	{
-		menuCompCreateComp();
-	}
-	
-	private void menuCompCreateComp() {
+	private void menuCompInit() {
 		JTabbedPane panel = panelCompOptions;
 
 		panel.addTab("Cr\u00E9er", null, panCreateComp, null);
@@ -324,9 +472,49 @@ public class menuBase extends JFrame {
 		
 	}
 	
-	public void menuEqInit()
+	public void menuPersUpdate()
 	{
+		panelPers.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				// Onglet Liste des candidats
+				Listepers.clear();
+				ListPers.removeAll();
+				Listepers.addAll(i.getPersonnes());
+				for(Candidat c : Listepers)
+					ListPers.add(c.getNom() + " " + c.getPrenom());
+			}
+		});
 		
+		PersCompAddValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(getPersCompAdd()!=null)
+				{
+					getPersCompAdd().add(getPers());
+					Listecandcomp.clear();
+					Listecandcomp.addAll(getPers().getCompetitions());
+					Listecandcompremove.clear();
+					Listecandcompremove.addAll(getPers().getNonCompetitions());
+					ListPersCompAdd.removeAll();
+					ListPersCompRemove.removeAll();
+					for(Competition c : Listecandcomp)
+					{
+						ListPersCompRemove.add(c.getNom());
+					}
+					for(Competition c : Listecandcompremove)
+					{
+						ListPersCompAdd.add(c.getNom());
+					}
+				}
+			}
+
+			private Competition getPersCompAdd() {
+				Competition comp = null;
+				if(ListPersCompAdd.getSelectedIndex()>-1)
+					comp = Listecandcompremove.get(ListPersCompAdd.getSelectedIndex());
+				return comp;
+			}
+		});
 	}
 	
 	public void menuCompUpdate()
@@ -337,25 +525,37 @@ public class menuBase extends JFrame {
 				// Onglet Liste des compétitions
 				Listecomp.clear();
 				ListComp.removeAll();
-				
 				Listecomp.addAll(i.getCompetitions());
-				
 				for(Competition c : Listecomp)
-				{
 					ListComp.add(c.getNom());
-				}
 			}
 		});
 
+	}
+	
+	public void menuEqInit()
+	{
+		
+	}
+	
+	public void menuEqUpdate()
+	{
+		
 	}
 	
 	public Competition getComp()
 	{
 		Competition comp = null;
 		if(ListComp.getSelectedIndex()>-1)
-		{
 			comp = Listecomp.get(ListComp.getSelectedIndex());
-		}
 		return comp;
+	}
+	
+	public Candidat getPers()
+	{
+		Candidat pers = null;
+		if(ListPers.getSelectedIndex()>-1)
+			pers = Listepers.get(ListPers.getSelectedIndex());
+		return pers;
 	}
 }
