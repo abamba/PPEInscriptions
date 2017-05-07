@@ -138,8 +138,18 @@ public class Competition implements Comparable<Competition>, Serializable
 	public Set<Candidat> getCandidats()
 	{
 		candidats.clear();
-		candidats.addAll(co.getCand());
+		candidats.addAll(co.getlisteCandidat(this));
 		return Collections.unmodifiableSet(candidats);
+	}
+	
+	/**
+	 * Retourne l'ensemble des candidats non inscrits.
+	 * @return
+	 */
+	
+	public Set<Candidat> getNonInscrits()
+	{
+		return Collections.unmodifiableSet(co.getNonInscrits(this));
 	}
 	
 	/**
