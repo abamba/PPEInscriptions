@@ -30,3 +30,12 @@ BEGIN
     INSERT INTO COMPOSER VALUES (id_s,id_c);
 END |
 DELIMITER ;
+
+#Enlever un membre d'une équipe
+DROP PROCEDURE IF EXISTS Decompose;
+DELIMITER |
+CREATE PROCEDURE Decompose(id_c int,id_s int)
+BEGIN
+    DELETE FROM COMPOSER WHERE id_candidat_squad = id_s AND id_candidat_pers = id_c;
+END |
+DELIMITER ;

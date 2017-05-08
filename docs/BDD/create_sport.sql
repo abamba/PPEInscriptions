@@ -47,3 +47,12 @@ CREATE TABLE COMPOSER(
         id_candidat_pers    int NOT NULL ,
         PRIMARY KEY (id_candidat_squad ,id_candidat_pers )
 )ENGINE=InnoDB;
+
+
+# Table: ENTRAINE
+
+CREATE TABLE ENTRAINE(
+    id_candidat_entraineur  int NOT NULL ,
+    id_candidat_equipe      int NOT NULL ,
+    PRIMARY KEY (id_candidat_equipe)
+)ENGINE=InnoDB;
