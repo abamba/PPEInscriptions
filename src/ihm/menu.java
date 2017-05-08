@@ -853,10 +853,10 @@ public class menu extends JFrame {
 					}
 				}
 				Candidat choix_eq = Listeeq.get(listCandAppartEq.getSelectedIndex());
-				if(choix.getSub())
-					co.Compose(choix_eq,choix);
-				else
-					co.Compose(choix,choix_eq);
+				//if(choix.getSub())
+					//co.Compose(choix_eq,choix);
+				//else
+					//co.Compose(choix,choix_eq);
 			}
 		});
 		btnValiderEquipe.setBounds(67, 278, 89, 23);

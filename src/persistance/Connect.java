@@ -4,6 +4,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import com.mysql.jdbc.Connection;
@@ -261,6 +263,12 @@ public class Connect {
 		return candidats;
 	}
 	
+	/**
+	 * Liste des participants à une compétition
+	 * @param comp
+	 * @return
+	 */
+	
 	public SortedSet<Candidat> getlisteCandidat(Competition comp)
 	{
 		String url = DB_URL;
@@ -463,7 +471,7 @@ public class Connect {
 	}
 	
 	/**
-	 * Candidats qui composent une équipe
+	 * Membres d'une équipe
 	 * @param cand
 	 */
 	
@@ -511,6 +519,12 @@ public class Connect {
 			return candidats;
 	}
 	
+	/**
+	 * Les équipes d'un membre
+	 * @param cand
+	 * @return
+	 */
+	
 	public SortedSet<Candidat> CompositionEquipe(Candidat cand)
 	{
 			String url = DB_URL;
@@ -555,10 +569,11 @@ public class Connect {
 			return candidats;
 	}
 	
-	public void Compose(Candidat choix_eq, Candidat choix)
-	{
-		sql("call Compose("+choix_eq.getId()+","+choix.getId()+")");
-	}
+	/**
+	 * Liste des compétitions auxquelles un membre n'est PAS inscrit
+	 * @param cand
+	 * @return
+	 */
 	
 	public SortedSet<Competition> getListeNonComp(Candidat cand)
 	{
@@ -571,7 +586,7 @@ public class Connect {
 			Class.forName("com.mysql.jdbc.Driver");
 			cn = (Connection) DriverManager.getConnection(url, log, pw);
 			st = (Statement) cn.createStatement();
-			String sql = "SELECT * FROM Competition WHERE COMPETITION.id_compet NOT IN (SELECT INSCRIRE.id_compet FROM Inscrire WHERE id_candidat = "+cand.getId()+")";
+			String sql = "SELECT * FROM Competition WHERE COMPETITION.enEquipe = "+cand.getSub()+" AND COMPETITION.id_compet NOT IN (SELECT INSCRIRE.id_compet FROM Inscrire WHERE id_candidat = "+cand.getId()+");";
 			rs = st.executeQuery(sql);
 			while (rs.next()) {
 				Competition competition = new Competition(Inscriptions.getInscriptions(), rs.getString(2), rs.getDate(3).toLocalDate(), rs.getBoolean(4));
@@ -595,4 +610,62 @@ public class Connect {
 		}
 		return competitions;
 	}
+
+	/**
+	 * Enlève un candidat d'une équipe
+	 * @param cand
+	 * @param eq
+	 */
+	public void Decompose(Candidat cand,Candidat eq)
+	{
+		sql("call Decompose("+cand.getId()+","+eq.getId()+")");
+	}
+
+	public SortedSet<Candidat> NonComposition(Candidat cand) {
+		String url = DB_URL;
+		String log = USER;
+		String pw = PASS;
+		Connection cn = null; Statement st = null; ResultSet rs = null; 
+		SortedSet<Candidat> candidats = new TreeSet<>(); 
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			cn = (Connection) DriverManager.getConnection(url, log, pw);
+			st = (Statement) cn.createStatement();
+			String sql = "SELECT * FROM Candidat WHERE sub = false AND id_candidat NOT IN (SELECT id_candidat_pers FROM Composer WHERE id_candidat_squad = "+cand.getId()+");";
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				Candidat candidat = new Candidat(Inscriptions.getInscriptions(), rs.getString(2));
+		        candidat.setId(rs.getInt(1)); 
+		        if (rs.getBoolean(3)) 
+		        {
+		        	candidat.setPrenom(null);
+		        }else{
+		        	candidat.setPrenom(rs.getString(4));
+		        }
+		        candidat.setSub(rs.getBoolean(3));
+		        candidat.setMail(rs.getString(5));
+				candidats.add(candidat);
+			}
+		}
+		catch (SQLException e) {
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				cn.close();
+				st.close();
+			}
+			catch (SQLException e){
+				e.printStackTrace();;
+			}
+		}
+		return candidats;
+	}
+
+	public void Compose(Candidat squad, Candidat cand) {
+		sql("call Compose("+cand.getId()+","+squad.getId()+")");
+	}
+
 }

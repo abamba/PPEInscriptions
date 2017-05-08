@@ -1,6 +1,8 @@
 package inscriptions;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
@@ -38,7 +40,7 @@ public class Candidat implements Comparable<Candidat>, Serializable
 		this.prenom = prenom;
 		co.modPers(this);
 	}
-
+	
 	private Set<Competition> competitions;
 	private int id = -1;
 	
@@ -53,6 +55,58 @@ public class Candidat implements Comparable<Candidat>, Serializable
 			throw new RuntimeException();
 	}
 
+	private ArrayList<Candidat> equipe = new ArrayList<Candidat>();
+	
+	/** Renvoie les membres de l'équipe ou les équipes du membre
+	 * @return
+	 */
+	
+	public ArrayList<Candidat> getEquipe()
+	{
+		equipe.clear();
+		if(sub)
+			equipe.addAll(co.Composition(this));
+		else
+			equipe.addAll(co.CompositionEquipe(this));
+		return equipe;
+	}
+	
+	/** Renvoie les membres n'étant pas dans cette équipe
+	 * @return
+	 */
+	
+	public ArrayList<Candidat> getNonEquipe()
+	{
+		ArrayList<Candidat> nonequipe = new ArrayList<Candidat>();
+		if(sub)
+			nonequipe.addAll(co.NonComposition(this));
+		return nonequipe;
+	}
+	
+	/** Ajoute un membre à l'équipe
+	 * @param cand
+	 */
+	
+	public void add(Candidat cand)
+	{
+		if(sub)
+		{
+			co.Compose(this,cand);
+		}
+	}
+	
+	/** Enlève un membre de l'équipe
+	 * @param cand
+	 */
+	
+	public void remove(Candidat cand)
+	{
+		if(sub)
+		{
+			co.Decompose(cand,this);
+		}
+	}
+	
 	public Candidat(Inscriptions inscriptions, String nom)
 	{
 		this.inscriptions = inscriptions;	
@@ -102,10 +156,20 @@ public class Candidat implements Comparable<Candidat>, Serializable
 		return Collections.unmodifiableSet(competitions);
 	}
 	
+	/**
+	 * Retourne les compétitions auxquelles ce candidat n'est PAS inscrit.
+	 * @return
+	 */
+	
 	public Set<Competition> getNonCompetitions()
 	{
 		return Collections.unmodifiableSet(co.getListeNonComp(this));
 	}
+	
+	/** Inscrit ce candidat à une compétition
+	 * @param competition
+	 * @return
+	 */
 	
 	boolean add(Competition competition)
 	{
@@ -113,6 +177,11 @@ public class Candidat implements Comparable<Candidat>, Serializable
 		return competitions.add(competition);
 	}
 
+	/** Désinscrit ce candidat d'une compétition
+	 * @param competition
+	 * @return
+	 */
+	
 	boolean remove(Competition competition)
 	{
 		co.desinscComp(competition, this);
@@ -142,4 +211,5 @@ public class Candidat implements Comparable<Candidat>, Serializable
 	{
 		return "\n" + getNom() + " -> inscrit à " + getCompetitions();
 	}
+
 }

@@ -1,6 +1,7 @@
 package ihm;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -45,6 +46,8 @@ import java.util.Calendar;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.JList;
+import java.awt.event.ContainerAdapter;
+import java.awt.event.ContainerEvent;
 
 public class menuBase extends JFrame {
 
@@ -59,6 +62,12 @@ public class menuBase extends JFrame {
 	static ArrayList<Candidat> Listecandeq = new ArrayList<Candidat>();
 	static ArrayList<Competition> Listecandcomp = new ArrayList<Competition>();
 	static ArrayList<Competition> Listecandcompremove = new ArrayList<Competition>();
+	static ArrayList<Competition> Listeeqcomp = new ArrayList<Competition>();
+	static ArrayList<Competition> Listeeqcompremove = new ArrayList<Competition>();
+	static ArrayList<Candidat> Listeeqpers = new ArrayList<Candidat>();
+	static ArrayList<Candidat> Listeeqpersremove = new ArrayList<Candidat>();
+	
+	static int panel1, panel2, panel3 = 1;
 	
 	static JTabbedPane General = new JTabbedPane(JTabbedPane.TOP);
 	static JTabbedPane panelCompOptions = new JTabbedPane(JTabbedPane.TOP);
@@ -121,6 +130,28 @@ public class menuBase extends JFrame {
 	private final JButton PersCompRemoveValider = new JButton("D\u00E9sinscrire");
 	private final List ListPersCompAdd = new List();
 	private final List ListPersCompRemove = new List();
+	private final List ListEq = new List();
+	private final List ListEqCompAdd = new List();
+	private final List ListEqCompRemove = new List();
+	private final JTabbedPane panelEqOptions = new JTabbedPane(JTabbedPane.TOP);
+	private final JPanel panEqMod = new JPanel();
+	private final JPanel panEqSupp = new JPanel();
+	private final JPanel panEqPers = new JPanel();
+	private final JPanel panEqComp = new JPanel();
+	private final JLabel label_9 = new JLabel("Nom");
+	private final JTextField EqAddNom = new JTextField();
+	private final JLabel label_10 = new JLabel("Mail");
+	private final JTextField EqAddMail = new JTextField();
+	private final JLabel label_11 = new JLabel("Nom");
+	private final JTextField EqModNom = new JTextField();
+	private final JTextField EqModMail = new JTextField();
+	private final JLabel label_12 = new JLabel("Mail");
+	private final JButton EqModValider = new JButton("Modifier");
+	private final JButton EqSuppValider = new JButton("Supprimer");
+	private final List ListEqPersAdd = new List();
+	private final JButton EqPersAddValider = new JButton("Ajouter");
+	private final List ListEqPersRemove = new List();
+	private final JButton EqPersAddRemove = new JButton("Enlever");
 	
 	/**
 	 * Launch the application.
@@ -163,41 +194,23 @@ public class menuBase extends JFrame {
 		panelComp.setLayout(null);
 		ListComp.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-				CompAddUpdate();
-				CompModUpdate();
-				CompInscrireUpdate();
-				CompInscritsUpdate();
-			}
-
-			private void CompInscritsUpdate() {
-				ListCompInscrire.removeAll();
-				if(getComp()!=null)
-					for(Candidat c : getComp().getCandidats())
-						ListCompInscrire.add(c.getNom());
-			}
-
-			private void CompInscrireUpdate() {
-				Listecompcand.clear();
-				ListCompInsc.removeAll();
-				for(Candidat c : getComp().getNonInscrits())
+				switch (panel1)
 				{
-					Listecompcand.add(c);
-					ListCompInsc.add(c.getNom());
+				case 1 :
+					CompAddUpdate();
+					break;
+				case 2 :
+					CompModUpdate();
+					break;
+				case 4 :
+					CompInscrireUpdate();
+					break;
+				case 5 :
+					CompInscritsUpdate();
+					break;
 				}
 			}
 
-			private void CompModUpdate() {
-				Date date = java.sql.Date.valueOf(getComp().getDateCloture());
-				CompModNom.setText(getComp().getNom());
-				CompModDate.setValue(date);
-				compModEnEquipe.setSelected(getComp().estEnEquipe());
-			}
-
-			private void CompAddUpdate() {
-				// Onglet Créer une compétition
-				CompAddNom.setText("");
-				CompAddEnEquipe.setSelected(false);
-			}
 		});
 		
 		ListComp.setBounds(10, 10, 200, 391);
@@ -212,8 +225,16 @@ public class menuBase extends JFrame {
 		panelPers.setLayout(null);
 		ListPers.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
+				if(ListPers.getSelectedIndex()>-1)
+					PersUpdateBoutons(true);
+				
 				PersModUpdate();
 				PersCompUpdate();
+			}
+
+			private void PersUpdateBoutons(boolean b) {
+				PersModValider.setEnabled(b);
+				PersSuppValider.setEnabled(b);
 			}
 
 			private void PersCompUpdate() {
@@ -248,9 +269,7 @@ public class menuBase extends JFrame {
 		panPersAdd.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentShown(ComponentEvent e) {
-				PersAddNom.setText("");
-				PersAddPrenom.setText("");
-				PersAddMail.setText("");
+				PersCreateUp();
 			}
 		});
 		
@@ -275,6 +294,13 @@ public class menuBase extends JFrame {
 		PersAddMail.setBounds(118, 64, 100, 20);
 		
 		panPersAdd.add(PersAddMail);
+		PersAddValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				i.createCandidat(PersAddNom.getText(), PersAddPrenom.getText(), PersAddMail.getText(), false);
+				PersListeUp();
+				PersCreateUp();
+			}
+		});
 		PersAddValider.setBounds(10, 92, 208, 23);
 		
 		panPersAdd.add(PersAddValider);
@@ -302,35 +328,298 @@ public class menuBase extends JFrame {
 		PersModMail.setBounds(118, 67, 100, 20);
 		
 		panPersMod.add(PersModMail);
+		PersModValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getPers().setNom(PersModNom.getText());
+				getPers().setPrenom(PersModPrenom.getText());
+				getPers().setMail(PersModMail.getText());
+				PersListeUp();
+			}
+		});
+		PersModValider.setEnabled(false);
 		PersModValider.setBounds(10, 95, 208, 23);
 		
 		panPersMod.add(PersModValider);
 		
 		panelCandOptions.addTab("Supprimer", null, panPersSupp, null);
 		panPersSupp.setLayout(null);
+		PersSuppValider.setEnabled(false);
+		PersSuppValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(getPers()!=null)
+				{
+					getPers().delete();
+					PersListeUp();
+				}
+					
+			}
+		});
 		PersSuppValider.setBounds(10, 11, 208, 23);
 		
 		panPersSupp.add(PersSuppValider);
+		panPersComp.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				if(getEq()!=null)
+					EqCompUp();
+			}
+		});
 		
 		panelCandOptions.addTab("Comp\u00E9titions", null, panPersComp, null);
 		panPersComp.setLayout(null);
+		PersCompAddValider.setEnabled(false);
 		
 		PersCompAddValider.setBounds(10, 150, 208, 23);
 		
 		panPersComp.add(PersCompAddValider);
+		PersCompRemoveValider.setEnabled(false);
+
 		PersCompRemoveValider.setBounds(10, 319, 208, 23);
 		
 		panPersComp.add(PersCompRemoveValider);
+		ListPersCompAdd.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				PersCompAddValider.setEnabled(true);
+			}
+		});
+
 		ListPersCompAdd.setBounds(10, 10, 208, 134);
 		
 		panPersComp.add(ListPersCompAdd);
+		ListPersCompRemove.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				PersCompRemoveValider.setEnabled(true);
+			}
+		});
 		ListPersCompRemove.setBounds(10, 179, 208, 134);
 		
 		panPersComp.add(ListPersCompRemove);
+		panelEq.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				EqListeUp();
+			}
+		});
 		
 		// Equipe
 		
 		General.addTab("Equipe", null, panelEq, null);
+		panelEq.setLayout(null);
+		ListEq.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				switch(panel3)
+				{
+				case 1 :
+					break;
+					
+				case 2 :
+					break;
+					
+				case 4 :
+					EqPersUp();
+					break;
+					
+				case 5 :
+					EqCompUp();
+					break;
+				}
+				
+			}
+		});
+		ListEq.setBounds(10, 10, 200, 391);
+		
+		panelEq.add(ListEq);
+		panelEqOptions.setBounds(216, 10, 233, 391);
+		
+		panelEq.add(panelEqOptions);
+		
+		JPanel panEqAdd = new JPanel();
+		panEqAdd.addContainerListener(new ContainerAdapter() {
+			@Override
+			public void componentRemoved(ContainerEvent arg0) {
+				panel3 = 1;
+			}
+		});
+		panelEqOptions.addTab("Cr\u00E9er", null, panEqAdd, null);
+		panEqAdd.setLayout(null);
+		label_9.setBounds(10, 13, 100, 14);
+		
+		panEqAdd.add(label_9);
+		EqAddNom.setBounds(118, 10, 100, 20);
+		EqAddNom.setColumns(10);
+		
+		panEqAdd.add(EqAddNom);
+		label_10.setBounds(10, 41, 100, 14);
+		
+		panEqAdd.add(label_10);
+		EqAddMail.setColumns(10);
+		EqAddMail.setBounds(118, 38, 100, 20);
+		
+		panEqAdd.add(EqAddMail);
+		
+		JButton EqAddValider = new JButton("Cr\u00E9er");
+		EqAddValider.setBounds(10, 66, 208, 23);
+		EqAddValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				i.createCandidat(EqAddNom.getText(), null, EqAddMail.getText(), true);
+			}
+		});
+		panEqAdd.add(EqAddValider);
+		panEqMod.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				panel3 = 2;
+			}
+		});
+		
+		panelEqOptions.addTab("Modifier", null, panEqMod, null);
+		panEqMod.setLayout(null);
+		label_11.setBounds(10, 13, 100, 14);
+		
+		panEqMod.add(label_11);
+		EqModNom.setColumns(10);
+		EqModNom.setBounds(118, 10, 100, 20);
+		
+		panEqMod.add(EqModNom);
+		EqModMail.setColumns(10);
+		EqModMail.setBounds(118, 38, 100, 20);
+		
+		panEqMod.add(EqModMail);
+		label_12.setBounds(10, 41, 100, 14);
+		
+		panEqMod.add(label_12);
+		EqModValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getEq().setNom(EqModNom.getText());
+				getEq().setMail(EqModMail.getText());
+			}
+		});
+		EqModValider.setBounds(10, 69, 208, 23);
+		
+		panEqMod.add(EqModValider);
+		panEqSupp.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				panel3 = 3;
+			}
+		});
+		
+		panelEqOptions.addTab("Supprimer", null, panEqSupp, null);
+		panEqSupp.setLayout(null);
+		EqSuppValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getEq().delete();
+			}
+		});
+		EqSuppValider.setBounds(10, 11, 208, 23);
+		
+		panEqSupp.add(EqSuppValider);
+		panEqPers.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				panel3 = 4;
+			}
+		});
+		
+		panelEqOptions.addTab("Membres", null, panEqPers, null);
+		panEqPers.setLayout(null);
+		ListEqPersAdd.setBounds(10, 10, 208, 134);
+		
+		panEqPers.add(ListEqPersAdd);
+		EqPersAddValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getEq().add(EqPersAdd());
+				EqPersUp();
+			}
+
+			private Candidat EqPersAdd() {
+				Candidat cand = null;
+				if(ListEqPersAdd.getSelectedIndex()>-1)
+				{
+					cand = Listeeqpersremove.get(ListEqPersAdd.getSelectedIndex());
+				}
+				return cand;
+			}
+		});
+		EqPersAddValider.setBounds(10, 150, 208, 23);
+		
+		panEqPers.add(EqPersAddValider);
+		ListEqPersRemove.setBounds(10, 179, 208, 134);
+		
+		panEqPers.add(ListEqPersRemove);
+		EqPersAddRemove.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getEq().remove(EqPersRemove());
+				EqPersUp();
+			}
+
+			private Candidat EqPersRemove() {
+				Candidat cand = null;
+				if(ListEqPersRemove.getSelectedIndex()>-1)
+				{
+					cand = Listeeqpers.get(ListEqPersRemove.getSelectedIndex());
+				}
+				return cand;
+			}
+		});
+		EqPersAddRemove.setBounds(10, 319, 208, 23);
+		
+		panEqPers.add(EqPersAddRemove);
+		panEqComp.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				panel3 = 5;
+				EqCompUp();
+			}
+		});
+		
+		panelEqOptions.addTab("Comp\u00E9titions", null, panEqComp, null);
+		panEqComp.setLayout(null);
+		
+		ListEqCompAdd.setBounds(10, 10, 208, 134);
+		panEqComp.add(ListEqCompAdd);
+		
+		JButton EqCompAddValider = new JButton("Inscrire");
+		EqCompAddValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getEqAdd().add(getEq());
+				EqCompUp();
+			}
+
+			private Competition getEqAdd() {
+				Competition comp = null;
+				if(ListEqCompAdd.getSelectedIndex()>-1)
+				{
+					comp = Listeeqcompremove.get(ListEqCompAdd.getSelectedIndex());
+				}
+				return comp;
+			}
+		});
+		EqCompAddValider.setBounds(10, 150, 208, 23);
+		panEqComp.add(EqCompAddValider);
+
+		
+		ListEqCompRemove.setBounds(10, 179, 208, 134);
+		panEqComp.add(ListEqCompRemove);
+		
+		JButton EqCompRemoveValider = new JButton("D\u00E9sinscrire");
+		EqCompRemoveValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getEqRemove().remove(getEq());
+				EqCompUp();
+			}
+
+			private Competition getEqRemove() {
+				Competition comp = null;
+				if(ListEqCompRemove.getSelectedIndex()>-1)
+				{
+					comp = Listeeqcomp.get(ListEqCompRemove.getSelectedIndex());
+				}
+				return comp;
+			}
+		});
+		EqCompRemoveValider.setBounds(10, 319, 208, 23);
+		panEqComp.add(EqCompRemoveValider);
 		
 		menuCompInit();
 		menuCompUpdate();
@@ -342,6 +631,12 @@ public class menuBase extends JFrame {
 	
 	private void menuCompInit() {
 		JTabbedPane panel = panelCompOptions;
+		panCreateComp.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent arg0) {
+				panel1 = 1;
+			}
+		});
 
 		panel.addTab("Cr\u00E9er", null, panCreateComp, null);
 		panCreateComp.setLayout(null);
@@ -383,6 +678,12 @@ public class menuBase extends JFrame {
 		});
 		CompAddValider.setBounds(10, 95, 208, 23);
 		panCreateComp.add(CompAddValider);
+		panModComp.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				panel1 = 2;
+			}
+		});
 
 		panel.addTab("Modifier", null, panModComp, null);
 		panModComp.setLayout(null);
@@ -422,6 +723,12 @@ public class menuBase extends JFrame {
 		CompModValider.setBounds(10, 95, 208, 23);
 		
 		panModComp.add(CompModValider);
+		panSuppComp.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+			panel1 = 3;
+			}
+		});
 		panel.addTab("Supprimer", null, panSuppComp, null);
 		panSuppComp.setLayout(null);
 		CompSuppValider.addActionListener(new ActionListener() {
@@ -436,6 +743,12 @@ public class menuBase extends JFrame {
 		CompSuppValider.setBounds(10, 11, 208, 23);
 		
 		panSuppComp.add(CompSuppValider);
+		panInscrireComp.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				panel1 = 4;
+			}
+		});
 
 		panel.addTab("Inscrire", null, panInscrireComp, null);
 		panInscrireComp.setLayout(null);
@@ -459,6 +772,12 @@ public class menuBase extends JFrame {
 		CompInscValider.setBounds(10, 313, 208, 23);
 		
 		panInscrireComp.add(CompInscValider);
+		panInscritsComp.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+			panel1 = 5;
+			}
+		});
 		panel.addTab("Inscrits", null, panInscritsComp, null);
 		panInscritsComp.setLayout(null);
 		
@@ -478,11 +797,7 @@ public class menuBase extends JFrame {
 			@Override
 			public void componentShown(ComponentEvent e) {
 				// Onglet Liste des candidats
-				Listepers.clear();
-				ListPers.removeAll();
-				Listepers.addAll(i.getPersonnes());
-				for(Candidat c : Listepers)
-					ListPers.add(c.getNom() + " " + c.getPrenom());
+				PersListeUp();
 			}
 		});
 		
@@ -491,20 +806,7 @@ public class menuBase extends JFrame {
 				if(getPersCompAdd()!=null)
 				{
 					getPersCompAdd().add(getPers());
-					Listecandcomp.clear();
-					Listecandcomp.addAll(getPers().getCompetitions());
-					Listecandcompremove.clear();
-					Listecandcompremove.addAll(getPers().getNonCompetitions());
-					ListPersCompAdd.removeAll();
-					ListPersCompRemove.removeAll();
-					for(Competition c : Listecandcomp)
-					{
-						ListPersCompRemove.add(c.getNom());
-					}
-					for(Competition c : Listecandcompremove)
-					{
-						ListPersCompAdd.add(c.getNom());
-					}
+					PersCompUp();
 				}
 			}
 
@@ -512,6 +814,23 @@ public class menuBase extends JFrame {
 				Competition comp = null;
 				if(ListPersCompAdd.getSelectedIndex()>-1)
 					comp = Listecandcompremove.get(ListPersCompAdd.getSelectedIndex());
+				return comp;
+			}
+		});
+		
+		PersCompRemoveValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(getPersCompRemove()!=null)
+				{
+					getPersCompRemove().remove(getPers());
+					PersCompUp();
+				}
+			}
+
+			private Competition getPersCompRemove() {
+				Competition comp = null;
+				if(ListPersCompRemove.getSelectedIndex()>-1)
+					comp = Listecandcomp.get(ListPersCompRemove.getSelectedIndex());
 				return comp;
 			}
 		});
@@ -557,5 +876,131 @@ public class menuBase extends JFrame {
 		if(ListPers.getSelectedIndex()>-1)
 			pers = Listepers.get(ListPers.getSelectedIndex());
 		return pers;
+	}
+	
+	public Candidat getEq()
+	{
+		Candidat eq = null;
+		if(ListEq.getSelectedIndex()>-1)
+			eq = Listeeq.get(ListEq.getSelectedIndex());
+		return eq;
+	}
+	
+	// Méthodes d'update persos
+	
+	private void EqListeUp()
+	{
+		// UPD-EQ Liste des équipes
+		Listeeq.clear();
+		ListEq.removeAll();
+		Listeeq.addAll(i.getEquipes());
+		for(Candidat c : Listeeq)
+			ListEq.add(c.getNom());
+	}
+	
+	private void EqPersUp()
+	{
+		if(getEq()!=null)
+		{
+			//TODO
+			Listeeqpers.clear();
+			Listeeqpers.addAll(getEq().getEquipe());
+			Listeeqpersremove.clear();
+			Listeeqpersremove.addAll(getEq().getNonEquipe());
+			ListEqPersAdd.removeAll();
+			ListEqPersRemove.removeAll();
+			for(Candidat c : Listeeqpers)
+			{
+				ListEqPersRemove.add(c.getNom()+ " "+c.getPrenom());
+			}
+			for(Candidat c : Listeeqpersremove)
+			{
+				ListEqPersAdd.add(c.getNom()+ " "+c.getPrenom());
+			}
+		}
+	}
+	
+	private void EqCompUp()
+	{
+		// UPD-EQ Compétitions d'une équipe
+		if(getEq()!=null)
+		{
+			Listeeqcomp.clear();
+			Listeeqcomp.addAll(getEq().getCompetitions());
+			Listeeqcompremove.clear();
+			Listeeqcompremove.addAll(getEq().getNonCompetitions());
+			ListEqCompAdd.removeAll();
+			ListEqCompRemove.removeAll();
+			for(Competition c : Listeeqcomp)
+				ListEqCompRemove.add(c.getNom());
+			for(Competition c : Listeeqcompremove)
+				ListEqCompAdd.add(c.getNom());
+		}
+	}
+	
+	private void PersCompUp()
+	{
+		// UPD-PERS Compétitions d'un candidat
+		Listecandcomp.clear();
+		Listecandcomp.addAll(getEq().getCompetitions());
+		Listecandcompremove.clear();
+		Listecandcompremove.addAll(getEq().getNonCompetitions());
+		ListPersCompAdd.removeAll();
+		ListPersCompRemove.removeAll();
+		for(Competition c : Listecandcomp)
+			ListPersCompRemove.add(c.getNom());
+		for(Competition c : Listecandcompremove)
+			ListPersCompAdd.add(c.getNom());
+	}
+	
+	private void PersCreateUp()
+	{
+		// UPD-PERS Créer un candidat
+		PersAddNom.setText("");
+		PersAddPrenom.setText("");
+		PersAddMail.setText("");
+	}
+	
+	private void PersListeUp()
+	{
+		// UPD-PERS Liste des personnes
+		Listepers.clear();
+		ListPers.removeAll();
+		Listepers.addAll(i.getPersonnes());
+		for(Candidat c : Listepers)
+			ListPers.add(c.getNom() + " " + c.getPrenom());
+	}
+	
+	private void CompInscritsUpdate() {
+		// UPD-COMP Inscrits d'une compétition
+		ListCompInscrire.removeAll();
+		if(getComp()!=null)
+			for(Candidat c : getComp().getCandidats())
+				ListCompInscrire.add(c.getNom() + " " + c.getPrenom());
+	}
+	
+	private void CompInscrireUpdate() {
+		// UPD-COMP Inscrire dans une compétition
+		Listecompcand.clear();
+		ListCompInsc.removeAll();
+		for(Candidat c : getComp().getNonInscrits())
+		{
+			Listecompcand.add(c);
+			ListCompInsc.add(c.getNom());
+		}
+	}
+
+	private void CompModUpdate() {
+		// UPD-COMP Modifier une compétition
+		Date date = java.sql.Date.valueOf(getComp().getDateCloture());
+		CompModNom.setText(getComp().getNom());
+		CompModDate.setValue(date);
+		compModEnEquipe.setSelected(getComp().estEnEquipe());
+	}
+
+	private void CompAddUpdate() {
+		// UPD-COMP Créer une compétition
+		CompAddNom.setText("");
+		CompAddEnEquipe.setSelected(false);
 	}
 }
