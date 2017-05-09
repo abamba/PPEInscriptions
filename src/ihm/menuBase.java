@@ -209,6 +209,9 @@ public class menuBase extends JFrame {
 					CompInscritsUpdate();
 					break;
 				}
+				CompSuppValider.setEnabled(true);
+				if(Listecomp.isEmpty())
+					CompSuppValider.setEnabled(false);
 			}
 
 		});
@@ -630,6 +633,7 @@ public class menuBase extends JFrame {
 	}
 	
 	private void menuCompInit() {
+		CompListeUp();
 		JTabbedPane panel = panelCompOptions;
 		panCreateComp.addComponentListener(new ComponentAdapter() {
 			@Override
@@ -682,6 +686,8 @@ public class menuBase extends JFrame {
 			@Override
 			public void componentShown(ComponentEvent e) {
 				panel1 = 2;
+				if(getComp() != null)
+					CompModUpdate();
 			}
 		});
 
@@ -731,6 +737,7 @@ public class menuBase extends JFrame {
 		});
 		panel.addTab("Supprimer", null, panSuppComp, null);
 		panSuppComp.setLayout(null);
+		CompSuppValider.setEnabled(false);
 		CompSuppValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Supprimer une Compétition
@@ -841,15 +848,20 @@ public class menuBase extends JFrame {
 		panelComp.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentShown(ComponentEvent e) {
-				// Onglet Liste des compétitions
-				Listecomp.clear();
-				ListComp.removeAll();
-				Listecomp.addAll(i.getCompetitions());
-				for(Competition c : Listecomp)
-					ListComp.add(c.getNom());
+				CompListeUp();
 			}
 		});
 
+	}
+	
+	public void CompListeUp()
+	{
+		// Onglet Liste des compétitions
+		Listecomp.clear();
+		ListComp.removeAll();
+		Listecomp.addAll(i.getCompetitions());
+		for(Competition c : Listecomp)
+			ListComp.add(c.getNom());
 	}
 	
 	public void menuEqInit()
@@ -975,8 +987,11 @@ public class menuBase extends JFrame {
 		// UPD-COMP Inscrits d'une compétition
 		ListCompInscrire.removeAll();
 		if(getComp()!=null)
-			for(Candidat c : getComp().getCandidats())
-				ListCompInscrire.add(c.getNom() + " " + c.getPrenom());
+			for(Candidat c : getComp().getCandidats()){
+				if (getComp().estEnEquipe()) 
+					ListCompInscrire.add(c.getNom());
+				else 
+					ListCompInscrire.add(c.getNom()+" "+c.getPrenom());}
 	}
 	
 	private void CompInscrireUpdate() {
