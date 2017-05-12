@@ -5,7 +5,7 @@ DROP PROCEDURE IF EXISTS ListeCandidat;
 DELIMITER |
 CREATE PROCEDURE ListeCandidat(id_comp int)
 BEGIN
-    select * from Candidat WHERE id_candidat IN (SELECT id_candidat from Inscrire WHERE id_compet = id_comp);
+    select * from CANDIDAT WHERE id_candidat IN (SELECT id_candidat from INSCRIRE WHERE id_compet = id_comp);
 END |
 DELIMITER ;
 
@@ -19,7 +19,7 @@ BEGIN
 END |
 DELIMITER ;
 
-#DÃ©sinscrire un candidat
+#Désinscrire un candidat
 DROP PROCEDURE IF EXISTS supprCandidat;
 DELIMITER |
 CREATE PROCEDURE supprCandidat(id_comp int, id_cand int)
@@ -30,7 +30,7 @@ BEGIN
 END |
 DELIMITER ;
 
-#Modifier une compÃ©tition
+#Modifier une compétition
 DROP PROCEDURE IF EXISTS modComp;
 DELIMITER |
 CREATE PROCEDURE modComp(id_comp int, nom_comp varchar(25), dateClot date, enEq bool)
@@ -41,7 +41,7 @@ BEGIN
 END |
 DELIMITER ;
 
-#Delete une compÃ©tition
+#Delete une compétition
 DROP PROCEDURE IF EXISTS del_compet; 
 DELIMITER | 
 CREATE PROCEDURE del_compet (id_cpt int) 
@@ -55,6 +55,6 @@ DROP PROCEDURE IF EXISTS getNonInscrits;
 DELIMITER |
 CREATE PROCEDURE getNonInscrits(id_comp int)
 BEGIN
-    select * from Candidat WHERE id_candidat NOT IN (SELECT id_candidat from Inscrire WHERE id_compet = id_comp) AND Candidat.sub IN (SELECT enEquipe FROM Competition WHERE id_compet = id_comp);
+    select * from CANDIDAT WHERE id_candidat NOT IN (SELECT id_candidat from INSCRIRE WHERE id_compet = id_comp) AND CANDIDAT.sub IN (SELECT enEquipe FROM COMPETITION WHERE id_compet = id_comp);
 END |
 DELIMITER ;

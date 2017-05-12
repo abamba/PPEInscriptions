@@ -416,6 +416,7 @@ public class menuBase extends JFrame {
 					break;
 					
 				case 2 :
+					EqModUp();
 					break;
 					
 				case 4 :
@@ -512,6 +513,7 @@ public class menuBase extends JFrame {
 		EqSuppValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getEq().delete();
+				EqListeUp();
 			}
 		});
 		EqSuppValider.setBounds(10, 11, 208, 23);
@@ -632,6 +634,11 @@ public class menuBase extends JFrame {
 		menuEqUpdate();
 	}
 	
+	protected void EqModUp() {
+		EqModNom.setText(getEq().getNom());
+		EqModMail.setText(getEq().getMail());
+	}
+
 	private void menuCompInit() {
 		CompListeUp();
 		JTabbedPane panel = panelCompOptions;
@@ -678,6 +685,7 @@ public class menuBase extends JFrame {
 				Date date = (Date)CompAddDate.getValue();
 				LocalDate localDate = LocalDate.parse( new SimpleDateFormat("yyyy-MM-dd").format(date) );
 				i.createCompetition(CompAddNom.getText(), localDate, CompAddEnEquipe.isSelected());
+				CompListeUp();
 			}
 		});
 		CompAddValider.setBounds(10, 95, 208, 23);
@@ -723,6 +731,7 @@ public class menuBase extends JFrame {
 					LocalDate localDate = LocalDate.parse( new SimpleDateFormat("yyyy-MM-dd").format(date) );
 					getComp().setDateCloture(localDate);
 					getComp().setEnEquipe(compModEnEquipe.isSelected());
+					CompListeUp();
 				}
 			}
 		});
@@ -744,6 +753,7 @@ public class menuBase extends JFrame {
 				if(getComp()!=null)
 				{
 					getComp().delete();
+					CompListeUp();
 				}
 			}
 		});
@@ -914,7 +924,6 @@ public class menuBase extends JFrame {
 	{
 		if(getEq()!=null)
 		{
-			//TODO
 			Listeeqpers.clear();
 			Listeeqpers.addAll(getEq().getEquipe());
 			Listeeqpersremove.clear();
@@ -954,15 +963,19 @@ public class menuBase extends JFrame {
 	{
 		// UPD-PERS Compétitions d'un candidat
 		Listecandcomp.clear();
-		Listecandcomp.addAll(getEq().getCompetitions());
+		Listecandcomp.addAll(getPers().getCompetitions());
 		Listecandcompremove.clear();
-		Listecandcompremove.addAll(getEq().getNonCompetitions());
+		Listecandcompremove.addAll(getPers().getNonCompetitions());
 		ListPersCompAdd.removeAll();
 		ListPersCompRemove.removeAll();
 		for(Competition c : Listecandcomp)
+		{
 			ListPersCompRemove.add(c.getNom());
+		}
 		for(Competition c : Listecandcompremove)
+		{
 			ListPersCompAdd.add(c.getNom());
+		}
 	}
 	
 	private void PersCreateUp()

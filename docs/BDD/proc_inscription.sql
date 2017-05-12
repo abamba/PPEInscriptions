@@ -1,4 +1,4 @@
-# CrÃ©er une compÃ©tition
+# Créer une compétition
 
 DROP PROCEDURE IF EXISTS createComp;
 DELIMITER |
@@ -9,7 +9,7 @@ BEGIN
 END |
 DELIMITER ;
 
-# CrÃ©er un candidat
+# Créer un candidat
 
 DROP PROCEDURE IF EXISTS createPers;
 DELIMITER |
@@ -20,14 +20,14 @@ BEGIN
 END |
 DELIMITER ;
 
-# Afficher les compÃ©titions
+# Afficher les compétitions
 
 DROP PROCEDURE IF EXISTS afficheComp;
 DELIMITER |
 CREATE PROCEDURE afficheComp()
 BEGIN
     SET @n=0;
-    SELECT @n:=@n+1 AS Ligne, a.id_compet AS ID, a.nom_compet AS Competition, a.dateClot_compet AS Date_cloture, a.enEquipe AS En_equipe FROM Competition a;
+    SELECT @n:=@n+1 AS Ligne, a.id_compet AS ID, a.nom_compet AS Competition, a.dateClot_compet AS Date_cloture, a.enEquipe AS En_equipe FROM COMPETITION a;
 END |
 DELIMITER ;
 
@@ -38,30 +38,30 @@ DELIMITER |
 CREATE PROCEDURE affichePers()
 BEGIN
     SET @n=0;
-    SELECT @n:=@n+1 AS Ligne, a.nom_candidat AS Nom, a.prenom AS Prenom, a.sub AS E_P, a.mail FROM Candidat a
+    SELECT @n:=@n+1 AS Ligne, a.nom_candidat AS Nom, a.prenom AS Prenom, a.sub AS E_P, a.mail FROM CANDIDAT a
     WHERE sub;
 END |
 DELIMITER ;
 
-# Afficher les Ã©quipes
+# Afficher les équipes
 
 DROP PROCEDURE IF EXISTS afficheEq;
 DELIMITER |
 CREATE PROCEDURE afficheEq()
 BEGIN
     SET @n=0;
-    SELECT @n:=@n+1 AS Ligne, a.nom_candidat AS Nom, a.prenom AS Prenom, a.sub AS E_P, a.mail FROM Candidat a
+    SELECT @n:=@n+1 AS Ligne, a.nom_candidat AS Nom, a.prenom AS Prenom, a.sub AS E_P, a.mail FROM CANDIDAT a
     WHERE !sub;
 END |
 DELIMITER ;
 
-# Afficher les candidats (Ã©quipes + personnes)
+# Afficher les candidats (équipes + personnes)
 
 DROP PROCEDURE IF EXISTS afficheCand;
 DELIMITER |
 CREATE PROCEDURE afficheCand()
 BEGIN
     SET @n=0;
-    SELECT @n:=@n+1 AS Ligne, a.id_candidat AS ID, a.nom_candidat AS Nom, a.prenom AS Prenom, a.sub AS E_P, a.mail FROM Candidat a;
+    SELECT @n:=@n+1 AS Ligne, a.id_candidat AS ID, a.nom_candidat AS Nom, a.prenom AS Prenom, a.sub AS E_P, a.mail FROM CANDIDAT a;
 END |
 DELIMITER ;

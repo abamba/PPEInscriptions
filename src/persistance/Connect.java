@@ -16,27 +16,49 @@ import inscriptions.Inscriptions;
 
 public class Connect {
 	
-	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://localhost:3306/inscription?useSSL=false";
-	static final String USER = "root";
-	static final String PASS = "";
+	static private final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	// Port 3306 wamp et 8889 MAMP
+	static private final String DB_URL = "jdbc:mysql://192.168.60.201/anetoferreira";
 	
+	static private final String USER = "anetoferreira";
+	// Pas sous wamp = "", "root" sous mamp
+	static private final String PASS = "azerty";
+
+	static private Connection con;
+
+	static private Statement statement = null;
+
 	public Connect() {
 		try {
 		      Class.forName("com.mysql.jdbc.Driver");
+		      System.out.println("Driver O.K.");
 	
 		      String url = DB_URL;
 		      String user = USER;
 		      String passwd = PASS;
 	
-		      @SuppressWarnings("unused")
-		      Connection conn = (Connection) DriverManager.getConnection(url, user, passwd);
+              con = (Connection) DriverManager.getConnection(url, user, passwd);
+		      System.out.println("Connecté. \n" );
 		         
 		} catch (Exception e) {
 		      e.printStackTrace();
 		}      
 	}
-	
+
+	public ResultSet execute(String sql) throws SQLException {
+	    statement = (Statement) con.createStatement();
+	    return statement.executeQuery(sql);
+    }
+
+
+    public void update(String sql) throws SQLException {
+	    statement = (Statement) con.createStatement();
+	    statement.executeUpdate(sql);
+    }
+
+    public static Statement getStatement() {
+		return statement;
+	}
 	public void sql(String requete) {
 
 		String url = DB_URL;
@@ -467,7 +489,13 @@ public class Connect {
 	
 	public void delCandidat(Candidat cand)
 	{
-		sql("call delCandidat("+cand.getId()+")");
+		sql("call delCand1("+cand.getId()+")");
+		sql("call delCand2("+cand.getId()+")");
+		
+		if(cand.getSub())
+			sql("call delCandEq("+cand.getId()+")");
+		else
+			sql("call delCandPers("+cand.getId()+")");
 	}
 	
 	/**
@@ -586,7 +614,7 @@ public class Connect {
 			Class.forName("com.mysql.jdbc.Driver");
 			cn = (Connection) DriverManager.getConnection(url, log, pw);
 			st = (Statement) cn.createStatement();
-			String sql = "SELECT * FROM Competition WHERE COMPETITION.enEquipe = "+cand.getSub()+" AND COMPETITION.id_compet NOT IN (SELECT INSCRIRE.id_compet FROM Inscrire WHERE id_candidat = "+cand.getId()+");";
+			String sql = "SELECT * FROM COMPETITION WHERE COMPETITION.enEquipe = "+cand.getSub()+" AND COMPETITION.id_compet NOT IN (SELECT INSCRIRE.id_compet FROM INSCRIRE WHERE id_candidat = "+cand.getId()+");";
 			rs = st.executeQuery(sql);
 			while (rs.next()) {
 				Competition competition = new Competition(Inscriptions.getInscriptions(), rs.getString(2), rs.getDate(3).toLocalDate(), rs.getBoolean(4));
@@ -631,7 +659,7 @@ public class Connect {
 			Class.forName("com.mysql.jdbc.Driver");
 			cn = (Connection) DriverManager.getConnection(url, log, pw);
 			st = (Statement) cn.createStatement();
-			String sql = "SELECT * FROM Candidat WHERE sub = false AND id_candidat NOT IN (SELECT id_candidat_pers FROM Composer WHERE id_candidat_squad = "+cand.getId()+");";
+			String sql = "SELECT * FROM CANDIDAT WHERE sub = false AND id_candidat NOT IN (SELECT id_candidat_pers FROM COMPOSER WHERE id_candidat_squad = "+cand.getId()+");";
 			rs = st.executeQuery(sql);
 			while (rs.next()) {
 				Candidat candidat = new Candidat(Inscriptions.getInscriptions(), rs.getString(2));

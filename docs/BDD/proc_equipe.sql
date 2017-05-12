@@ -10,7 +10,7 @@ BEGIN
 END |
 DELIMITER ; 
 
-#Get Ã©quipes d'un membre
+#Get équipes d'un membre
 DROP PROCEDURE IF EXISTS CompositionEquipe;
 DELIMITER |
 CREATE PROCEDURE CompositionEquipe(id_c_s int)
@@ -22,7 +22,7 @@ BEGIN
 END |
 DELIMITER ; 
 
-#Inscrire un membre Ã  une Ã©quipe
+#Inscrire un membre à une équipe
 DROP PROCEDURE IF EXISTS Compose;
 DELIMITER |
 CREATE PROCEDURE Compose(id_c int,id_s int)
@@ -31,7 +31,7 @@ BEGIN
 END |
 DELIMITER ;
 
-#Enlever un membre d'une Ã©quipe
+#Enlever un membre d'une équipe
 DROP PROCEDURE IF EXISTS Decompose;
 DELIMITER |
 CREATE PROCEDURE Decompose(id_c int,id_s int)

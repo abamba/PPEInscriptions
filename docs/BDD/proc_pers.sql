@@ -7,7 +7,7 @@
 
 #PERSONNE 
 
-#CompÃ©titions auxquelles il est inscrit 
+#Compétitions auxquelles il est inscrit 
 DROP PROCEDURE IF EXISTS ListeComp;
 DELIMITER | 
 CREATE PROCEDURE ListeComp (id_c int) 
@@ -30,7 +30,7 @@ BEGIN
 END |
 DELIMITER ; 
 
-#DÃ©sinscrire ce candidat de quelque part 
+#Désinscrire ce candidat de quelque part 
 DROP PROCEDURE IF EXISTS desinscComp;
 DELIMITER |
 CREATE PROCEDURE desinscComp(id_comp int, id_cand int)
@@ -41,7 +41,7 @@ BEGIN
 END |
 DELIMITER ; 
 
-#Modifier Personne (nom, mail, prÃ©nom) 
+#Modifier Personne (nom, mail, prénom) 
 DROP PROCEDURE IF EXISTS modPers;
 DELIMITER |
 CREATE PROCEDURE modPers(id_c int, prenom_c varchar(25), nom_c varchar(25), mail_c varchar(25))
@@ -52,24 +52,40 @@ BEGIN
 END |
 DELIMITER ; 
 
-#Supprimer candidat
-DROP PROCEDURE IF EXISTS delCandidat;
+#Supprimer personne
+DROP PROCEDURE IF EXISTS delCand1;
 DELIMITER | 
 CREATE PROCEDURE delCandidat(id_c int) 
 BEGIN 
-    DECLARE subtype Bool;
-    
     DELETE FROM CANDIDAT WHERE id_candidat=id_c;
-    
-    SET subtype = (SELECT sub FROM CANDIDAT WHERE id_candidat=id_c);
-    IF (subtype)
-       THEN DELETE FROM COMPOSER WHERE id_candidat_pers=id_c;
-    ELSEIF (!subtype)
-       THEN DELETE FROM COMPOSER WHERE id_candidat_squad=id_c;
-    END IF;
-    DELETE FROM INSCRIRE WHERE id_candidat=id_c;
 END |
 DELIMITER ; 
+
+DROP PROCEDURE IF EXISTS delCandEq;
+DELIMITER | 
+CREATE PROCEDURE delCandidat(id_c int) 
+BEGIN 
+    DELETE FROM COMPOSER WHERE id_candidat_squad=id_c;
+END |
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS delCandPers;
+DELIMITER | 
+CREATE PROCEDURE delCandidat(id_c int) 
+BEGIN 
+    DELETE FROM COMPOSER WHERE id_candidat_squad=id_c;
+END |
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS delCand2;
+DELIMITER | 
+CREATE PROCEDURE delCandidat(id_c int) 
+BEGIN 
+    DELETE FROM INSCRIRE WHERE id_candidat=id_c;
+END |
+DELIMITER ;
+
+#Supprimer equipe
 
 DROP PROCEDURE IF EXISTS getListeComp;
 DELIMITER |
